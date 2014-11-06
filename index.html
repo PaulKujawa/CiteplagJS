@@ -45,6 +45,24 @@
             doctoral thesis of Bela Gipp.</br>
             If you have any questions please <a href="mailto:team@sciplore.org">contact us</a>.
         </p>
+
+        <div id="fileUploads">
+            <span>Suspicious File</span>
+            <form method="post" enctype="multipart/form-data" action="" name="formUploadSuspicious">
+                <input type="file"   name="formUploadSuspicious[file]" id="formUploadSuspicious_file" class="form-control" required="required">
+            </form>
+
+            <span>Comparison File</span>
+            <form method="post" enctype="multipart/form-data" action="" name="formUploadComparison">
+                <input type="file"   name="formUploadComparison[file]" id="formUploadComparison_file" class="form-control" required="required">
+            </form>
+
+            <span>Collusion File</span>
+            <form method="post" enctype="multipart/form-data" action="" name="formUploadCollusion">
+                <input type="file"   name="formUploadCollusion[file]" id="formUploadCollusion_file" class="form-control" required="required">
+            </form>
+        </div>
+
     </section>
 
     <script type="text/x-handlebars" data-template-name="uploads">

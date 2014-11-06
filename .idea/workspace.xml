@@ -2,21 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e3f1fb3b-51eb-4925-ad3b-3cb53fd5f219" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/fonts/glyphicons-halflings-regular.eot" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/fonts/glyphicons-halflings-regular.ttf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/fonts/glyphicons-halflings-regular.woff" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/css/libs/bootstrap.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/js/libs/bootstrap.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/fonts/glyphicons-halflings-regular.svg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/application.js" afterPath="$PROJECT_DIR$/js/application.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/views/edit_todo_view.js" afterPath="$PROJECT_DIR$/js/views/edit_todo_view.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/libs/ember-1.8.0.js" afterPath="$PROJECT_DIR$/js/libs/ember-1.8.0.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/router.js" afterPath="$PROJECT_DIR$/js/router.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/style.css" afterPath="$PROJECT_DIR$/css/style.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/models/todo.js" afterPath="$PROJECT_DIR$/js/models/todo.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/controllers/todo_controller.js" afterPath="$PROJECT_DIR$/js/controllers/todo_controller.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/controllers/todos_controller.js" afterPath="$PROJECT_DIR$/js/controllers/todos_controller.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="citeplagjs.iws" />
@@ -39,24 +26,24 @@
     <favorites_list name="citeplagjs" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.6198347">
+    <splitter split-orientation="horizontal" split-proportion="0.8982301">
       <split-first>
-        <splitter split-orientation="vertical" split-proportion="0.74583334">
+        <splitter split-orientation="vertical" split-proportion="0.9">
           <split-first>
             <leaf>
-              <file leaf-file-name="index.html" pinned="false" current="true" current-in-tab="true">
+              <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
                 <entry file="file://$PROJECT_DIR$/index.html">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state line="25" column="47" selection-start="1209" selection-end="1209" vertical-scroll-proportion="0.45288754" vertical-offset="152" max-vertical-offset="1278">
+                    <state line="48" column="30" selection-start="2249" selection-end="2249" vertical-scroll-proportion="-17.851852" vertical-offset="382" max-vertical-offset="1602">
                       <folding />
                     </state>
                   </provider>
                 </entry>
               </file>
-              <file leaf-file-name="style.css" pinned="false" current="false" current-in-tab="false">
+              <file leaf-file-name="style.css" pinned="false" current="true" current-in-tab="true">
                 <entry file="file://$PROJECT_DIR$/css/style.css">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state line="3" column="19" selection-start="70" selection-end="70" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="504">
+                    <state line="17" column="30" selection-start="285" selection-end="285" vertical-scroll-proportion="0.3517407" vertical-offset="13" max-vertical-offset="846">
                       <folding />
                     </state>
                   </provider>
@@ -87,7 +74,7 @@
               <file leaf-file-name="application.js" pinned="false" current="false" current-in-tab="true">
                 <entry file="file://$PROJECT_DIR$/js/application.js">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state line="2" column="27" selection-start="73" selection-end="73" vertical-scroll-proportion="0.17391305" vertical-offset="0" max-vertical-offset="207">
+                    <state line="2" column="27" selection-start="73" selection-end="73" vertical-scroll-proportion="0.6101695" vertical-offset="0" max-vertical-offset="144">
                       <folding />
                     </state>
                   </provider>
@@ -113,7 +100,7 @@
               <file leaf-file-name="todos_controller.js" pinned="false" current="false" current-in-tab="true">
                 <entry file="file://$PROJECT_DIR$/js/controllers/todos_controller.js">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state line="7" column="6" selection-start="245" selection-end="245" vertical-scroll-proportion="0.17399618" vertical-offset="35" max-vertical-offset="558">
+                    <state line="7" column="6" selection-start="245" selection-end="245" vertical-scroll-proportion="0.18762887" vertical-offset="35" max-vertical-offset="558">
                       <folding />
                     </state>
                   </provider>
@@ -135,7 +122,7 @@
               <file leaf-file-name="todo.js" pinned="false" current="false" current-in-tab="true">
                 <entry file="file://$PROJECT_DIR$/js/models/todo.js">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state line="5" column="0" selection-start="104" selection-end="104" vertical-scroll-proportion="0.0027100272" vertical-offset="89" max-vertical-offset="468">
+                    <state line="5" column="0" selection-start="104" selection-end="104" vertical-scroll-proportion="0.0028089888" vertical-offset="89" max-vertical-offset="468">
                       <folding />
                     </state>
                   </provider>
@@ -651,7 +638,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/models/todo.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="0" selection-start="104" selection-end="104" vertical-scroll-proportion="0.0027100272" vertical-offset="89" max-vertical-offset="468">
+        <state line="5" column="0" selection-start="104" selection-end="104" vertical-scroll-proportion="0.0028089888" vertical-offset="89" max-vertical-offset="468">
           <folding />
         </state>
       </provider>
@@ -665,7 +652,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/application.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="27" selection-start="73" selection-end="73" vertical-scroll-proportion="0.17391305" vertical-offset="0" max-vertical-offset="207">
+        <state line="2" column="27" selection-start="73" selection-end="73" vertical-scroll-proportion="0.6101695" vertical-offset="0" max-vertical-offset="144">
           <folding />
         </state>
       </provider>
@@ -686,7 +673,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/controllers/todos_controller.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="6" selection-start="245" selection-end="245" vertical-scroll-proportion="0.17399618" vertical-offset="35" max-vertical-offset="558">
+        <state line="7" column="6" selection-start="245" selection-end="245" vertical-scroll-proportion="0.18762887" vertical-offset="35" max-vertical-offset="558">
           <folding />
         </state>
       </provider>
@@ -705,16 +692,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/css/style.css">
+    <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="19" selection-start="70" selection-end="70" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="504">
+        <state line="48" column="30" selection-start="2249" selection-end="2249" vertical-scroll-proportion="-17.851852" vertical-offset="382" max-vertical-offset="1602">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
+    <entry file="file://$PROJECT_DIR$/css/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="47" selection-start="1209" selection-end="1209" vertical-scroll-proportion="0.45288754" vertical-offset="152" max-vertical-offset="1278">
+        <state line="17" column="30" selection-start="285" selection-end="285" vertical-scroll-proportion="0.3517407" vertical-offset="13" max-vertical-offset="846">
           <folding />
         </state>
       </provider>

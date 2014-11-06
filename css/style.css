@@ -4,9 +4,14 @@ body {
     font-size: 16px;
 }
 
+h1, h2, h3 {
+    color: #317eac;
+}
+
 .navbar {
     background-image: linear-gradient(#1c4587, #2a508e);
     background-color: #034482;
+    border-radius: 0;
 }
 
 .navbar, .navbar a {
@@ -17,6 +22,20 @@ body {
     padding: 7px 15px !important;
 }
 
-h1, h2, h3 {
-    color: #317eac;
+#fileUploads {
+    margin-top: 50px;
+}
+
+#fileUploads form:not(:last-of-type) {
+    margin-bottom: 25px;
+}
+
+#fileUploads form input {
+    padding: 0;
+}
+
+@media (min-width: 768px) {
+    #fileUploads form {
+        width: 61.8%; /* mobile = 100% */
+    }
 }
