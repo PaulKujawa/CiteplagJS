@@ -1,8 +1,8 @@
-Todos.Router.map(function() {
+Uploads.Router.map(function() {
     this.resource('todos', { path: '/' });
 });
 
-Todos.TodosRoute = Ember.Route.extend({
+Uploads.UploadsRoute = Ember.Route.extend({
     model: function() {
         return this.store.find('todo'); // returns all todos
     }

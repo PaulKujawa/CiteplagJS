@@ -1,65 +1,57 @@
 <!doctype html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <title>Ember.js • TodoMVC</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CitePlag</title>
+    <link rel="stylesheet" href="css/libs/bootstrap.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" /> <!-- todo @BK not given yet -->
 </head>
+
 <body>
-    <script type="text/x-handlebars" data-template-name="todos">
-        <section id="todoapp">
-            <header id="header">
-                <h1>todos</h1>
-                {{input type="text" id="new-todo" placeholder="What needs to be done?"
-                    value=newTitle action="createToDo"}}
-            </header>
-
-            <section id="main">
-                <ul id="todo-list">
-                    {{#each itemController="todo"}}
-                        <li {{bind-attr class="isCompleted:completed isEditing:editing"}}>
-                            {{#if isEditing}}
-                                {{edit-todo class="edit" value=title focus-out="acceptChanges"
-                                        insert-newline="acceptChanges"}}
-                            {{else}}
-                                {{input type="checkbox" checked=isCompleted class="toggle"}}
-                                <label {{action "editTodo" on="doubleClick"}}>{{title}}</label>
-                                <button {{action "removeTodo"}} class="destroy"></button>
-                            {{/if}}
-                        </li>
-                    {{/each}}
-                </ul>
-
-                <input type="checkbox" id="toggle-all">
-            </section>
-
-            <footer id="footer">
-                <span id="todo-count">
-                    <strong>{{remaining}}</strong> {{inflection}} left
-                </span>
-                <ul id="filters">
-                    <li>
-                        <a href="all" class="selected">All</a>
-                    </li>
-                    <li>
-                        <a href="active">Active</a>
-                    </li>
-                    <li>
-                        <a href="completed">Completed</a>
-                    </li>
-                </ul>
-
-                <button id="clear-completed">
-                    Clear completed (1)
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
                 </button>
-            </footer>
-        </section>
-        <footer id="info">
-            <p>Double-click to edit a todo</p>
-        </footer>
+                <a class="navbar-brand" href="about.html">
+                    <span class="glyphicon glyphicon-info-sign"></span> About
+                </a>
+                <a class="navbar-brand" id="navLogo" href="http://www.sciplore.org" target="_blank">
+                    <img src="images/sciplore_logo.png" alt="SciPlore Logo">
+                </a>
+            </div>
+
+            <!-- all elements for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav"></ul>
+            </div>
+        </div>
+    </nav>
+
+    <section id="uploadApp" class="container">
+        <h1>Welcome to CitePlag</h1>
+        <h2>CitePlag demonstrates Citation-based Plagiarism Detection (CbPD)</h2>
+        <p>
+            CbPD is a novel approach to identifying plagiarism by analyzing citation pattern
+            matches between documents to detect both local and global document similarities
+            at the semantic level. For details on CbPD see our related publications or the
+            doctoral thesis of Bela Gipp.</br>
+            If you have any questions please <a href="mailto:team@sciplore.org">contact us</a>.
+        </p>
+    </section>
+
+    <script type="text/x-handlebars" data-template-name="uploads">
     </script>
 
     <script src="js/libs/jquery-1.10.2.min.js"></script>
+    <script src="js/libs/bootstrap.js"></script>
     <script src="js/libs/handlebars-v1.3.0.js"></script>
     <script src="js/libs/ember-1.8.0.js"></script>
     <script src="js/libs/ember-data.js"></script>

@@ -1,4 +1,4 @@
-Todos.TodosController = Ember.ArrayController.extend({
+Uploads.UploadsController = Ember.ArrayController.extend({
     actions: {
         createToDo: function() {
             var title = this.get('newTitle');

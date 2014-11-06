@@ -1,7 +1,7 @@
-Todos.EditToDoView = Ember.TextField.extend({
+Uploads.EditToDoView = Ember.TextField.extend({
    didInsertElement: function() {
        this.$().focus();
    }
 });
 
-Ember.Handlebars.helper('edit-todo', Todos.EditToDoView);
+Ember.Handlebars.helper('edit-todo', Uploads.EditToDoView);

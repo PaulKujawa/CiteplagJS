@@ -1,3 +1,3 @@
-window.Todos = Ember.Application.create();
+window.Uploads = Ember.Application.create();
 
-Todos.ApplicationAdapter = DS.FixtureAdapter.extend();
+Uploads.ApplicationAdapter = DS.FixtureAdapter.extend();
