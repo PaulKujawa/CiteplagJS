@@ -1,3 +1,3 @@
-window.Todos = Ember.Application.create(); // ember obj named todos
+window.Todos = Ember.Application.create();
 
 Todos.ApplicationAdapter = DS.FixtureAdapter.extend();
