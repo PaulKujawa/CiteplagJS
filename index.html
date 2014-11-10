@@ -35,38 +35,35 @@
         </div>
     </nav>
 
-    <section id="uploadApp" class="container">
-        <h1>Welcome to CitePlag</h1>
-        <h2>CitePlag demonstrates Citation-based Plagiarism Detection (CbPD)</h2>
-        <p>
-            CbPD is a novel approach to identifying plagiarism by analyzing citation pattern
-            matches between documents to detect both local and global document similarities
-            at the semantic level. For details on CbPD see our related publications or the
-            doctoral thesis of Bela Gipp.</br>
-            If you have any questions please <a href="mailto:team@sciplore.org">contact us</a>.
-        </p>
+    <script type="text/x-handlebars" data-template-name="upload">
+        <section class="container">
+            <h1>Welcome to CitePlag</h1>
+            <h2>CitePlag demonstrates Citation-based Plagiarism Detection (CbPD)</h2>
+            <p>
+                CbPD is a novel approach to identifying plagiarism by analyzing citation pattern
+                matches between documents to detect both local and global document similarities
+                at the semantic level. For details on CbPD see our related publications or the
+                doctoral thesis of Bela Gipp.</br>
+                If you have any questions please <a href="mailto:team@sciplore.org">contact us</a>.
+            </p>
 
-        <div id="fileUploads">
-            <span>Suspicious File</span>
-            <form method="post" enctype="multipart/form-data" action="" name="formUploadSuspicious">
-                <input type="file"   name="formUploadSuspicious[file]" id="formUploadSuspicious_file" class="form-control" required="required">
-            </form>
+            <div id="fileUploads">
+                <span>Suspicious File</span>
+                {{input type="file" action="createFile" id="formUploadSuspicious_file" name="formUploadSuspicious[file]" class="form-control" required="required"}}
 
-            <span>Comparison File</span>
-            <form method="post" enctype="multipart/form-data" action="" name="formUploadComparison">
-                <input type="file"   name="formUploadComparison[file]" id="formUploadComparison_file" class="form-control" required="required">
-            </form>
+                <span>Comparison File</span>
+                <form method="post" enctype="multipart/form-data" action="" name="formUploadComparison">
+                    <input type="file" name="formUploadComparison[file]" id="formUploadComparison_file" class="form-control" required="required">
+                </form>
 
-            <span>Collusion File</span>
-            <form method="post" enctype="multipart/form-data" action="" name="formUploadCollusion">
-                <input type="file"   name="formUploadCollusion[file]" id="formUploadCollusion_file" class="form-control" required="required">
-            </form>
-        </div>
-
-    </section>
-
-    <script type="text/x-handlebars" data-template-name="uploads">
+                <span>Collusion File</span>
+                <form method="post" enctype="multipart/form-data" action="" name="formUploadCollusion">
+                    <input type="file" name="formUploadCollusion[file]" id="formUploadCollusion_file" class="form-control" required="required">
+                </form>
+            </div>
+        </section>
     </script>
+
 
     <script src="js/libs/jquery-1.10.2.min.js"></script>
     <script src="js/libs/bootstrap.js"></script>
@@ -75,9 +72,8 @@
     <script src="js/libs/ember-data.js"></script>
     <script src="js/application.js"></script>
     <script src="js/router.js"></script>
-    <script src="js/models/todo.js"></script>
-    <script src="js/controllers/todos_controller.js"></script>
-    <script src="js/controllers/todo_controller.js"></script>
-    <script src="js/views/edit_todo_view.js"></script>
+
+    <script src="js/models/upload.js"></script>
+    <script src="js/controllers/upload_controller.js"></script>
 </body>
 </html>

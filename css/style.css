@@ -26,11 +26,11 @@ h1, h2, h3 {
     margin-top: 50px;
 }
 
-#fileUploads form:not(:last-of-type) {
+#fileUploads input { /*not(:last-of-type) {*/
     margin-bottom: 25px;
 }
 
-#fileUploads form input {
+#fileUploads input {
     padding: 0;
 }
 
