@@ -3,7 +3,7 @@ Uploads.UploadController = Ember.ArrayController.extend({
         uploadFiles: function(){
             $.ajax({
                 type: "GET" ,
-                url: "collusion.xml" ,
+                url: this.get('suspiciousFile'),
                 dataType: "xml",
                 contentType: "text/xml;charset=utf-8",
                 async: false,
@@ -11,12 +11,7 @@ Uploads.UploadController = Ember.ArrayController.extend({
                 success: function(file) {
                     var xml = $(file);
                     var title = xml.find("title");
-                    console.log( title.text() );
-
-                    //var xmlDoc = $.parseXML(xml);
-                    //$(xmlDoc).find('title').each(function() {
-                    //   alert ( $(this).text() );
-                    //});
+                    console.log( "title: "+ title.text() );
                 },
 
                 error: function(xhr, textStatus, error) {

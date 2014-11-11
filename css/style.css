@@ -4,9 +4,7 @@ body {
     font-size: 16px;
 }
 
-h1, h2, h3 {
-    color: #317eac;
-}
+h1, h2, h3 { color: #317eac; }
 
 .navbar {
     background-image: linear-gradient(#1c4587, #2a508e);
@@ -14,37 +12,18 @@ h1, h2, h3 {
     border-radius: 0;
 }
 
-.navbar, .navbar a {
-    color: #ffffff !important;
-}
+.navbar, .navbar a { color: #ffffff !important; }
 
-#navLogo {
-    padding: 7px 15px !important;
-}
-
-#fileUploads {
-    margin-top: 50px;
-}
-
-#fileUploads input { /*not(:last-of-type) {*/
-    margin-bottom: 25px;
-}
-
-#fileUploads input {
-    padding: 0;
-}
+#navLogo { padding: 7px 15px !important; }
 
 button {
     width: 40px;
     height: 40px;
     display: block;
-
     margin: auto 0;
     padding: 0;
     border: 0;
-
     vertical-align: baseline;
-
     font-size: 22px;
     color: #a88a8a;
     background: none;
@@ -57,15 +36,20 @@ button {
     transform: scale(1.3);
 }
 
-.destroy:after {
-    content: '✖';
-}
+.destroy:after { content: '✖'; }
+
+.clearFloat { clear: both; }
 
 
+#fileUploads { margin-top: 50px; }
 
+#fileUploads div { margin-bottom: 25px; }
+#fileUploads input { padding: 0; }
 
 @media (min-width: 768px) {
-    #fileUploads form {
-        width: 61.8%; /* mobile = 100% */
+    #fileUploads div {
+        width: 31%;
+        margin: 0 1%;
+        float: left;
     }
 }

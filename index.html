@@ -48,15 +48,22 @@
             </p>
 
             <div id="fileUploads">
-                <span>Suspicious File</span>
-                {{input type="file" value=suspiciousFile required="required" class="form-control" }}
+                <div>
+                    <span>Suspicious File</span>
+                    {{input type="file" id="testo" value=suspiciousFile class="form-control" }}
+                </div>
 
-                <span>Comparison File</span>
-                {{input type="file" value=comparisonFile required="required" class="form-control" }}
+                <div>
+                    <span>Comparison File</span>
+                    {{input type="file" value=comparisonFile class="form-control" }}
+                </div>
 
-                <span>Collusion File</span>
-                {{input type="file" value=collusionFile required="required" class="form-control" }}
+                <div>
+                    <span>Collusion File</span>
+                    {{input type="file" value=collusionFile class="form-control" }}
+                </div>
 
+                <div class="clearFloat"></div>
                 <button {{action "uploadFiles"}} class="destroy"></button>
             </div>
         </section>
