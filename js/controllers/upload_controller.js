@@ -5,13 +5,22 @@ Uploads.UploadController = Ember.ArrayController.extend({
                 type: "GET" ,
                 url: this.get('suspiciousFile'),
                 dataType: "xml",
-                contentType: "text/xml;charset=utf-8",
-                async: false,
 
                 success: function(file) {
                     var xml = $(file);
-                    var title = xml.find("title");
-                    console.log( "title: "+ title.text() );
+
+                    // example for source.xml & suspicious.xml
+                    var start = 6,
+                        length = 13,
+                        content = (new XMLSerializer()).serializeToString(file),
+                        part = content.substring(start, start+length);
+                    console.log( part );
+
+                    // example for collusion.xml
+                    xml.find("match").each(function() {
+                        var detail = $(this).find("detail").text();
+                        console.log( "found details: "+ detail );
+                    });
                 },
 
                 error: function(xhr, textStatus, error) {

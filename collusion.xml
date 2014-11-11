@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <collusion score="0.76" system="sciplag">
-    <title>just for tests</title><!--TODO @BK remove this-->
     <document id="a9d87ah3f9a8h3f" src="source.xml" original="source.pdf" format="pdf">
 		<feature id="cite1" type="citation" start="2778" length="29" value="cite1"/>
 		<feature id="cite5" type="citation" start="3002" length="18" value="cite5"/>
