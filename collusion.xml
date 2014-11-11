@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<collusion score="0.76" system="sciplag">
+    <title>just for tests</title><!--TODO @BK remove this-->
+    <document id="a9d87ah3f9a8h3f" src="source.xml" original="source.pdf" format="pdf">
+		<feature id="cite1" type="citation" start="2778" length="29" value="cite1"/>
+		<feature id="cite5" type="citation" start="3002" length="18" value="cite5"/>
+		<feature id="cite3" type="citation" start="4434" length="33" value="cite3"/>
+		<feature id="cite5_1" type="citation" start="4434" length="33" value="cite5"/>
+		<feature id="cp1" type="paragraph" start="2390" length="1234"/>
+
+		<feature id="pattern1" type="citation-chunk" start="XXXXX" length="YYYYYY">
+			<link ref="#cite1" />
+			<link ref="#cite5" />
+			<link ref="#cite3" />
+		</feature>
+	</document>
+	<document id="8af0ang093" src="suspicious.xml" original="suspicious.txt" format="txt">
+		<feature id="cite5" type="citation" start="890" length="7" value="[cite5]"/>
+		<feature id="cite3" type="citation" start="1315" length="7" value="[cite3]"/>
+		<feature id="cite1" type="citation" start="1723" length="7" value="[cite1]"/>
+		<feature id="cp1" type="paragraph" start="500" length="1234"/>
+
+		<feature id="pattern1" order="fix">
+			<link ref="#cite5" />
+			<link ref="#cite3" />
+			<link ref="#cite1" />
+		</feature>
+	</document>
+	<alignments>
+		<match score="0.76" type="citation">
+			<ref document="a9d87ah3f9a8h3f" feature="pattern1" />
+			<ref document="8af0ang093" feature="pattern1" />
+			<detail>
+				<detail name="computation">
+					<detail name="references">1412</detail>
+					<detail name="order">228</detail>
+				</detail>
+				<detail name="description">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
+					nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et
+					accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum
+					dolor sit amet.
+				</detail>
+			</detail>
+		</match>
+		<match score="1.0" type="copypaste">
+			<ref document="a9d87ah3f9a8h3f" feature="cp1" />
+			<ref document="8af0ang093" feature="cp2" />
+		</match>
+	</alignments>
+</collusion>
