@@ -7,8 +7,6 @@ Uploads.UploadController = Ember.ArrayController.extend({
                 dataType: "xml",
 
                 success: function(file) {
-                    var xml = $(file);
-
                     // example for source.xml & suspicious.xml
                     var start = 6,
                         length = 13,
@@ -17,7 +15,7 @@ Uploads.UploadController = Ember.ArrayController.extend({
                     console.log( part );
 
                     // example for collusion.xml
-                    xml.find("match").each(function() {
+                    $(file).find("match").each(function() {
                         var detail = $(this).find("detail").text();
                         console.log( "found details: "+ detail );
                     });
