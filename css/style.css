@@ -53,3 +53,24 @@ button {
         float: left;
     }
 }
+
+#suspiciousFileArea, #collusionFileArea, #sourceFileArea {
+    height: 400px;
+    float: left;
+    margin-top: 50px;
+}
+
+#suspiciousFileArea {
+    width: 40%;
+    background-color: lightgrey;
+}
+
+#collusionFileArea {
+    width: 20%;
+    background-color: darkgrey;
+}
+
+#sourceFileArea {
+    width: 40%;
+    background-color: dimgrey;
+}

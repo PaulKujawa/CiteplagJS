@@ -65,9 +65,38 @@
 
                 <div class="clearFloat"></div>
                 <button {{action "uploadFiles"}} class="destroy"></button>
+                {{#link-to 'comparison'}}Comparison view{{/link-to}}
             </div>
         </section>
     </script>
+
+    <script type="text/x-handlebars" data-template-name="comparison">
+        <section class="container">
+            <div class="btn-group btn-group-justified">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default">BC</button>
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default">CC</button>
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default">GCT</button>
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default">LCCS</button>
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default">LCCS Dist.</button>
+                </div>
+            </div>
+
+            <div id="suspiciousFileArea"></div>
+            <div id="collusionFileArea"></div>
+            <div id="sourceFileArea"></div>
+            <div class="clearFloat"></div>
+        </section>
+    </script>
+
 
 
     <script src="js/libs/jquery-1.10.2.min.js"></script>
