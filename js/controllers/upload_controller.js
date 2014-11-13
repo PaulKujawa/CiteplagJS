@@ -34,6 +34,6 @@ App.UploadController = Ember.Controller.extend({
                     showError('error:' + xhr.status);
                 }
             });
-        },
+        }
     }
 });

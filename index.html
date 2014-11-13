@@ -52,12 +52,12 @@
             <div id="fileUploads">
                 <div>
                     <span>Suspicious File</span>
-                    <input type="file" {{action "fileSelected" on="change" value=suspiciousFile}} class="form-control" />
+                    <input type="file" {{action "uploadSuspiciousFile" on="change" value=suspiciousFile}} class="form-control" />
                 </div>
 
                 <div>
                     <span>Comparison File</span>
-                    <input type="file" {{action "uploadedComparisonFile" on="change" value=comparisonFile}} class="form-control" />
+                    <input type="file" {{action "uploadComparisonFile" on="change" value=comparisonFile}} class="form-control" />
                 </div>
 
                 <div>

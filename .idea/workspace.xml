@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e3f1fb3b-51eb-4925-ad3b-3cb53fd5f219" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/application.js" afterPath="$PROJECT_DIR$/js/application.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/router.js" afterPath="$PROJECT_DIR$/js/router.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/style.css" afterPath="$PROJECT_DIR$/css/style.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/models/upload.js" afterPath="$PROJECT_DIR$/js/models/upload.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/controllers/upload_controller.js" afterPath="$PROJECT_DIR$/js/controllers/upload_controller.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -31,19 +27,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="index.html" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="64" column="80" selection-start="2909" selection-end="2909" vertical-scroll-proportion="0.6810631" vertical-offset="537" max-vertical-offset="2358">
+            <state line="59" column="55" selection-start="2666" selection-end="2666" vertical-scroll-proportion="-16.814816" vertical-offset="608" max-vertical-offset="2358">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="upload_controller.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="upload_controller.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/controllers/upload_controller.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="20" column="0" selection-start="846" selection-end="846" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="792">
+            <state line="34" column="0" selection-start="1288" selection-end="1288" vertical-scroll-proportion="0.65806454" vertical-offset="0" max-vertical-offset="930">
               <folding />
             </state>
           </provider>
@@ -79,9 +75,9 @@
         <option value="$PROJECT_DIR$/js/application.js" />
         <option value="$PROJECT_DIR$/js/controllers/comparison_controller.js" />
         <option value="$PROJECT_DIR$/js/router.js" />
+        <option value="$PROJECT_DIR$/js/controllers/application_controller.js" />
         <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/js/controllers/upload_controller.js" />
-        <option value="$PROJECT_DIR$/js/controllers/application_controller.js" />
       </list>
     </option>
   </component>
@@ -608,13 +604,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/controllers/upload_controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="0" selection-start="846" selection-end="846" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="792">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/controllers/comparison_controller.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="11" column="0" selection-start="253" selection-end="253" vertical-scroll-proportion="0.21290323" vertical-offset="0" max-vertical-offset="930">
@@ -624,7 +613,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="64" column="80" selection-start="2909" selection-end="2909" vertical-scroll-proportion="0.6810631" vertical-offset="537" max-vertical-offset="2358">
+        <state line="59" column="55" selection-start="2666" selection-end="2666" vertical-scroll-proportion="-16.814816" vertical-offset="608" max-vertical-offset="2358">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/controllers/upload_controller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="34" column="0" selection-start="1288" selection-end="1288" vertical-scroll-proportion="0.65806454" vertical-offset="0" max-vertical-offset="930">
           <folding />
         </state>
       </provider>
