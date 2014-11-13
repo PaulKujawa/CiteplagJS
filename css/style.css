@@ -31,8 +31,7 @@ button {
 }
 
 .destroy:hover {
-    text-shadow: 0 0 1px #000,
-    0 0 10px rgba(199, 107, 107, 0.8);
+    text-shadow: 0 0 1px #000, 0 0 10px rgba(199, 107, 107, 0.8);
     transform: scale(1.3);
 }
 
@@ -55,7 +54,7 @@ button {
 }
 
 #suspiciousFileArea, #collusionFileArea, #sourceFileArea {
-    height: 400px;
+    height: 800px;
     float: left;
     margin-top: 50px;
 }

@@ -1,4 +1,4 @@
-Uploads.Router.map(function() {
+App.Router.map(function() {
     this.resource('upload', { path: '/' });
-    this.route('comparison', { path: 'comparison'});
+    this.resource('comparison', { path: '/comparison'});
 });

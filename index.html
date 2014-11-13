@@ -7,7 +7,7 @@
     <title>CitePlag</title>
     <link rel="stylesheet" href="css/libs/bootstrap.css">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" /> <!-- todo @BK not given yet -->
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 </head>
 
 <body>
@@ -35,6 +35,8 @@
         </div>
     </nav>
 
+
+
     <script type="text/x-handlebars" data-template-name="upload">
         <section class="container">
             <h1>Welcome to CitePlag</h1>
@@ -50,21 +52,20 @@
             <div id="fileUploads">
                 <div>
                     <span>Suspicious File</span>
-                    {{input type="file" id="testo" value=suspiciousFile class="form-control" }}
+                    <input type="file" {{action "fileSelected" on="change" value=suspiciousFile}} class="form-control" />
                 </div>
 
                 <div>
                     <span>Comparison File</span>
-                    {{input type="file" value=comparisonFile class="form-control" }}
+                    <input type="file" {{action "uploadedComparisonFile" on="change" value=comparisonFile}} class="form-control" />
                 </div>
 
                 <div>
                     <span>Collusion File</span>
-                    {{input type="file" value=collusionFile class="form-control" }}
+                    <input type="file" {{action "uploadCollusionFile" on="change" value=collusionFile}} class="form-control" />
                 </div>
 
                 <div class="clearFloat"></div>
-                <button {{action "uploadFiles"}} class="destroy"></button>
                 {{#link-to 'comparison'}}Comparison view{{/link-to}}
             </div>
         </section>
@@ -74,19 +75,29 @@
         <section class="container">
             <div class="btn-group btn-group-justified">
                 <div class="btn-group">
-                    <button type="button" class="btn btn-default">BC</button>
+                    <button {{action "patternBC"}} class="btn btn-default">
+                        BC
+                    </button>
                 </div>
                 <div class="btn-group">
-                    <button type="button" class="btn btn-default">CC</button>
+                    <button {{action "patternCC"}} class="btn btn-default">
+                        CC
+                    </button>
                 </div>
                 <div class="btn-group">
-                    <button type="button" class="btn btn-default">GCT</button>
+                    <button {{action "patternGCT"}} class="btn btn-default">
+                        GCT
+                    </button>
                 </div>
                 <div class="btn-group">
-                    <button type="button" class="btn btn-default">LCCS</button>
+                    <button {{action "patternLCCS"}} class="btn btn-default">
+                        LCCS
+                    </button>
                 </div>
                 <div class="btn-group">
-                    <button type="button" class="btn btn-default">LCCS Dist.</button>
+                    <button {{action "patternLCCSD"}} class="btn btn-default">
+                        LCCS Dist.
+                    </button>
                 </div>
             </div>
 
@@ -109,5 +120,6 @@
 
     <script src="js/models/upload.js"></script>
     <script src="js/controllers/upload_controller.js"></script>
+    <script src="js/controllers/comparison_controller.js"></script>
 </body>
 </html>

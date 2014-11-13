@@ -1,31 +1,39 @@
-Uploads.UploadController = Ember.ArrayController.extend({
+App.UploadController = Ember.Controller.extend({
     actions: {
-        uploadFiles: function(){
+        /* we could combine both controller and get the filename via a parameter */
+        uploadSuspiciousFile: function() {
+            var file = this.readSourceFiles(this.get('suspiciousFile'));
+            var content = (new XMLSerializer()).serializeToString(file);
+            console.log( content.substring(6, 6+13) );
+        },
+
+        uploadComparisonFile: function() {
+            var file = this.readSourceFiles(this.get('comparisonFile'));
+            console.log("do something");
+        },
+
+        uploadCollusionFile: function(){
+            var file = this.readSourceFiles(this.get('collusionFile'));
+            $(file).find("match").each(function() {
+                console.log( "found details: "+ $(this).find("detail").text() );
+            });
+        },
+
+
+        readSourceFiles: function(filename) {
             $.ajax({
                 type: "GET" ,
-                url: this.get('suspiciousFile'),
+                url: filename,
                 dataType: "xml",
 
                 success: function(file) {
-                    // example for source.xml & suspicious.xml
-                    var start = 6,
-                        length = 13,
-                        content = (new XMLSerializer()).serializeToString(file),
-                        part = content.substring(start, start+length);
-                    console.log( part );
-
-                    // example for collusion.xml
-                    $(file).find("match").each(function() {
-                        var detail = $(this).find("detail").text();
-                        console.log( "found details: "+ detail );
-                    });
+                    return file;
                 },
-
                 error: function(xhr, textStatus, error) {
                     console.log( textStatus + ': ' + xhr.responseText);
                     showError('error:' + xhr.status);
                 }
             });
-        }
+        },
     }
 });
