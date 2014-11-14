@@ -1,6 +1,5 @@
-App.UploadController = Ember.Controller.extend({
+App.UploadController = Ember.ArrayController.extend({
     actions: {
-        /* we could combine both controller and get the filename via a parameter */
         uploadSuspiciousFile: function() {
             var file = this.readSourceFiles(this.get('suspiciousFile'));
             var content = (new XMLSerializer()).serializeToString(file);
@@ -23,7 +22,7 @@ App.UploadController = Ember.Controller.extend({
         readSourceFiles: function(filename) {
             $.ajax({
                 type: "GET" ,
-                url: filename,
+                url: "xmlFiles/"+filename,
                 dataType: "xml",
 
                 success: function(file) {
