@@ -47,17 +47,17 @@
                 If you have any questions please <a href="mailto:team@sciplore.org">contact us</a>.
             </p>
 
-            {{#link-to 'upload'}}Scan my files{{/link-to}}
+            {{#link-to 'compareFiles'}}Scan my files{{/link-to}}
         </section>
     </script>
 
     <!-- todo separate into different controllers -->
-    <script type="text/x-handlebars" data-template-name="upload">
+    <script type="text/x-handlebars" data-template-name="compareFiles">
         <section class="container">
             <div id="fileUploads">
                 <div>
                     <span>Your suspicious file</span>
-                    <input {{action uploadSuspiciousFile on="change" value=suspiciousFile}} type="file" class="form-control" />
+                    <input {{action "upload" on="change" value=suspiciousFile}} type="file" class="form-control" />
                 </div>
 
                 <div>
@@ -80,11 +80,21 @@
     <script type="text/x-handlebars" data-template-name="comparison">
         <section class="container">
             <div class="btn-group btn-group-justified">
-                {{#each}}
-                    <div class="btn-group">
-                        <button {{action mAction}} class="btn btn-default">{{mTitle}}</button>
-                    </div>
-                {{/each}}
+                <div class="btn-group">
+                    <button {{action patternBC}} class="btn btn-default">BC</button>
+                </div>
+                <div class="btn-group">
+                    <button {{action patternCC}} class="btn btn-default">CC</button>
+                </div>
+                <div class="btn-group">
+                    <button {{action patternGCT}} class="btn btn-default">GCT</button>
+                </div>
+                <div class="btn-group">
+                    <button {{action patternLCCS}} class="btn btn-default">LCCS</button>
+                </div>
+                <div class="btn-group">
+                    <button {{action patternLCCSD}} class="btn btn-default">LCCS Dist.</button>
+                </div>
                 <h1>{{title}}</h1> <!-- to remove, test for MVC -->
             </div>
 
@@ -104,8 +114,10 @@
     <script src="js/application.js"></script>
     <script src="js/router.js"></script>
 
-    <script src="js/models/upload.js"></script>
-    <script src="js/controllers/upload_controller.js"></script>
+    <script src="js/models/compareFiles.js"></script>
+    <script src="js/models/collusionFile.js"></script>
+    <script src="js/controllers/compareFiles_controller.js"></script>
+    <script src="js/controllers/collusionFile_controller.js"></script>
     <script src="js/controllers/comparison_controller.js"></script>
 </body>
 </html>

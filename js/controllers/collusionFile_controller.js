@@ -14,7 +14,6 @@ App.CollusionFileController = Ember.ObjectController.extend({
 
                 error: function(xhr, textStatus, error) {
                     console.log( [textStatus, xhr.responseText].join(':') );
-                    showError('error:' + xhr.status);
                 }
             });
         }

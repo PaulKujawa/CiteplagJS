@@ -1,10 +1,9 @@
 App.CompareFilesController = Ember.ArrayController.extend({
     actions: {
-        uploadFile: function() {
-            var filename = this.get('suspiciousFile'); // todo get via param
-            $.ajax({
+        upload: function() {
+           $.ajax({
                 type: "GET" ,
-                url: "xmlFiles/" + filename,
+                url: "xmlFiles/" + this.get('suspiciousFile'),
                 dataType: "xml",
 
                 success: function(file) {
@@ -19,7 +18,6 @@ App.CompareFilesController = Ember.ArrayController.extend({
 
                 error: function(xhr, textStatus, error) {
                     console.log( [textStatus, xhr.responseText].join(':') );
-                    showError('error:' + xhr.status);
                 }
             });
         }

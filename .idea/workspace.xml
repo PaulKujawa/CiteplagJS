@@ -2,14 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e3f1fb3b-51eb-4925-ad3b-3cb53fd5f219" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/js/models/collusionFile.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/js/controllers/collusionFile_controller.js" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/js/models/upload.js" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/js/controllers/upload_controller.js" afterPath="$PROJECT_DIR$/js/controllers/compareFiles_controller.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/controllers/comparison_controller.js" afterPath="$PROJECT_DIR$/js/controllers/comparison_controller.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/controllers/collusionFile_controller.js" afterPath="$PROJECT_DIR$/js/controllers/collusionFile_controller.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/controllers/compareFiles_controller.js" afterPath="$PROJECT_DIR$/js/controllers/compareFiles_controller.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/router.js" afterPath="$PROJECT_DIR$/js/router.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="citeplagjs.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -37,8 +33,10 @@
           <file leaf-file-name="router.js" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/js/router.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="21" column="5" selection-start="641" selection-end="641" vertical-scroll-proportion="0.0" vertical-offset="378" max-vertical-offset="900">
-                  <folding />
+                <state line="21" column="50" selection-start="712" selection-end="712" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="522">
+                  <folding>
+                    <element signature="n#!!doc" expanded="true" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -46,8 +44,11 @@
           <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/index.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="108" column="28" selection-start="4715" selection-end="4715" vertical-scroll-proportion="1.1820225" vertical-offset="892" max-vertical-offset="2106">
-                  <folding />
+                <state line="59" column="37" selection-start="2688" selection-end="2688" vertical-scroll-proportion="0.38764045" vertical-offset="321" max-vertical-offset="1458">
+                  <folding>
+                    <element signature="tag#nav#0;tag#body#0;tag#html#0" expanded="false" />
+                    <element signature="tag#script#2;tag#body#0;tag#html#0" expanded="false" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -61,7 +62,7 @@
               <file leaf-file-name="compareFiles_controller.js" pinned="false" current="true" current-in-tab="true">
                 <entry file="file://$PROJECT_DIR$/js/controllers/compareFiles_controller.js">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state line="26" column="3" selection-start="920" selection-end="920" vertical-scroll-proportion="0.7393365" vertical-offset="0" max-vertical-offset="633">
+                    <state line="22" column="9" selection-start="792" selection-end="792" vertical-scroll-proportion="0.6255924" vertical-offset="0" max-vertical-offset="633">
                       <folding />
                     </state>
                   </provider>
@@ -70,7 +71,7 @@
               <file leaf-file-name="collusionFile_controller.js" pinned="false" current="false" current-in-tab="false">
                 <entry file="file://$PROJECT_DIR$/js/controllers/collusionFile_controller.js">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state line="5" column="27" selection-start="183" selection-end="183" vertical-scroll-proportion="0.0" vertical-offset="90" max-vertical-offset="486">
+                    <state line="16" column="0" selection-start="622" selection-end="622" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="468">
                       <folding />
                     </state>
                   </provider>
@@ -79,7 +80,7 @@
               <file leaf-file-name="comparison_controller.js" pinned="false" current="false" current-in-tab="false">
                 <entry file="file://$PROJECT_DIR$/js/controllers/comparison_controller.js">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state line="1" column="34" selection-start="92" selection-end="92" vertical-scroll-proportion="0.0" vertical-offset="18" max-vertical-offset="378">
+                    <state line="1" column="34" selection-start="92" selection-end="92" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="378">
                       <folding />
                     </state>
                   </provider>
@@ -142,15 +143,15 @@
         <option value="$PROJECT_DIR$/js/controllers/upload_controller.js" />
         <option value="$PROJECT_DIR$/js/controllers/index_controller.js" />
         <option value="$PROJECT_DIR$/js/models/upload.js" />
-        <option value="$PROJECT_DIR$/js/controllers/collusionFile_controller.js" />
         <option value="$PROJECT_DIR$/js/models/collusion.js" />
         <option value="$PROJECT_DIR$/js/models/collusionFile.js" />
         <option value="$PROJECT_DIR$/js/controllers/comparison_controller.js" />
-        <option value="$PROJECT_DIR$/js/router.js" />
         <option value="$PROJECT_DIR$/js/models/compareFiles.js" />
-        <option value="$PROJECT_DIR$/js/controllers/compareFiles_controller.js" />
         <option value="$PROJECT_DIR$/js/templates/upload.html" />
+        <option value="$PROJECT_DIR$/js/controllers/collusionFile_controller.js" />
+        <option value="$PROJECT_DIR$/js/router.js" />
         <option value="$PROJECT_DIR$/index.html" />
+        <option value="$PROJECT_DIR$/js/controllers/compareFiles_controller.js" />
       </list>
     </option>
   </component>
@@ -392,7 +393,10 @@
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="29" column="0" selection-start="1380" selection-end="1380" vertical-scroll-proportion="0.0" vertical-offset="522" max-vertical-offset="1530">
-          <folding />
+          <folding>
+            <element signature="tag#nav#0;tag#body#0;tag#html#0" expanded="false" />
+            <element signature="tag#script#2;tag#body#0;tag#html#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -423,7 +427,10 @@
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="26" column="59" selection-start="1196" selection-end="1196" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1422">
-          <folding />
+          <folding>
+            <element signature="tag#nav#0;tag#body#0;tag#html#0" expanded="false" />
+            <element signature="tag#script#2;tag#body#0;tag#html#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -452,7 +459,10 @@
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="24" column="39" selection-start="965" selection-end="965" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1386">
-          <folding />
+          <folding>
+            <element signature="tag#nav#0;tag#body#0;tag#html#0" expanded="false" />
+            <element signature="tag#script#2;tag#body#0;tag#html#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -481,7 +491,10 @@
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="8" column="64" selection-start="195" selection-end="223" vertical-scroll-proportion="0.0" vertical-offset="54" max-vertical-offset="1296">
-          <folding />
+          <folding>
+            <element signature="tag#nav#0;tag#body#0;tag#html#0" expanded="false" />
+            <element signature="tag#script#2;tag#body#0;tag#html#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -510,7 +523,10 @@
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="8" column="64" selection-start="195" selection-end="223" vertical-scroll-proportion="0.0" vertical-offset="54" max-vertical-offset="1296">
-          <folding />
+          <folding>
+            <element signature="tag#nav#0;tag#body#0;tag#html#0" expanded="false" />
+            <element signature="tag#script#2;tag#body#0;tag#html#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -539,7 +555,10 @@
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="6" column="7" selection-start="151" selection-end="151" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1278">
-          <folding />
+          <folding>
+            <element signature="tag#nav#0;tag#body#0;tag#html#0" expanded="false" />
+            <element signature="tag#script#2;tag#body#0;tag#html#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -561,7 +580,10 @@
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="50" column="31" selection-start="1440" selection-end="1440" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1260">
-          <folding />
+          <folding>
+            <element signature="tag#nav#0;tag#body#0;tag#html#0" expanded="false" />
+            <element signature="tag#script#2;tag#body#0;tag#html#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -633,34 +655,6 @@
         <state line="3" column="39" selection-start="138" selection-end="138" vertical-scroll-proportion="0.059668507" vertical-offset="0" max-vertical-offset="905" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/controllers/collusionFile_controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="27" selection-start="183" selection-end="183" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="486">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/controllers/comparison_controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="34" selection-start="92" selection-end="92" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="378">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/router.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="5" selection-start="641" selection-end="641" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="846">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="108" column="28" selection-start="4715" selection-end="4715" vertical-scroll-proportion="1.1820225" vertical-offset="892" max-vertical-offset="2106">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/models/collusionFile.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="1" column="29" selection-start="67" selection-end="67" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="180">
@@ -675,9 +669,42 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/js/controllers/comparison_controller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="34" selection-start="92" selection-end="92" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="378">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/controllers/collusionFile_controller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="0" selection-start="622" selection-end="622" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="468">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/router.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="50" selection-start="712" selection-end="712" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="522">
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="59" column="37" selection-start="2688" selection-end="2688" vertical-scroll-proportion="0.38764045" vertical-offset="321" max-vertical-offset="1458">
+          <folding>
+            <element signature="tag#nav#0;tag#body#0;tag#html#0" expanded="false" />
+            <element signature="tag#script#2;tag#body#0;tag#html#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/js/controllers/compareFiles_controller.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="3" selection-start="920" selection-end="920" vertical-scroll-proportion="0.7393365" vertical-offset="0" max-vertical-offset="633">
+        <state line="22" column="9" selection-start="792" selection-end="792" vertical-scroll-proportion="0.6255924" vertical-offset="0" max-vertical-offset="633">
           <folding />
         </state>
       </provider>
