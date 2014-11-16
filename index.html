@@ -37,8 +37,8 @@
 
     <script type="text/x-handlebars" data-template-name="index">
         <section class="container">
-            <h1>{{title}}</h1>
-            <h2>{{description}}</h2>
+            <h1>"Welcome to CitePlag"</h1>
+            <h2>CitePlag demonstrates Citation-based Plagiarism Detection (CbPD)</h2>
             <p>
                 CbPD is a novel approach to identifying plagiarism by analyzing citation pattern
                 matches between documents to detect both local and global document similarities
@@ -51,16 +51,24 @@
         </section>
     </script>
 
+    <!-- todo separate into different controllers -->
     <script type="text/x-handlebars" data-template-name="upload">
         <section class="container">
             <div id="fileUploads">
-                {{#each}}
-                    <div>
-                        <span>{{mTitle}}</span>
-                        <input type="file" {{action mAction on="change" value=mValue}} class="form-control" />
-                    </div>
-                {{/each}}
+                <div>
+                    <span>Your suspicious file</span>
+                    <input {{action uploadSuspiciousFile on="change" value=suspiciousFile}} type="file" class="form-control" />
+                </div>
 
+                <div>
+                    <span>Your comparison file</span>
+                    <input {{action uploadComparisonFile on="change" value=comparisonFile}} type="file" class="form-control" />
+                </div>
+
+                <div>
+                    <span>Your collusion file</span>
+                    <input {{action uploadCollusionFile on="change" value=collusionFile}} type="file" class="form-control" />
+                </div>
                 <div class="clearFloat"></div>
 
                 <span>later just automatically after 3 successfully inputs:</span>
@@ -77,11 +85,12 @@
                         <button {{action mAction}} class="btn btn-default">{{mTitle}}</button>
                     </div>
                 {{/each}}
+                <h1>{{title}}</h1> <!-- to remove, test for MVC -->
             </div>
 
-            <div id="suspiciousFileArea"></div>
+            <div id="suspiciousFileArea">{{outlet suspicious}}</div>
             <div id="collusionFileArea"></div>
-            <div id="sourceFileArea"></div>
+            <div id="sourceFileArea">{{outlet sourceFile}}</div>
             <div class="clearFloat"></div>
         </section>
     </script>

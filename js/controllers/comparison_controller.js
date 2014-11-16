@@ -1,4 +1,5 @@
 App.ComparisonController = Ember.ArrayController.extend({
+    // todo completely unclear yet
     actions: {
         patternBC: function() {},
 
