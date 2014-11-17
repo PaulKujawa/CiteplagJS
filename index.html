@@ -51,23 +51,22 @@
         </section>
     </script>
 
-    <!-- todo separate into different controllers -->
     <script type="text/x-handlebars" data-template-name="compareFiles">
         <section class="container">
             <div id="fileUploads">
                 <div>
                     <span>Your suspicious file</span>
-                    <input {{action "upload" on="change" value=suspiciousFile}} type="file" class="form-control" />
+                    <input type="file" {{action "upload" on="change" value=suspiciousFile}} class="form-control" />
                 </div>
 
                 <div>
                     <span>Your comparison file</span>
-                    <input {{action uploadComparisonFile on="change" value=comparisonFile}} type="file" class="form-control" />
+                    <input {{action "upload" on="change" value=comparisonFile}} type="file" class="form-control" />
                 </div>
 
-                <div>
+                <div> <!-- todo needs a 'needs' faculty -->
                     <span>Your collusion file</span>
-                    <input {{action uploadCollusionFile on="change" value=collusionFile}} type="file" class="form-control" />
+                    <input {{action "upload" on="change" value=collusionFile}} type="file" class="form-control" />
                 </div>
                 <div class="clearFloat"></div>
 
@@ -111,6 +110,7 @@
     <script src="js/libs/handlebars-v1.3.0.js"></script>
     <script src="js/libs/ember-1.8.0.js"></script>
     <script src="js/libs/ember-data.js"></script>
+    <script src="js/libs/jquery.xml2json.js"></script>
     <script src="js/application.js"></script>
     <script src="js/router.js"></script>
 

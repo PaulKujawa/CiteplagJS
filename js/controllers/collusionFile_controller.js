@@ -7,9 +7,11 @@ App.CollusionFileController = Ember.ObjectController.extend({
                 dataType: "xml",
 
                 success: function(file) {
-                    $(file).find("match").each(function() {
+                    alert("jay");
+
+                    /*$(file).find("match").each(function() {
                         console.log( "found details: "+ $(this).find("detail").text() );
-                    });
+                    });*/
                 },
 
                 error: function(xhr, textStatus, error) {
