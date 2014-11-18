@@ -40,21 +40,25 @@ button {
 .clearFloat { clear: both; }
 
 
-#fileUploads { margin-top: 50px; }
-
-#fileUploads div { margin-bottom: 25px; }
-#fileUploads input { padding: 0; }
-
-@media (min-width: 768px) {
-    #fileUploads div {
-        width: 31%;
-        margin: 0 1%;
-        float: left;
-    }
+#fileUpload {
+    margin: 20px 0;
 }
 
+#fileUpload span {
+    float: left;
+    font-size: 1.2em;
+}
+
+#fileUpload input {
+    float: left;
+    width: 30%;
+    margin-left: 20px;
+    padding: 0;
+}
+
+
 #suspiciousFileArea, #collusionFileArea, #sourceFileArea {
-    height: 800px;
+    height: 500px;
     float: left;
     margin-top: 50px;
 }

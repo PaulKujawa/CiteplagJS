@@ -2,9 +2,35 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e3f1fb3b-51eb-4925-ad3b-3cb53fd5f219" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/js/app.js" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/js/application.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/js/controllers/collusionFile_controller.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/js/controllers/compareFiles_controller.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/js/controllers/comparison_controller.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/js/controllers/index_controller.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/js/libs/ember-1.8.0.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/js/libs/ember-data.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/js/libs/handlebars-v1.3.0.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/js/models/collusionFile.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/js/models/compareFiles.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/js/router.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/tests/runner.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/tests/runner.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/tests/tests.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/tests/vendor/qunit-1.12.0.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/tests/vendor/qunit-1.12.0.js" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/css/libs/bootstrap.css" afterPath="$PROJECT_DIR$/assets/css/libs/bootstrap.css" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/css/style.css" afterPath="$PROJECT_DIR$/assets/css/style.css" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/fonts/glyphicons-halflings-regular.eot" afterPath="$PROJECT_DIR$/assets/fonts/glyphicons-halflings-regular.eot" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/fonts/glyphicons-halflings-regular.svg" afterPath="$PROJECT_DIR$/assets/fonts/glyphicons-halflings-regular.svg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/fonts/glyphicons-halflings-regular.ttf" afterPath="$PROJECT_DIR$/assets/fonts/glyphicons-halflings-regular.ttf" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/fonts/glyphicons-halflings-regular.woff" afterPath="$PROJECT_DIR$/assets/fonts/glyphicons-halflings-regular.woff" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/images/bg.png" afterPath="$PROJECT_DIR$/assets/images/bg.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/images/sciplore_logo.png" afterPath="$PROJECT_DIR$/assets/images/sciplore_logo.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xmlFiles/collusion.xml" afterPath="$PROJECT_DIR$/xmlFiles/collusion.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/controllers/compareFiles_controller.js" afterPath="$PROJECT_DIR$/js/controllers/compareFiles_controller.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xmlFiles/suspicious.xml" afterPath="$PROJECT_DIR$/xmlFiles/suspicious.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="citeplagjs.iws" />
@@ -27,44 +53,25 @@
     <favorites_list name="citeplagjs" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.4170799">
+    <splitter split-orientation="horizontal" split-proportion="0.5">
       <split-first>
         <leaf>
-          <file leaf-file-name="router.js" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/js/router.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="306">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
           <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/index.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="112" column="26" selection-start="5013" selection-end="5013" vertical-scroll-proportion="-21.62963" vertical-offset="1432" max-vertical-offset="2322">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="collusion.xml" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/xmlFiles/collusion.xml">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="43" column="16" selection-start="1958" selection-end="1958" vertical-scroll-proportion="0.0" vertical-offset="19" max-vertical-offset="936">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="collusion2.xml" pinned="false" current="true" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/xmlFiles/collusion2.xml">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="130" column="12" selection-start="8304" selection-end="8304" vertical-scroll-proportion="0.3925845" vertical-offset="0" max-vertical-offset="917">
+                <state line="50" column="41" selection-start="2257" selection-end="2275" vertical-scroll-proportion="-18.666666" vertical-offset="0" max-vertical-offset="1260">
                   <folding>
-                    <element signature="tag#document#0;tag#collusion#0" expanded="false" />
-                    <element signature="tag#document#1;tag#collusion#0" expanded="false" />
+                    <element signature="tag#nav#0;tag#body#0;tag#html#0" expanded="false" />
                   </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="app.js" pinned="false" current="true" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/js/app.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="26" column="6" selection-start="794" selection-end="794" vertical-scroll-proportion="0.44516128" vertical-offset="54" max-vertical-offset="1260">
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -72,61 +79,17 @@
         </leaf>
       </split-first>
       <split-second>
-        <splitter split-orientation="vertical" split-proportion="0.8052083">
-          <split-first>
-            <leaf>
-              <file leaf-file-name="compareFiles_controller.js" pinned="false" current="false" current-in-tab="true">
-                <entry file="file://$PROJECT_DIR$/js/controllers/compareFiles_controller.js">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state line="11" column="54" selection-start="429" selection-end="429" vertical-scroll-proportion="0.26684636" vertical-offset="0" max-vertical-offset="1134">
-                      <folding />
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-              <file leaf-file-name="collusionFile_controller.js" pinned="false" current="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/js/controllers/collusionFile_controller.js">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state line="5" column="33" selection-start="189" selection-end="189" vertical-scroll-proportion="0.0" vertical-offset="90" max-vertical-offset="504">
-                      <folding />
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-              <file leaf-file-name="comparison_controller.js" pinned="false" current="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/js/controllers/comparison_controller.js">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state line="1" column="34" selection-start="92" selection-end="92" vertical-scroll-proportion="0.0" vertical-offset="18" max-vertical-offset="378">
-                      <folding />
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-            </leaf>
-          </split-first>
-          <split-second>
-            <leaf>
-              <file leaf-file-name="compareFiles.js" pinned="false" current="false" current-in-tab="true">
-                <entry file="file://$PROJECT_DIR$/js/models/compareFiles.js">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state line="1" column="30" selection-start="67" selection-end="67" vertical-scroll-proportion="0.12" vertical-offset="0" max-vertical-offset="162">
-                      <folding />
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-              <file leaf-file-name="collusionFile.js" pinned="false" current="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/js/models/collusionFile.js">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state line="1" column="29" selection-start="67" selection-end="67" vertical-scroll-proportion="0.0" vertical-offset="18" max-vertical-offset="180">
-                      <folding />
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-            </leaf>
-          </split-second>
-        </splitter>
+        <leaf>
+          <file leaf-file-name="collusion.xml" pinned="false" current="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/xmlFiles/collusion.xml">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="44" column="16" selection-start="1969" selection-end="1969" vertical-scroll-proportion="0.8636859" vertical-offset="0" max-vertical-offset="1008">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
       </split-second>
     </splitter>
   </component>
@@ -141,7 +104,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/js/app.js" />
         <option value="$PROJECT_DIR$/js/libs/jquery-1.10.2.js" />
         <option value="$PROJECT_DIR$/js/libs/ember-data.js" />
         <option value="$PROJECT_DIR$/js/libs/ember-1.8.0.js" />
@@ -153,7 +115,6 @@
         <option value="$PROJECT_DIR$/../citeplagjs (copy)/js/controllers/todos_controller.js" />
         <option value="$PROJECT_DIR$/collusion.xml" />
         <option value="$PROJECT_DIR$/comparison.html" />
-        <option value="$PROJECT_DIR$/css/style.css" />
         <option value="$PROJECT_DIR$/js/application.js" />
         <option value="$PROJECT_DIR$/js/controllers/application_controller.js" />
         <option value="$PROJECT_DIR$/js/controllers/upload_controller.js" />
@@ -162,15 +123,20 @@
         <option value="$PROJECT_DIR$/js/models/collusion.js" />
         <option value="$PROJECT_DIR$/js/models/collusionFile.js" />
         <option value="$PROJECT_DIR$/js/controllers/comparison_controller.js" />
-        <option value="$PROJECT_DIR$/js/models/compareFiles.js" />
         <option value="$PROJECT_DIR$/js/templates/upload.html" />
         <option value="$PROJECT_DIR$/js/controllers/collusionFile_controller.js" />
         <option value="$PROJECT_DIR$/xmlFiles/suspicious.xml" />
         <option value="$PROJECT_DIR$/js/router.js" />
-        <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/xmlFiles/collusion2.xml" />
-        <option value="$PROJECT_DIR$/xmlFiles/collusion.xml" />
+        <option value="$PROJECT_DIR$/js/models/compareFiles.js" />
+        <option value="$PROJECT_DIR$/css/style.css" />
         <option value="$PROJECT_DIR$/js/controllers/compareFiles_controller.js" />
+        <option value="$PROJECT_DIR$/app.js" />
+        <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/assets/css/style.css" />
+        <option value="$PROJECT_DIR$/index.html" />
+        <option value="$PROJECT_DIR$/xmlFiles/collusion.xml" />
+        <option value="$PROJECT_DIR$/js/app.js" />
       </list>
     </option>
   </component>
@@ -271,6 +237,20 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="citeplagjs" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="citeplagjs" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
@@ -287,11 +267,15 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/templates" />
       <recent name="$PROJECT_DIR$/js/libs" />
       <recent name="$PROJECT_DIR$/js/models" />
       <recent name="$PROJECT_DIR$/js/controllers" />
       <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/css/thirdparty" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/js" />
+      <recent name="$PROJECT_DIR$/assets" />
     </key>
   </component>
   <component name="RunManager">
@@ -348,8 +332,8 @@
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32916668" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32916668" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -360,9 +344,9 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.18016529" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18181819" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
     </layout-to-restore>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -384,171 +368,58 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/js/models/collusionFile.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="108" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/controllers/compareFiles_controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="738">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/models/collusionFile.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="0" selection-start="104" selection-end="104" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="468" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="26" column="59" selection-start="1196" selection-end="1196" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1422">
-          <folding />
+          <folding>
+            <element signature="tag#nav#0;tag#body#0;tag#html#0" expanded="false" />
+          </folding>
         </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/application.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="42" selection-start="42" selection-end="42" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="144" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/router.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="42" selection-start="72" selection-end="72" vertical-scroll-proportion="0.0" vertical-offset="18" max-vertical-offset="252" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/controllers/compareFiles_controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="41" selection-start="474" selection-end="474" vertical-scroll-proportion="0.0" vertical-offset="270" max-vertical-offset="738">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/models/collusionFile.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="0" selection-start="361" selection-end="361" vertical-scroll-proportion="0.0" vertical-offset="360" max-vertical-offset="468" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="24" column="39" selection-start="965" selection-end="965" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1386">
-          <folding />
+          <folding>
+            <element signature="tag#nav#0;tag#body#0;tag#html#0" expanded="false" />
+          </folding>
         </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/application.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="43" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="144" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/router.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="3" selection-start="253" selection-end="253" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="252" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/controllers/compareFiles_controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="486">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/models/collusionFile.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="30" selection-start="30" selection-end="30" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="468" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="8" column="64" selection-start="195" selection-end="223" vertical-scroll-proportion="0.0" vertical-offset="54" max-vertical-offset="1296">
-          <folding />
+          <folding>
+            <element signature="tag#nav#0;tag#body#0;tag#html#0" expanded="false" />
+          </folding>
         </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/application.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="43" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="144" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/router.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="3" selection-start="253" selection-end="253" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="252" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/controllers/compareFiles_controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="51" selection-start="295" selection-end="295" vertical-scroll-proportion="0.0" vertical-offset="126" max-vertical-offset="342">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/models/collusionFile.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="30" selection-start="30" selection-end="30" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="468" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="8" column="64" selection-start="195" selection-end="223" vertical-scroll-proportion="0.0" vertical-offset="54" max-vertical-offset="1296">
-          <folding />
+          <folding>
+            <element signature="tag#nav#0;tag#body#0;tag#html#0" expanded="false" />
+          </folding>
         </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/application.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="43" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="144" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/router.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="3" selection-start="253" selection-end="253" vertical-scroll-proportion="0.0" vertical-offset="144" max-vertical-offset="252" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/controllers/compareFiles_controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="51" selection-start="295" selection-end="295" vertical-scroll-proportion="0.0" vertical-offset="126" max-vertical-offset="342">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/models/collusionFile.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="30" selection-start="30" selection-end="30" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="468" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="6" column="7" selection-start="151" selection-end="151" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1278">
-          <folding />
+          <folding>
+            <element signature="tag#nav#0;tag#body#0;tag#html#0" expanded="false" />
+          </folding>
         </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/application.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="43" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="144" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/router.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="3" selection-start="253" selection-end="253" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="252" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/models/collusionFile.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="30" selection-start="30" selection-end="30" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="468" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="50" column="31" selection-start="1440" selection-end="1440" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1260">
-          <folding />
+          <folding>
+            <element signature="tag#nav#0;tag#body#0;tag#html#0" expanded="false" />
+          </folding>
         </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/libs/ember-data.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12326" column="76" selection-start="384352" selection-end="384352" vertical-scroll-proportion="0.0" vertical-offset="221347" max-vertical-offset="229554" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
@@ -556,27 +427,9 @@
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="930" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="108" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/libs/jquery-1.10.2.min.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="6" column="0" selection-start="93113" selection-end="93113" vertical-scroll-proportion="0.11777535" vertical-offset="0" max-vertical-offset="917" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="901" />
-      </provider>
-      <provider editor-type-id="MarkdownPreviewEditor">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/libs/ember-data.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="167" column="4" selection-start="4808" selection-end="4808" vertical-scroll-proportion="0.70412844" vertical-offset="2699" max-vertical-offset="229554" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../vpit/app/Resources/views/base.html.twig">
@@ -584,43 +437,9 @@
         <state line="59" column="7" selection-start="2625" selection-end="2625" vertical-scroll-proportion="0.94418603" vertical-offset="453" max-vertical-offset="1170" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/libs/ember-1.8.0.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10894" column="18" selection-start="360151" selection-end="360151" vertical-scroll-proportion="0.39449543" vertical-offset="195819" max-vertical-offset="893682" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../vpit/src/Barra/BackBundle/Resources/views/Recipe/recipes.html.twig">
       <provider selected="true" editor-type-id="text-editor">
         <state line="24" column="49" selection-start="1209" selection-end="1209" vertical-scroll-proportion="-8.851851" vertical-offset="193" max-vertical-offset="1152" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/css/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="60" column="0" selection-start="1096" selection-end="1096" vertical-scroll-proportion="0.0" vertical-offset="420" max-vertical-offset="1440" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/application.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="58" selection-start="98" selection-end="98" vertical-scroll-proportion="0.019354839" vertical-offset="0" max-vertical-offset="930" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/controllers/index_controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="39" selection-start="138" selection-end="138" vertical-scroll-proportion="0.059668507" vertical-offset="0" max-vertical-offset="905" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/models/collusionFile.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="29" selection-start="67" selection-end="67" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="180">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/controllers/comparison_controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="34" selection-start="92" selection-end="92" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="378">
-          <folding />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/xmlFiles/source.xml">
@@ -633,55 +452,52 @@
         <state line="1" column="0" selection-start="39" selection-end="39" vertical-scroll-proportion="0.019629225" vertical-offset="0" max-vertical-offset="917" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/controllers/collusionFile_controller.js">
+    <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="33" selection-start="189" selection-end="189" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="504">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="901">
           <folding />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/router.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="930">
-          <folding />
-        </state>
+      <provider editor-type-id="MarkdownPreviewEditor">
+        <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/models/compareFiles.js">
+    <entry file="file://$PROJECT_DIR$/assets/css/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="30" selection-start="67" selection-end="67" vertical-scroll-proportion="0.12" vertical-offset="0" max-vertical-offset="162">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="112" column="26" selection-start="5013" selection-end="5013" vertical-scroll-proportion="-21.62963" vertical-offset="1432" max-vertical-offset="2322">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/xmlFiles/collusion.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="43" column="16" selection-start="1958" selection-end="1958" vertical-scroll-proportion="0.0" vertical-offset="19" max-vertical-offset="936">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/controllers/compareFiles_controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="54" selection-start="429" selection-end="429" vertical-scroll-proportion="0.26684636" vertical-offset="0" max-vertical-offset="1134">
+        <state line="48" column="18" selection-start="831" selection-end="831" vertical-scroll-proportion="0.5548387" vertical-offset="348" max-vertical-offset="1512">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/xmlFiles/collusion2.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="130" column="12" selection-start="8304" selection-end="8304" vertical-scroll-proportion="0.3925845" vertical-offset="0" max-vertical-offset="917">
+        <state line="130" column="12" selection-start="8304" selection-end="8304" vertical-scroll-proportion="0.88387096" vertical-offset="456" max-vertical-offset="1386">
           <folding>
             <element signature="tag#document#0;tag#collusion#0" expanded="false" />
-            <element signature="tag#document#1;tag#collusion#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="50" column="41" selection-start="2257" selection-end="2275" vertical-scroll-proportion="-18.666666" vertical-offset="0" max-vertical-offset="1260">
+          <folding>
+            <element signature="tag#nav#0;tag#body#0;tag#html#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xmlFiles/collusion.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="44" column="16" selection-start="1969" selection-end="1969" vertical-scroll-proportion="0.8636859" vertical-offset="0" max-vertical-offset="1008">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="26" column="6" selection-start="794" selection-end="794" vertical-scroll-proportion="0.44516128" vertical-offset="54" max-vertical-offset="1260">
+          <folding />
         </state>
       </provider>
     </entry>

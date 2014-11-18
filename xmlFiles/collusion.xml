@@ -42,5 +42,9 @@
 				</detail>
 			</detail>
 		</match>
+		<match score="1.0" type="copypaste">
+			<ref document="a9d87ah3f9a8h3f" feature="cp1" />
+			<ref document="8af0ang093" feature="cp1" />
+		</match>
 	</alignments>
 </collusion>
