@@ -57,23 +57,20 @@ button {
 }
 
 
-#suspiciousFileArea, #collusionFileArea, #sourceFileArea {
-    height: 500px;
+#renderArea {
+    min-height: 500px;
+}
+
+#renderArea *:not(.clearFloat) {
     float: left;
     margin-top: 50px;
 }
 
-#suspiciousFileArea {
+#renderArea div:first-child, #renderArea div:nth-child(3) {
     width: 40%;
-    background-color: lightgrey;
+    background-color: lightsteelblue;
 }
 
-#collusionFileArea {
+#renderArea #canvas {
     width: 20%;
-    background-color: darkgrey;
-}
-
-#sourceFileArea {
-    width: 40%;
-    background-color: dimgrey;
 }

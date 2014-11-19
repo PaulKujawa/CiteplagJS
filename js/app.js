@@ -11,8 +11,23 @@ $(function() {
         });
     });
 
+
+    getXMLFile = function(filename, callback) {
+        $.ajax({
+            type: "GET",
+            url: xmlFolder + filename,
+            dataType: "xml",
+            success: callback,
+            error: function(xhr, textStatus, error) {
+                console.log( [textStatus, xhr.responseText].join(':') );
+            }
+        })
+    };
+
+
     getSourceFile = function(i) {
-        var doc = collusionJSON.document[i];
+        var doc = collusionJSON.document[i],
+            renderArea = $('#renderArea');
 
         $.ajax({
             type: "GET",
@@ -20,10 +35,16 @@ $(function() {
             dataType: "xml",
             success: function(file) {
                 compareFiles[doc.id] = (new XMLSerializer()).serializeToString(file);
-                if (i === 0)
+                renderArea.append('<div id="'+doc.id+'"></div>')
+
+                if (i === 0) {
+                    renderArea.append('<div id="canvas"></div>');
                     getSourceFile(1);
-                else
+                }
+                else {
                     parseFiles();
+                    renderArea.append('<div class="clearFloat"></div>');
+                }
             },
             error: function(xhr, textStatus, error) {
                 console.log( [textStatus, xhr.responseText].join(':') );
@@ -46,7 +67,7 @@ $(function() {
                             if (vFeat.id === vRef.feature) {
                                 var content = compareFiles[vDoc.id];
                                 var excerpt = readXML(content, vFeat.start, vFeat.length);
-                                $('#suspiciousFileArea').append(excerpt);
+                                $('#'+vDoc.id).append(excerpt);
                             }
                         });
                     }
@@ -56,17 +77,6 @@ $(function() {
     };
 
 
-    getXMLFile = function(filename, callback) {
-        $.ajax({
-            type: "GET",
-            url: xmlFolder + filename,
-            dataType: "xml",
-            success: callback,
-            error: function(xhr, textStatus, error) {
-                console.log( [textStatus, xhr.responseText].join(':') );
-            }
-        })
-    };
 
     readXML = function(content, from, length) {
         from = parseInt(from);
