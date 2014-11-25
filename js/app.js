@@ -130,7 +130,7 @@ $(function() {
 
 
     convertXMLtoHTML = function(xmlString, featurePositions) { //  todo what to do with features?!
-        var highPos = xmlString.length-1,
+       /* var highPos = xmlString.length-1,
             lowPos  = highPos;
 
         while(lowPos !== 0) {
@@ -143,34 +143,38 @@ $(function() {
 
             var excerpt         = xmlString.substr(lowPos, highPos-lowPos),
                 replacedExcerpt = convertBetweenFeatures(excerpt);
-
-            xmlString.replace(excerpt, replacedExcerpt);
-            highPos = lowPos-1;
         }
+        */
+
+            var replacedExcerpt = convertBetweenFeatures(xmlString);
+
+            xmlString = xmlString.replace(xmlString, replacedExcerpt);
+//            highPos = lowPos-1;
 
         return xmlString;
     };
 
 
     convertBetweenFeatures = function(excerpt) {
+        console.log( excerpt );
         var closingPos = null;
-
         for(var highPos = excerpt.length-1; highPos >= 0; highPos--) {
             if (excerpt[highPos] === '>')
                 closingPos = highPos;
 
             else if (excerpt[highPos] === '<') {
                 if (closingPos === null)
-                    alert("error: one xml tag isn't closed");
+                    alert("error: one xml tag itself isn't closed");
                 else {
-                    var toReplace = excerpt.substr(highPos, closingPos-highPos);
-
+                    var toReplace = excerpt.substr(highPos, closingPos-highPos+1);
                     if (excerpt[highPos+1] === '/')
-                        excerpt.replace(toReplace, '</div>');
+                        excerpt = excerpt.replace(toReplace, '</div>');
                     else {
-                        var length = closingPos-highPos,
-                            xmlTag = excerpt.substring(highPos+1, length-1);
-                        excerpt.replace(toReplace, '<div class="'+xmlTag+'">');
+                        var length = toReplace.indexOf(' ');
+                        if (length == -1) // xmlTag with attr, which don't matter
+                            length = closingPos-highPos;
+                        var xmlTag = excerpt.substr(highPos+1, highPos+length);
+                        excerpt = excerpt.replace(toReplace, '<div class="'+xmlTag+'">');
                     }
                 }
             }

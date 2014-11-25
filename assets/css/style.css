@@ -68,7 +68,7 @@ button {
     width: 40%;
     padding: 10px;
     overflow-y: scroll;
-    background-color: lightsteelblue;
+    background-color: aliceblue;
 }
 
 #renderDiv .canvas {

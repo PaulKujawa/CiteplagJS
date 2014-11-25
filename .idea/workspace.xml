@@ -3,7 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="e3f1fb3b-51eb-4925-ad3b-3cb53fd5f219" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/app.js" afterPath="$PROJECT_DIR$/js/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xmlFiles/source.xml" afterPath="$PROJECT_DIR$/xmlFiles/source.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/css/style.css" afterPath="$PROJECT_DIR$/assets/css/style.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="citeplagjs.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -31,17 +33,26 @@
           <file leaf-file-name="style.css" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/assets/css/style.css">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="73" column="12" selection-start="1186" selection-end="1186" vertical-scroll-proportion="0.0" vertical-offset="528" max-vertical-offset="1458">
+                <state line="70" column="31" selection-start="1155" selection-end="1164" vertical-scroll-proportion="0.0" vertical-offset="528" max-vertical-offset="1458">
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="app.js" pinned="false" current="true" current-in-tab="true">
+          <file leaf-file-name="app.js" pinned="false" current="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/js/app.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="111" column="57" selection-start="3904" selection-end="3904" vertical-scroll-proportion="0.6967742" vertical-offset="1350" max-vertical-offset="3636">
-                  <folding />
+                <state line="166" column="53" selection-start="5503" selection-end="5503" vertical-scroll-proportion="0.5225806" vertical-offset="720" max-vertical-offset="1674">
+                  <folding>
+                    <element signature="e#490#671#0" expanded="false" />
+                    <element signature="e#723#1023#0" expanded="false" />
+                    <element signature="e#1060#1853#0" expanded="false" />
+                    <element signature="e#1892#2165#0" expanded="false" />
+                    <element signature="e#2210#3280#0" expanded="false" />
+                    <element signature="e#3308#3910#0" expanded="false" />
+                    <element signature="e#3964#4274#0" expanded="false" />
+                    <element signature="e#6311#6868#0" expanded="false" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -50,10 +61,10 @@
       </split-first>
       <split-second>
         <leaf>
-          <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="true">
+          <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/index.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="57" column="50" selection-start="2585" selection-end="2585" vertical-scroll-proportion="0.6764045" vertical-offset="424" max-vertical-offset="1314">
+                <state line="57" column="50" selection-start="2585" selection-end="2585" vertical-scroll-proportion="-22.296297" vertical-offset="424" max-vertical-offset="1314">
                   <folding />
                 </state>
               </provider>
@@ -80,11 +91,14 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="source.xml" pinned="false" current="false" current-in-tab="false">
+          <file leaf-file-name="source.xml" pinned="false" current="true" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/xmlFiles/source.xml">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="385" column="28" selection-start="27020" selection-end="27034" vertical-scroll-proportion="-9.833333" vertical-offset="6635" max-vertical-offset="14580">
-                  <folding />
+                <state line="250" column="85" selection-start="21271" selection-end="21347" vertical-scroll-proportion="0.6347238" vertical-offset="1543" max-vertical-offset="2430">
+                  <folding>
+                    <element signature="tag#front#0;tag#article#0" expanded="false" />
+                    <element signature="tag#back#0;tag#article#0" expanded="false" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -92,7 +106,7 @@
           <file leaf-file-name="suspicious.xml" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/xmlFiles/suspicious.xml">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="9" column="5" selection-start="408" selection-end="408" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="828">
+                <state line="40" column="0" selection-start="7721" selection-end="7721" vertical-scroll-proportion="-24.0" vertical-offset="0" max-vertical-offset="828">
                   <folding />
                 </state>
               </provider>
@@ -142,14 +156,14 @@
         <option value="$PROJECT_DIR$/js/controllers/compareFiles_controller.js" />
         <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/xmlFiles/source.xml" />
         <option value="$PROJECT_DIR$/assets/css/xmlToHTML.css" />
         <option value="$PROJECT_DIR$/../jugend-session-anforderungsdatenbank/src/JugendSession/DemandBundle/Resources/views/Demand/show.html.twig" />
         <option value="$PROJECT_DIR$/../jugend-session-anforderungsdatenbank/src/JugendSession/DemandBundle/Resources/views/Demand/index.html.twig" />
-        <option value="$PROJECT_DIR$/assets/css/style.css" />
         <option value="$PROJECT_DIR$/xmlFiles/collusion.xml" />
         <option value="$PROJECT_DIR$/index.html" />
+        <option value="$PROJECT_DIR$/assets/css/style.css" />
         <option value="$PROJECT_DIR$/js/app.js" />
+        <option value="$PROJECT_DIR$/xmlFiles/source.xml" />
       </list>
     </option>
   </component>
@@ -424,7 +438,10 @@
     <entry file="file://$PROJECT_DIR$/xmlFiles/source.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="239" column="10" selection-start="20445" selection-end="20445" vertical-scroll-proportion="0.0" vertical-offset="4302" max-vertical-offset="14580">
-          <folding />
+          <folding>
+            <element signature="tag#front#0;tag#article#0" expanded="false" />
+            <element signature="tag#back#0;tag#article#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -445,7 +462,16 @@
     <entry file="file://$PROJECT_DIR$/js/app.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="77" column="32" selection-start="2341" selection-end="2341" vertical-scroll-proportion="0.0" vertical-offset="846" max-vertical-offset="2304">
-          <folding />
+          <folding>
+            <element signature="e#490#671#0" expanded="false" />
+            <element signature="e#723#1023#0" expanded="false" />
+            <element signature="e#1060#1853#0" expanded="false" />
+            <element signature="e#1892#2165#0" expanded="false" />
+            <element signature="e#2210#3280#0" expanded="false" />
+            <element signature="e#3308#3910#0" expanded="false" />
+            <element signature="e#3964#4274#0" expanded="false" />
+            <element signature="e#6311#6868#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -476,7 +502,10 @@
     <entry file="file://$PROJECT_DIR$/xmlFiles/source.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="239" column="10" selection-start="20445" selection-end="20445" vertical-scroll-proportion="0.0" vertical-offset="4302" max-vertical-offset="14580">
-          <folding />
+          <folding>
+            <element signature="tag#front#0;tag#article#0" expanded="false" />
+            <element signature="tag#back#0;tag#article#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -497,7 +526,16 @@
     <entry file="file://$PROJECT_DIR$/js/app.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="103" column="6" selection-start="3020" selection-end="3020" vertical-scroll-proportion="0.0" vertical-offset="1242" max-vertical-offset="2574">
-          <folding />
+          <folding>
+            <element signature="e#490#671#0" expanded="false" />
+            <element signature="e#723#1023#0" expanded="false" />
+            <element signature="e#1060#1853#0" expanded="false" />
+            <element signature="e#1892#2165#0" expanded="false" />
+            <element signature="e#2210#3280#0" expanded="false" />
+            <element signature="e#3308#3910#0" expanded="false" />
+            <element signature="e#3964#4274#0" expanded="false" />
+            <element signature="e#6311#6868#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -528,7 +566,10 @@
     <entry file="file://$PROJECT_DIR$/xmlFiles/source.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="239" column="10" selection-start="20445" selection-end="20445" vertical-scroll-proportion="0.0" vertical-offset="4302" max-vertical-offset="14580">
-          <folding />
+          <folding>
+            <element signature="tag#front#0;tag#article#0" expanded="false" />
+            <element signature="tag#back#0;tag#article#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -549,7 +590,16 @@
     <entry file="file://$PROJECT_DIR$/js/app.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="62" column="39" selection-start="1907" selection-end="1907" vertical-scroll-proportion="0.0" vertical-offset="1116" max-vertical-offset="2142">
-          <folding />
+          <folding>
+            <element signature="e#490#671#0" expanded="false" />
+            <element signature="e#723#1023#0" expanded="false" />
+            <element signature="e#1060#1853#0" expanded="false" />
+            <element signature="e#1892#2165#0" expanded="false" />
+            <element signature="e#2210#3280#0" expanded="false" />
+            <element signature="e#3308#3910#0" expanded="false" />
+            <element signature="e#3964#4274#0" expanded="false" />
+            <element signature="e#6311#6868#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -573,7 +623,16 @@
     <entry file="file://$PROJECT_DIR$/js/app.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="60" column="0" selection-start="1801" selection-end="1801" vertical-scroll-proportion="0.0" vertical-offset="1080" max-vertical-offset="1818">
-          <folding />
+          <folding>
+            <element signature="e#490#671#0" expanded="false" />
+            <element signature="e#723#1023#0" expanded="false" />
+            <element signature="e#1060#1853#0" expanded="false" />
+            <element signature="e#1892#2165#0" expanded="false" />
+            <element signature="e#2210#3280#0" expanded="false" />
+            <element signature="e#3308#3910#0" expanded="false" />
+            <element signature="e#3964#4274#0" expanded="false" />
+            <element signature="e#6311#6868#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -590,7 +649,16 @@
     <entry file="file://$PROJECT_DIR$/js/app.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="76" column="6" selection-start="2622" selection-end="2622" vertical-scroll-proportion="0.0" vertical-offset="613" max-vertical-offset="1638">
-          <folding />
+          <folding>
+            <element signature="e#490#671#0" expanded="false" />
+            <element signature="e#723#1023#0" expanded="false" />
+            <element signature="e#1060#1853#0" expanded="false" />
+            <element signature="e#1892#2165#0" expanded="false" />
+            <element signature="e#2210#3280#0" expanded="false" />
+            <element signature="e#3308#3910#0" expanded="false" />
+            <element signature="e#3964#4274#0" expanded="false" />
+            <element signature="e#6311#6868#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -621,7 +689,16 @@
     <entry file="file://$PROJECT_DIR$/js/app.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="26" column="6" selection-start="794" selection-end="794" vertical-scroll-proportion="0.0" vertical-offset="468" max-vertical-offset="1260">
-          <folding />
+          <folding>
+            <element signature="e#490#671#0" expanded="false" />
+            <element signature="e#723#1023#0" expanded="false" />
+            <element signature="e#1060#1853#0" expanded="false" />
+            <element signature="e#1892#2165#0" expanded="false" />
+            <element signature="e#2210#3280#0" expanded="false" />
+            <element signature="e#3308#3910#0" expanded="false" />
+            <element signature="e#3964#4274#0" expanded="false" />
+            <element signature="e#6311#6868#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -732,13 +809,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/css/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="73" column="12" selection-start="1186" selection-end="1186" vertical-scroll-proportion="0.0" vertical-offset="528" max-vertical-offset="1458">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/xmlFiles/collusion.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="12" column="27" selection-start="677" selection-end="677" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="774">
@@ -746,20 +816,6 @@
             <element signature="tag#detail#0;tag#match#0;tag#alignments#0;tag#collusion#0" expanded="false" />
             <element signature="tag#match#1;tag#alignments#0;tag#collusion#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/xmlFiles/suspicious.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="5" selection-start="408" selection-end="408" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="828">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/xmlFiles/source.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="385" column="28" selection-start="27020" selection-end="27034" vertical-scroll-proportion="-9.833333" vertical-offset="6635" max-vertical-offset="14580">
-          <folding />
         </state>
       </provider>
     </entry>
@@ -772,15 +828,48 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="57" column="50" selection-start="2585" selection-end="2585" vertical-scroll-proportion="0.6764045" vertical-offset="424" max-vertical-offset="1314">
+        <state line="57" column="50" selection-start="2585" selection-end="2585" vertical-scroll-proportion="-22.296297" vertical-offset="424" max-vertical-offset="1314">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/css/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="70" column="31" selection-start="1155" selection-end="1164" vertical-scroll-proportion="0.0" vertical-offset="528" max-vertical-offset="1458">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/js/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="111" column="57" selection-start="3904" selection-end="3904" vertical-scroll-proportion="0.6967742" vertical-offset="1350" max-vertical-offset="3636">
+        <state line="166" column="53" selection-start="5503" selection-end="5503" vertical-scroll-proportion="0.5225806" vertical-offset="720" max-vertical-offset="1674">
+          <folding>
+            <element signature="e#490#671#0" expanded="false" />
+            <element signature="e#723#1023#0" expanded="false" />
+            <element signature="e#1060#1853#0" expanded="false" />
+            <element signature="e#1892#2165#0" expanded="false" />
+            <element signature="e#2210#3280#0" expanded="false" />
+            <element signature="e#3308#3910#0" expanded="false" />
+            <element signature="e#3964#4274#0" expanded="false" />
+            <element signature="e#6311#6868#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xmlFiles/suspicious.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="40" column="0" selection-start="7721" selection-end="7721" vertical-scroll-proportion="-24.0" vertical-offset="0" max-vertical-offset="828">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xmlFiles/source.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="250" column="85" selection-start="21271" selection-end="21347" vertical-scroll-proportion="0.6347238" vertical-offset="1543" max-vertical-offset="2430">
+          <folding>
+            <element signature="tag#front#0;tag#article#0" expanded="false" />
+            <element signature="tag#back#0;tag#article#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
