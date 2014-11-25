@@ -57,20 +57,20 @@ button {
 }
 
 
-#renderArea {
-    min-height: 500px;
-}
 
-#renderArea *:not(.clearFloat) {
+#renderDiv *:not(.clearFloat) {
     float: left;
+    height: 500px;
     margin-top: 50px;
 }
 
-#renderArea div:first-child, #renderArea div:nth-child(3) {
+#renderDiv .leftArea, #renderDiv .rightArea {
     width: 40%;
+    padding: 10px;
+    overflow-y: scroll;
     background-color: lightsteelblue;
 }
 
-#renderArea #canvas {
+#renderDiv .canvas {
     width: 20%;
 }

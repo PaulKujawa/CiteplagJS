@@ -7,6 +7,7 @@
     <title>CitePlag</title>
     <link rel="stylesheet" href="assets/css/libs/bootstrap.css">
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/xmlToHTML.css">
 </head>
 
 <body>
@@ -53,25 +54,8 @@
         </div>
 
         <div id="comparison">
-            <div class="btn-group btn-group-justified">
-                <div class="btn-group">
-                    <button class="btn btn-default">BC</button>
-                </div>
-                <div class="btn-group">
-                    <button class="btn btn-default">CC</button>
-                </div>
-                <div class="btn-group">
-                    <button class="btn btn-default">GCT</button>
-                </div>
-                <div class="btn-group">
-                    <button class="btn btn-default">LCCS</button>
-                </div>
-                <div class="btn-group">
-                    <button class="btn btn-default">LCCS Dist.</button>
-                </div>
-            </div>
-
-            <div id="renderArea"><!-- JS part--></div>
+            <ul class="nav nav-tabs" id="patternPanels"><!-- JS --></ul>
+            <div id="renderDiv"><!-- JS part--></div>
         </div>
     </section>
 
