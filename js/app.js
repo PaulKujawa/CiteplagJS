@@ -4,7 +4,7 @@ $(function() {
             renderDiv       = $('#renderDiv'),
             patternPanels   = $('#patternPanels');
 
-    var collusionJSON, compareFilesXML = new Object(), matchTypes = new Object(),
+    var collusionJSON, compareFilesXML = [], matchTypes = new Object(),
         loadXMLFile, loadCompareXML, parseCollusionXML, findMatchFeatures,
         createTab, convertXMLtoHTML, convertBetweenFeatures, orderFeaturePos, render;
 
@@ -39,7 +39,7 @@ $(function() {
             url: xmlFolder + doc.src,
             dataType: "xml",
 
-            success: function(file) { // makes sure both files are loaded before going on
+            success: function(file) {
                 compareFilesXML[i] = (new XMLSerializer()).serializeToString(file);
                 if (i === 0)
                     loadCompareXML(1);
@@ -67,19 +67,20 @@ $(function() {
     findMatchFeatures = function(vMatch) {
         if (vMatch.detail !== undefined) {}
 
+        if ( isNaN(matchTypes[vMatch.type]) )
+            matchTypes[vMatch.type] = new Array();
+        var i = matchTypes[vMatch.type].length();
+
         $.each(vMatch.ref, function(j, vRef) {
             $.each(collusionJSON.document, function(k, vDoc) {
                 if (vDoc.id === vRef.document) {
                     $.each(vDoc.feature, function(h, vFeat) {
                         if (vFeat.id === vRef.feature) {
-                            /* todo add to container
-                             type of match
-                             cnt of matches
-                             document.id
-                             parseInt(vFeat.start)
-                             parseInt(vFeat.start) + parseInt(vFeat.length)
-                             vFeat.value if given
-                             */
+                            var doc = new Object();
+                            doc['start'] = parseInt(vFeat.start);
+                            doc['until'] = doc['start'] + parseInt(vFeat.length);
+                            //doc['value'] = vFeat.value; todo if given
+                            matchTypes[vMatch.type][i] = doc;
                         }
                     });
                 }
@@ -89,7 +90,7 @@ $(function() {
 
 
     render = function() {
-        $.each(matchTypes, function(i, mType) { // todo just first level
+        $.each(matchTypes, function(i, mType) { // todo iterate over first level = match types
             var featurePositions    = orderFeaturePos(mType, 0),
                 leftFileHTML        = convertXMLtoHTML(compareFilesXML[0], featurePositions);
             featurePositions        = orderFeaturePos(mType, 1);
