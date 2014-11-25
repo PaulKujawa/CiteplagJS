@@ -4,7 +4,7 @@ $(function() {
             renderDiv       = $('#renderDiv'),
             patternPanels   = $('#patternPanels');
 
-    var collusionJSON, compareFilesXML = [], matchTypes = new Object(),
+    var collusionJSON, compareFilesXML = new Array(), matchTypes = new Object(),
         loadXMLFile, loadCompareXML, parseCollusionXML, findMatchFeatures,
         createTab, convertXMLtoHTML, convertBetweenFeatures, orderFeaturePos, render;
 
@@ -36,14 +36,19 @@ $(function() {
 
         $.ajax({
             type: "GET",
-            url: xmlFolder + doc.src,
+            url: xmlFolder + doc,
             dataType: "xml",
 
             success: function(file) {
-                compareFilesXML[i] = (new XMLSerializer()).serializeToString(file);
+                var xmlString = (new XMLSerializer()).serializeToString(file),
+                    startPos    = xmlString.indexOf('<body>')+ 6,
+                    length      = xmlString.indexOf('</body>') - startPos;
+
+                compareFilesXML[i] = xmlString.substr(startPos, length);
                 if (i === 0)
                     loadCompareXML(1);
-                parseCollusionXML();
+                else
+                    parseCollusionXML();
             },
             error: function(xhr, textStatus, error) {
                 console.log( [textStatus, xhr.responseText].join(':') );
@@ -65,68 +70,84 @@ $(function() {
 
 
     findMatchFeatures = function(vMatch) {
-        if (vMatch.detail !== undefined) {}
-
+        if (vMatch.detail !== undefined) {/* todo so what? */}
         if ( isNaN(matchTypes[vMatch.type]) )
             matchTypes[vMatch.type] = new Array();
-        var i = matchTypes[vMatch.type].length();
+
+        var m    = matchTypes[vMatch.type].length,
+            docs = new Array(),
+            d    = 0;
 
         $.each(vMatch.ref, function(j, vRef) {
             $.each(collusionJSON.document, function(k, vDoc) {
                 if (vDoc.id === vRef.document) {
                     $.each(vDoc.feature, function(h, vFeat) {
                         if (vFeat.id === vRef.feature) {
-                            var doc = new Object();
+                            var doc = new Object(); // todo <link ref> ignored yet
                             doc['start'] = parseInt(vFeat.start);
-                            doc['until'] = doc['start'] + parseInt(vFeat.length);
+                            doc['end']   = doc['start'] + parseInt(vFeat.length);
                             //doc['value'] = vFeat.value; todo if given
-                            matchTypes[vMatch.type][i] = doc;
+                            docs[d] = doc;
+                            d++;
                         }
                     });
                 }
             });
         });
+        matchTypes[vMatch.type][m] = docs;
     };
 
 
     render = function() {
-        $.each(matchTypes, function(i, mType) { // todo iterate over first level = match types
+        $.each(matchTypes, function(matchTitle, mType) { //mType[m][d]['start']
             var featurePositions    = orderFeaturePos(mType, 0),
                 leftFileHTML        = convertXMLtoHTML(compareFilesXML[0], featurePositions);
             featurePositions        = orderFeaturePos(mType, 1);
             var rightFileHTML       = convertXMLtoHTML(compareFilesXML[1], featurePositions);
 
-            createTab(mType, leftFileHTML, rightFileHTML);
+            createTab(matchTitle, leftFileHTML, rightFileHTML);
         });
+
         patternPanels.find('li').first().addClass('active');
+        renderDiv.find('div').first().addClass('active');
     };
 
 
     orderFeaturePos = function(matchType, docCnt) {
-        /*  todo
-            select all featurePos of container[matchType][docCnt]
-            order them DESC
-            return as list
-        */
+        var positions = new Array();
+
+        $.each(matchType, function(m, match) {
+            positions.push(match[docCnt]['start']);
+            positions.push(match[docCnt]['end']);
+        });
+
+        positions.sort(function(a, b) {
+            return b-a;
+        });
+
+        return positions;
     };
 
 
     convertXMLtoHTML = function(xmlString, featurePositions) { //  todo what to do with features?!
-        var highPos = xmlString.length()-1,
+        var highPos = xmlString.length-1,
             lowPos  = highPos;
 
         while(lowPos !== 0) {
-            if (! featurePositions.empty)           // todo not sure if works
-                lowPos = featurePositions.pop();    // todo just placeholder yet
-            else
+            if ($.isEmptyObject(featurePositions))
                 lowPos = 0;
+            else {
+                lowPos = featurePositions[0];
+                featurePositions.splice(0, 1); // removes 1 item from index 0
+            }
 
-            var excerpt         = xmlString.substr(lowPos, highPos),
+            var excerpt         = xmlString.substr(lowPos, highPos-lowPos),
                 replacedExcerpt = convertBetweenFeatures(excerpt);
 
             xmlString.replace(excerpt, replacedExcerpt);
             highPos = lowPos-1;
         }
+
         return xmlString;
     };
 
@@ -134,7 +155,7 @@ $(function() {
     convertBetweenFeatures = function(excerpt) {
         var closingPos = null;
 
-        for(var highPos = excerpt.length()-1; highPos >= 0; highPos--) {
+        for(var highPos = excerpt.length-1; highPos >= 0; highPos--) {
             if (excerpt[highPos] === '>')
                 closingPos = highPos;
 
@@ -142,12 +163,13 @@ $(function() {
                 if (closingPos === null)
                     alert("error: one xml tag isn't closed");
                 else {
-                    var toReplace = excerpt.substr(highPos, closingPos);
+                    var toReplace = excerpt.substr(highPos, closingPos-highPos);
 
                     if (excerpt[highPos+1] === '/')
                         excerpt.replace(toReplace, '</div>');
                     else {
-                        var xmlTag = excerpt.substring(highPos+1, closingPos-1);
+                        var length = closingPos-highPos,
+                            xmlTag = excerpt.substring(highPos+1, length-1);
                         excerpt.replace(toReplace, '<div class="'+xmlTag+'">');
                     }
                 }
@@ -158,11 +180,14 @@ $(function() {
 
 
     createTab = function(patternTitle, leftFileHTML, rightFileHTML) {
-        var tab = $('<a href="#'+patternTitle+'Tab" data-toggle="tab">'+patternTitle+'</a>')
-                  .wrap('<li></li>');
+        var tab = $(
+            '<li>' +
+                '<a href="#'+patternTitle+'Tab" data-toggle="tab">'+patternTitle+'</a>' +
+            '</li>'
+        );
         patternPanels.append(tab);
 
-        var div = $('<div id="'+patternTitle+'Tab"></div>')
+        var div = $('<div id="'+patternTitle+'Tab" class="tab-pane"></div>')
             .append('<div class="leftArea">'+leftFileHTML+'</div>')
             .append('<div class="canvas"></div>')
             .append('<div class="rightArea">'+rightFileHTML+'</div>')
