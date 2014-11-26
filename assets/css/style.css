@@ -56,16 +56,11 @@ button {
     padding: 0;
 }
 
-
-
-#renderDiv *:not(.clearFloat) {
+#renderDiv .leftArea, #renderDiv .canvas, #renderDiv .rightArea {
     float: left;
+    width: 40%;
     height: 500px;
     margin-top: 50px;
-}
-
-#renderDiv .leftArea, #renderDiv .rightArea {
-    width: 40%;
     padding: 10px;
     overflow-y: scroll;
     background-color: aliceblue;
@@ -73,4 +68,10 @@ button {
 
 #renderDiv .canvas {
     width: 20%;
+    background-color: inherit;
+}
+
+#renderDiv .leftArea *, #renderDiv .rightArea * {
+    float: left;
+    margin: 0 1px; /* looks like space */
 }

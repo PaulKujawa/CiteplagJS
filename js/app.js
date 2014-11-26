@@ -156,7 +156,8 @@ $(function() {
 
 
     convertBetweenFeatures = function(excerpt) {
-        console.log( excerpt );
+        console.log( excerpt);
+        console.log( );
         var closingPos = null;
         for(var highPos = excerpt.length-1; highPos >= 0; highPos--) {
             if (excerpt[highPos] === '>')
@@ -167,20 +168,46 @@ $(function() {
                     alert("error: one xml tag itself isn't closed");
                 else {
                     var toReplace = excerpt.substr(highPos, closingPos-highPos+1);
+
                     if (excerpt[highPos+1] === '/')
                         excerpt = excerpt.replace(toReplace, '</div>');
+
                     else {
                         var length = toReplace.indexOf(' ');
                         if (length == -1) // xmlTag with attr, which don't matter
                             length = closingPos-highPos;
-                        var xmlTag = excerpt.substr(highPos+1, highPos+length);
+
+                        var xmlTag = excerpt.substr(highPos+1, length-1);
+                        console.log(
+                            "toReplace: " + toReplace +
+                            " length: " + length +
+                            " xmlTag: " + xmlTag
+                        );
+
                         excerpt = excerpt.replace(toReplace, '<div class="'+xmlTag+'">');
                     }
                 }
             }
         }
+        console.log( excerpt );
         return excerpt;
     };
+
+    var str = '<p>The traditional consultation in general practice was brief.<xref ref-type="bibr" ' +
+        'rid="B2">2</xref> The patient presented symptoms and the doctor prescribed treatment. In 1957 ' +
+        'Balint gave new insights into the meaning of symptoms.<xref ref-type="bibr" rid="B10">10</xref> ' +
+        'By 1979 an enhanced model of consultation was presented, in which the doctors dealt with ongoing ' +
+        'as well as presenting problems and added health promotion and education about future appropriate ' +
+        'use of services.<xref ref-type="bibr" rid="B11">11</xref> Now, with an ageing population and more ' +
+        'community care of chronic illness, there are more issues to be considered at each consultation. ' +
+        'Ideas of what constitutes good general practice are more complex.' +
+        '<xref ref-type="bibr" rid="B12">12</xref> Good practice now includes both extended care ' +
+        'of chronic medical problems&#x2014;for example, coronary heart disease' +
+        '<xref ref-type="bibr" rid="B13">13</xref>&#x2014;and a public health role. At first this ' +
+        'model was restricted to those who lead change (&#x201C;early adopters&#x201D;) and ' +
+        'enthusiasts<xref ref-type="bibr" rid="B14">14</xref> but now it is embedded in professional ' +
+        'and managerial expectations of good practice.</p>';
+    convertBetweenFeatures(str);
 
 
     createTab = function(patternTitle, leftFileHTML, rightFileHTML) {
