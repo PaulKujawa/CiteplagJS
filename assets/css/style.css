@@ -72,6 +72,5 @@ button {
 }
 
 #renderDiv .leftArea *, #renderDiv .rightArea * {
-    float: left;
     margin: 0 1px; /* looks like space */
 }
