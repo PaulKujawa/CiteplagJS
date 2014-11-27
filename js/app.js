@@ -4,7 +4,7 @@ $(function() {
             renderDiv       = $('#renderDiv'),
             patternPanels   = $('#patternPanels');
 
-    var collusionJSON, compareFilesXML = new Array(), matchTypes = new Object(),
+    var collusionJSON, compareFilesXML = new Array(), matchTypes = new Object(), //[mType][m][d]['start']
         loadXMLFile, loadCompareXML, parseCollusionXML, findMatchFeatures,
         createTab, convertXMLtoHTML, convertBetweenFeatures, orderFeaturePos, render;
 
@@ -74,10 +74,7 @@ $(function() {
         if ( isNaN(matchTypes[vMatch.type]) )
             matchTypes[vMatch.type] = new Array();
 
-        var m    = matchTypes[vMatch.type].length,
-            docs = new Array(),
-            d    = 0;
-
+        var docs = new Array();
         $.each(vMatch.ref, function(j, vRef) {
             $.each(collusionJSON.document, function(k, vDoc) {
                 if (vDoc.id === vRef.document) {
@@ -86,20 +83,20 @@ $(function() {
                             var doc = new Object(); // todo <link ref> ignored yet
                             doc['start'] = parseInt(vFeat.start);
                             doc['end']   = doc['start'] + parseInt(vFeat.length);
-                            //doc['value'] = vFeat.value; todo if given
-                            docs[d] = doc;
-                            d++;
+                            if (vFeat.value !== undefined)
+                                doc['value'] = vFeat.value;
+                            docs.push(doc);
                         }
                     });
                 }
             });
         });
-        matchTypes[vMatch.type][m] = docs;
+        matchTypes[vMatch.type].push(docs);
     };
 
 
     render = function() {
-        $.each(matchTypes, function(matchTitle, mType) { //mType[m][d]['start']
+        $.each(matchTypes, function(matchTitle, mType) {
             var featurePositions    = orderFeaturePos(mType, 0),
                 leftFileHTML        = convertXMLtoHTML(compareFilesXML[0], featurePositions);
 
@@ -109,8 +106,8 @@ $(function() {
             createTab(matchTitle, leftFileHTML, rightFileHTML);
         });
 
-        patternPanels.find('li').first().addClass('active');
-        renderDiv.find('div').first().addClass('active');
+        patternPanels.find('li:first').addClass('active');
+        renderDiv.find('div:first').addClass('active');
     };
 
 
@@ -161,23 +158,44 @@ $(function() {
             } else if (excerpt[highPos] === '<') {
                 if (excerpt[highPos+1] === '/') {
                     excerpt     = excerpt.substr(0, highPos) + '</div>' +
-                                  excerpt.substr(closingPos+1, excerpt.length-closingPos-1);
+                                  excerpt.substr(closingPos+1);
+                    // todo set inDiv = true;
+
 
                 } else {
-                    var toReplace = excerpt.substr(highPos, closingPos-highPos+1),
-                        length = toReplace.indexOf(' '); // would cut off attr
+                    var xmlTag = excerpt.substr(highPos, closingPos-highPos+1),
+                        length = xmlTag.indexOf(' '); // would cut off attr
                     if (length == -1)
                         length = closingPos-highPos;
 
-                    var xmlTag  = excerpt.substr(highPos+1, length-1);
-                    excerpt     = excerpt.substr(0, highPos) + '<div class="'+xmlTag+'">' +
-                                  excerpt.substr(closingPos+1, excerpt.length-closingPos-1);
+                    xmlTag  = excerpt.substr(highPos+1, length-1);
+                    excerpt = excerpt.substr(0, highPos) + '<div class="'+xmlTag+'">' +
+                              excerpt.substr(closingPos+1);
+                    // todo if (inDiv) attach div with class at clPos
+
                 }
+
+            /*} else if (highPos == opPos || highPos == clPos) {
+                if (highPos == opPos) {
+                    excerpt = excerpt.substr(0, opPos) +'<div class="OP">'+ excerpt.substr(opPos);
+                } else {
+                    excerpt = excerpt.substr(0, clPos+1) +'</div>'+ excerpt.substr(clPos);
+                    // todo if (inDiv)
+                     //todo save clPos+1+6 (6=</div>)
+                     //todo save specific pattern class
+
+                }*/
             }
         }
         return excerpt;
     };
 
+    /*var opPos = 10,
+        clPos = 30;
+    console.log(convertBetweenFeatures(
+        '<h1>my heaDLINE</h1>' +
+            '<p>ABCDEFGHijklmnopqrstuvwxyz</p>'
+    ));*/
 
     createTab = function(patternTitle, leftFileHTML, rightFileHTML) {
         var tab = $(

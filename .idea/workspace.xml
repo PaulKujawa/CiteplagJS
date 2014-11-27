@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="e3f1fb3b-51eb-4925-ad3b-3cb53fd5f219" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/app.js" afterPath="$PROJECT_DIR$/js/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xmlFiles/source.xml" afterPath="$PROJECT_DIR$/xmlFiles/source.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/css/style.css" afterPath="$PROJECT_DIR$/assets/css/style.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="citeplagjs.iws" />
@@ -42,7 +40,7 @@
           <file leaf-file-name="app.js" pinned="false" current="true" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/js/app.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="175" column="13" selection-start="6109" selection-end="6109" vertical-scroll-proportion="2.1612904" vertical-offset="1140" max-vertical-offset="3636">
+                <state line="174" column="0" selection-start="6059" selection-end="6059" vertical-scroll-proportion="0.47741935" vertical-offset="2688" max-vertical-offset="3960">
                   <folding />
                 </state>
               </provider>
@@ -55,7 +53,7 @@
           <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/index.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="57" column="50" selection-start="2585" selection-end="2585" vertical-scroll-proportion="0.0" vertical-offset="424" max-vertical-offset="1314">
+                <state line="57" column="50" selection-start="2585" selection-end="2585" vertical-scroll-proportion="-22.296297" vertical-offset="424" max-vertical-offset="1314">
                   <folding />
                 </state>
               </provider>
@@ -79,22 +77,19 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="source.xml" pinned="false" current="false" current-in-tab="true">
+          <file leaf-file-name="source.xml" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/xmlFiles/source.xml">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="161" column="13" selection-start="6382" selection-end="6383" vertical-scroll-proportion="0.5496183" vertical-offset="0" max-vertical-offset="917">
-                  <folding>
-                    <element signature="tag#front#0;tag#article#0" expanded="false" />
-                    <element signature="tag#back#0;tag#article#0" expanded="false" />
-                  </folding>
+                <state line="186" column="24" selection-start="7411" selection-end="7411" vertical-scroll-proportion="0.0" vertical-offset="2898" max-vertical-offset="13104">
+                  <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="suspicious.xml" pinned="false" current="false" current-in-tab="false">
+          <file leaf-file-name="suspicious.xml" pinned="false" current="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/xmlFiles/suspicious.xml">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="40" column="0" selection-start="7721" selection-end="7721" vertical-scroll-proportion="0.0" vertical-offset="720" max-vertical-offset="828">
+                <state line="40" column="0" selection-start="7721" selection-end="7721" vertical-scroll-proportion="0.785169" vertical-offset="0" max-vertical-offset="917">
                   <folding />
                 </state>
               </provider>
@@ -152,6 +147,7 @@
         <option value="$USER_HOME$/Dropbox/CitePlagJS_Projektordner/Infomaterial/collusions/collusion1/source.xml" />
         <option value="$PROJECT_DIR$/assets/css/style.css" />
         <option value="$PROJECT_DIR$/xmlFiles/source.xml" />
+        <option value="$PROJECT_DIR$/js/libs/bootstrap.js" />
         <option value="$PROJECT_DIR$/js/app.js" />
       </list>
     </option>
@@ -377,11 +373,11 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32916668" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout>
     <layout-to-restore>
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -400,9 +396,9 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.18016529" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18402204" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout-to-restore>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -424,13 +420,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/xmlFiles/suspicious.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="0" selection-start="39" selection-end="39" vertical-scroll-proportion="0.0" vertical-offset="18" max-vertical-offset="828">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/assets/css/style.css">
       <provider selected="true" editor-type-id="text-editor">
         <state line="73" column="12" selection-start="1186" selection-end="1186" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1458">
@@ -469,10 +458,7 @@
     <entry file="file://$PROJECT_DIR$/xmlFiles/source.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="239" column="10" selection-start="20445" selection-end="20445" vertical-scroll-proportion="0.0" vertical-offset="4302" max-vertical-offset="14580">
-          <folding>
-            <element signature="tag#front#0;tag#article#0" expanded="false" />
-            <element signature="tag#back#0;tag#article#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -521,10 +507,7 @@
     <entry file="file://$PROJECT_DIR$/xmlFiles/source.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="239" column="10" selection-start="20445" selection-end="20445" vertical-scroll-proportion="0.0" vertical-offset="4302" max-vertical-offset="14580">
-          <folding>
-            <element signature="tag#front#0;tag#article#0" expanded="false" />
-            <element signature="tag#back#0;tag#article#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -682,11 +665,11 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
-      <provider editor-type-id="MarkdownPreviewEditor">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="901" />
+      </provider>
+      <provider editor-type-id="MarkdownPreviewEditor">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/assets/css/xmlToHTML.css">
@@ -723,16 +706,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/xmlFiles/suspicious.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="40" column="0" selection-start="7721" selection-end="7721" vertical-scroll-proportion="0.0" vertical-offset="720" max-vertical-offset="828">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="57" column="50" selection-start="2585" selection-end="2585" vertical-scroll-proportion="0.0" vertical-offset="424" max-vertical-offset="1314">
+        <state line="57" column="50" selection-start="2585" selection-end="2585" vertical-scroll-proportion="-22.296297" vertical-offset="424" max-vertical-offset="1314">
           <folding />
         </state>
       </provider>
@@ -740,13 +716,6 @@
     <entry file="file://$USER_HOME$/Dropbox/CitePlagJS_Projektordner/Infomaterial/collusions/collusion1/source.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="210" column="4" selection-start="17558" selection-end="20123" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="594" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/css/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="74" column="4" selection-start="1277" selection-end="1277" vertical-scroll-proportion="0.0" vertical-offset="456" max-vertical-offset="1476">
-          <folding />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/xmlFiles/collusion.xml">
@@ -758,17 +727,35 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/xmlFiles/source.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="161" column="13" selection-start="6382" selection-end="6383" vertical-scroll-proportion="0.5496183" vertical-offset="0" max-vertical-offset="917">
-          <folding>
-            <element signature="tag#front#0;tag#article#0" expanded="false" />
-            <element signature="tag#back#0;tag#article#0" expanded="false" />
-          </folding>
+        <state line="186" column="24" selection-start="7411" selection-end="7411" vertical-scroll-proportion="0.0" vertical-offset="2898" max-vertical-offset="13104">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/css/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="74" column="4" selection-start="1277" selection-end="1277" vertical-scroll-proportion="0.0" vertical-offset="456" max-vertical-offset="1476">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/libs/bootstrap.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="36" column="0" selection-start="0" selection-end="54989" vertical-scroll-proportion="0.2944384" vertical-offset="378" max-vertical-offset="35082">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xmlFiles/suspicious.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="40" column="0" selection-start="7721" selection-end="7721" vertical-scroll-proportion="0.785169" vertical-offset="0" max-vertical-offset="917">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/js/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="175" column="13" selection-start="6109" selection-end="6109" vertical-scroll-proportion="2.1612904" vertical-offset="1140" max-vertical-offset="3636">
+        <state line="174" column="0" selection-start="6059" selection-end="6059" vertical-scroll-proportion="0.47741935" vertical-offset="2688" max-vertical-offset="3960">
           <folding />
         </state>
       </provider>
