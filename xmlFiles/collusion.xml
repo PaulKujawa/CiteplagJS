@@ -19,7 +19,7 @@
 		<feature id="cite1" type="citation" start="1723" length="7" value="[cite1]"/>
 		<feature id="cp1" type="paragraph" start="500" length="1234"/>
 
-		<feature id="pattern1" order="fix" type="foo" start="1" length="3">
+		<feature id="pattern1" order="fix" type="foo" start="33" length="27">
 			<link ref="#cite5" />
 			<link ref="#cite3" />
 			<link ref="#cite1" />

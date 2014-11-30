@@ -6,7 +6,7 @@ $(function() {
 
     var collusionJSON, compareFilesXML = new Array(), matchTypes = new Object(), //[mType][m][d]['start']
         loadXMLFile, loadCompareXML, parseCollusionXML, findMatchFeatures,
-        createTab, convertXMLtoHTML, convertBetweenFeatures, orderFeaturePos, render;
+        createTab, convertXMLtoHTML, orderFeaturePos, render, getNextFeaturePos;
 
 
     inputTag.change(function() {
@@ -41,8 +41,8 @@ $(function() {
 
             success: function(file) {
                 var xmlString = (new XMLSerializer()).serializeToString(file),
-                    startPos    = xmlString.indexOf('<body>')+ 6,
-                    length      = xmlString.indexOf('</body>') - startPos;
+                    startPos  = xmlString.indexOf('<body>')+ 6,
+                    length    = xmlString.indexOf('</body>') - startPos;
 
                 compareFilesXML[i] = xmlString.substr(startPos, length);
                 if (i === 0)
@@ -79,10 +79,10 @@ $(function() {
             $.each(collusionJSON.document, function(k, vDoc) {
                 if (vDoc.id === vRef.document) {
                     $.each(vDoc.feature, function(h, vFeat) {
-                        if (vFeat.id === vRef.feature) {
+                        if (vFeat.id == vRef.feature) {
                             var doc = new Object(); // todo <link ref> ignored yet
                             doc['start'] = parseInt(vFeat.start);
-                            doc['end']   = doc['start'] + parseInt(vFeat.length);
+                            doc['end']   = parseInt(vFeat.start) + parseInt(vFeat.length);
                             if (vFeat.value !== undefined)
                                 doc['value'] = vFeat.value;
                             docs.push(doc);
@@ -97,11 +97,13 @@ $(function() {
 
     render = function() {
         $.each(matchTypes, function(matchTitle, mType) {
-            var featurePositions    = orderFeaturePos(mType, 0),
-                leftFileHTML        = convertXMLtoHTML(compareFilesXML[0], featurePositions);
+            var docNr = 0;
+            var featurePositions    = orderFeaturePos(mType, docNr),
+                leftFileHTML        = convertXMLtoHTML(featurePositions, mType, docNr, matchTitle);
 
-            featurePositions        = orderFeaturePos(mType, 1);
-            var rightFileHTML       = convertXMLtoHTML(compareFilesXML[1], featurePositions);
+            docNr++;
+            featurePositions        = orderFeaturePos(mType, docNr);
+            var rightFileHTML       = convertXMLtoHTML(featurePositions, mType, docNr, matchTitle);
 
             createTab(matchTitle, leftFileHTML, rightFileHTML);
         });
@@ -122,80 +124,68 @@ $(function() {
         positions.sort(function(a, b) {
             return b-a;
         });
-
         return positions;
     };
 
 
-    convertXMLtoHTML = function(xmlString, featurePositions) { //  todo what to do with features?!
-        var highPos = xmlString.length-1,
-            lowPos  = highPos;
+    convertXMLtoHTML = function(featurePositions, matches, docNr, matchTitle) {
+        var xmlString             = compareFilesXML[docNr],
+        nextFeaturePos          = getNextFeaturePos(featurePositions),
+        activeFeatures          = new Array(),
+        activeFeatCnt           = 0,
+        closingPos              = null;
 
-        while(lowPos !== 0) {
-            if ($.isEmptyObject(featurePositions))
-                lowPos = 0;
-            else {
-                lowPos = featurePositions[0];
-                featurePositions.splice(0, 1); // removes 1 item from index 0
+        for(var highPos = xmlString.length-1; highPos >= 0; highPos--) {
+            if (xmlString[highPos] === '>')
+                closingPos = highPos;
+
+            else if (xmlString[highPos] === '<') {
+                if (! $.isEmptyObject(activeFeatures)) // add connecting feature div, right of div
+                    xmlString = xmlString.substr(0, closingPos+1) +'<div class="feature '+activeFeatures.pop()+'">'+ xmlString.substr(closingPos+2);
+
+                if (xmlString[highPos+1] === '/') // replace closing tag
+                    xmlString     = xmlString.substr(0, highPos) + '</div>' + xmlString.substr(closingPos+1);
+
+                else { // replace opening tag
+                    var xmlTag = xmlString.substr(highPos, closingPos-highPos+1),
+                        length = xmlTag.indexOf(' '); // would cut off attr
+                    if (length == -1)
+                        length = closingPos-highPos;
+
+                    xmlTag    = xmlString.substr(highPos+1, length-1);
+                    xmlString = xmlString.substr(0, highPos) + '<div class="'+xmlTag+'">' + xmlString.substr(closingPos+1);
+                }
+
+                if (! $.isEmptyObject(activeFeatures)) // add connecting feature div, left of div
+                    xmlString = xmlString.substr(0, highPos+1) +"</div>"+ xmlString.substr(highPos+2);
+
+            } else if (highPos == nextFeaturePos) { // add feature tag
+                $.each(matches, function(i, match) {
+                    if (match[docNr]['start'] == highPos) {
+                        xmlString = xmlString.substr(0, highPos) +'<div class="feature '+activeFeatures.pop()+'">'+ xmlString.substr(highPos);
+
+                    } else if (match[docNr]['end'] == highPos) {
+                        xmlString = xmlString.substr(0, highPos+1) +"</div>"+ xmlString.substr(highPos+2);
+                        activeFeatures.push(matchTitle+activeFeatCnt);
+                        activeFeatCnt++;
+                    }
+                });
+                nextFeaturePos = getNextFeaturePos(featurePositions);
             }
-
-            var excerpt = xmlString.substr(lowPos, highPos-lowPos+1);
-            xmlString   = xmlString.substr(0, lowPos) + convertBetweenFeatures(excerpt) +
-                          xmlString.substr(highPos+1, xmlString.length-highPos-1);
-            highPos = lowPos-1;
         }
         return xmlString;
     };
 
 
-    convertBetweenFeatures = function(excerpt) {
-        var closingPos = null;
-
-        for(var highPos = excerpt.length-1; highPos >= 0; highPos--) {
-            if (excerpt[highPos] === '>') {
-                closingPos = highPos;
-
-            } else if (excerpt[highPos] === '<') {
-                if (excerpt[highPos+1] === '/') {
-                    excerpt     = excerpt.substr(0, highPos) + '</div>' +
-                                  excerpt.substr(closingPos+1);
-                    // todo set inDiv = true;
-
-
-                } else {
-                    var xmlTag = excerpt.substr(highPos, closingPos-highPos+1),
-                        length = xmlTag.indexOf(' '); // would cut off attr
-                    if (length == -1)
-                        length = closingPos-highPos;
-
-                    xmlTag  = excerpt.substr(highPos+1, length-1);
-                    excerpt = excerpt.substr(0, highPos) + '<div class="'+xmlTag+'">' +
-                              excerpt.substr(closingPos+1);
-                    // todo if (inDiv) attach div with class at clPos
-
-                }
-
-            /*} else if (highPos == opPos || highPos == clPos) {
-                if (highPos == opPos) {
-                    excerpt = excerpt.substr(0, opPos) +'<div class="OP">'+ excerpt.substr(opPos);
-                } else {
-                    excerpt = excerpt.substr(0, clPos+1) +'</div>'+ excerpt.substr(clPos);
-                    // todo if (inDiv)
-                     //todo save clPos+1+6 (6=</div>)
-                     //todo save specific pattern class
-
-                }*/
-            }
+    getNextFeaturePos = function(featurePositions) {
+        var pos = null;
+        if (! $.isEmptyObject(featurePositions)) {
+            pos = featurePositions[0];
+            featurePositions.splice(0, 1); // removes 1 item from index 0
         }
-        return excerpt;
-    };
+        return pos;
+    }
 
-    /*var opPos = 10,
-        clPos = 30;
-    console.log(convertBetweenFeatures(
-        '<h1>my heaDLINE</h1>' +
-            '<p>ABCDEFGHijklmnopqrstuvwxyz</p>'
-    ));*/
 
     createTab = function(patternTitle, leftFileHTML, rightFileHTML) {
         var tab = $(

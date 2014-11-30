@@ -66,8 +66,13 @@ button {
     background-color: aliceblue;
 }
 
+#renderDiv .feature {
+    background-color: skyblue;
+}
+
 #renderDiv .canvas {
     width: 20%;
+    overflow-y: auto;
     background-color: inherit;
 }
 
