@@ -6,7 +6,7 @@ $(function() {
 
     var collusionJSON, compareFilesXML = new Array(), matchTypes = new Object(), //[mType][m][d]['start']
         loadXMLFile, loadCompareXML, parseCollusionXML, findMatchFeatures,
-        createTab, convertXMLtoHTML, orderFeaturePos, render, getNextFeaturePos;
+        createTab, convertXMLtoHTML, orderFeaturePos, render, getNextFeaturePos, connectFeatureOpening;
 
 
     inputTag.change(function() {
@@ -132,48 +132,61 @@ $(function() {
         var xmlString             = compareFilesXML[docNr],
         nextFeaturePos          = getNextFeaturePos(featurePositions),
         activeFeatures          = new Array(),
-        activeFeatCnt           = 0,
         closingPos              = null;
 
-        for(var highPos = xmlString.length-1; highPos >= 0; highPos--) {
-            if (xmlString[highPos] === '>')
-                closingPos = highPos;
+        for(var pos = xmlString.length-1; pos >= 0; pos--) {
+            if (xmlString[pos] === '>') {
+                closingPos = pos;
+                if (! $.isEmptyObject(activeFeatures))
+                    xmlString = connectFeatureOpening(xmlString, activeFeatures, closingPos);
 
-            else if (xmlString[highPos] === '<') {
-                if (! $.isEmptyObject(activeFeatures)) // add connecting feature div, right of div
-                    xmlString = xmlString.substr(0, closingPos+1) +'<div class="feature '+activeFeatures.pop()+'">'+ xmlString.substr(closingPos+2);
 
-                if (xmlString[highPos+1] === '/') // replace closing tag
-                    xmlString     = xmlString.substr(0, highPos) + '</div>' + xmlString.substr(closingPos+1);
-
-                else { // replace opening tag
-                    var xmlTag = xmlString.substr(highPos, closingPos-highPos+1),
+            } else if (xmlString[pos] === '<') { // replace tag
+                if (xmlString[pos+1] === '/')
+                    xmlString     = xmlString.substr(0, pos) + '</div>' + xmlString.substr(closingPos+1);
+                else {
+                    var xmlTag = xmlString.substr(pos, closingPos-pos+1),
                         length = xmlTag.indexOf(' '); // would cut off attr
                     if (length == -1)
-                        length = closingPos-highPos;
-
-                    xmlTag    = xmlString.substr(highPos+1, length-1);
-                    xmlString = xmlString.substr(0, highPos) + '<div class="'+xmlTag+'">' + xmlString.substr(closingPos+1);
+                        length = closingPos-pos;
+                    xmlTag    = xmlString.substr(pos+1, length-1);
+                    xmlString = xmlString.substr(0, pos) + '<div class="'+xmlTag+'">' + xmlString.substr(closingPos+1);
                 }
 
-                if (! $.isEmptyObject(activeFeatures)) // add connecting feature div, left of div
-                    xmlString = xmlString.substr(0, highPos+1) +"</div>"+ xmlString.substr(highPos+2);
+                if (! $.isEmptyObject(activeFeatures)) // connectFeatureClosing
+                    xmlString = xmlString.substr(0, pos) +"</div>"+ xmlString.substr(pos);
 
-            } else if (highPos == nextFeaturePos) { // add feature tag
+
+            } else if (pos == nextFeaturePos) {
                 $.each(matches, function(i, match) {
-                    if (match[docNr]['start'] == highPos) {
-                        xmlString = xmlString.substr(0, highPos) +'<div class="feature '+activeFeatures.pop()+'">'+ xmlString.substr(highPos);
+                    if (! $.isEmptyObject(activeFeatures))
+                        xmlString = connectFeatureOpening(xmlString, activeFeatures, pos);
 
-                    } else if (match[docNr]['end'] == highPos) {
-                        xmlString = xmlString.substr(0, highPos+1) +"</div>"+ xmlString.substr(highPos+2);
-                        activeFeatures.push(matchTitle+activeFeatCnt);
-                        activeFeatCnt++;
+                    if (match[docNr]['start'] == pos) { // todo pop in right order
+                        xmlString = xmlString.substr(0, pos) +'<div class="feature '+activeFeatures.pop()+'">'+ xmlString.substr(pos);
+                    } else if (match[docNr]['end'] == pos) {
+                        xmlString = xmlString.substr(0, pos+1) +"</div>"+ xmlString.substr(pos+1);
+                        activeFeatures.push(matchTitle+activeFeatures.length);
                     }
+
+                    if (! $.isEmptyObject(activeFeatures)) // connectFeatureClosing
+                        xmlString = xmlString.substr(0, pos) +"</div>"+ xmlString.substr(pos);
+
                 });
                 nextFeaturePos = getNextFeaturePos(featurePositions);
             }
         }
         return xmlString;
+    };
+
+
+    connectFeatureOpening = function(xmlString, activeFeatures, pos) {
+        var classes = "";
+        $.each(activeFeatures, function(i, featClass) {
+            classes += featClass + " ";
+        });
+        classes = classes.slice(0, -1);
+        return xmlString.substr(0, pos+1) +'<div class="feature '+classes+'">'+ xmlString.substr(pos+1);
     };
 
 
