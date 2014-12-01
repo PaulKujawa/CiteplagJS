@@ -4,7 +4,7 @@ body {
     font-size: 16px;
 }
 
-h1, h2, h3 { color: #317eac; }
+h1, h2, h3, a { color: #317eac; }
 
 .navbar {
     background-image: linear-gradient(#1c4587, #2a508e);
@@ -66,8 +66,12 @@ button {
     background-color: aliceblue;
 }
 
+#renderDiv .leftArea div, #renderDiv .rightArea div {
+    display: inline;
+}
+
 #renderDiv .feature {
-    background-color: #034482;
+    background-color: rgba(3, 68, 130, 0.13);
 }
 
 #renderDiv .canvas {

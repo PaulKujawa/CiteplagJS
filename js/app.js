@@ -5,17 +5,26 @@ $(function() {
             patternPanels   = $('#patternPanels');
 
     var collusionJSON, compareFilesXML = new Array(), matchTypes = new Object(), //[mType][m][d]['start']
-        loadXMLFile, loadCompareXML, parseCollusionXML, findMatchFeatures, replaceXMLTag,
+        loadXMLFile, loadCompareXML, parseCollusionXML, findMatchFeatures, replaceXMLTag, resetMarkup,
         createTab, convertXMLtoHTML, orderFeaturePos, render, getNextFeaturePos, featureOpeningTag;
 
 
     inputTag.change(function() {
+        resetMarkup();
         var filename = $(this).val();
         loadXMLFile(filename, function(file) {
             collusionJSON = $.xml2json(file);
             loadCompareXML(0);
         });
     });
+
+
+    resetMarkup = function() {
+        patternPanels.empty();
+        renderDiv.empty();
+        compareFilesXML = new Array(); // not necessary since always 2 elements
+        matchTypes = new Object();
+    };
 
 
     loadXMLFile = function(filename, callback) {
@@ -165,7 +174,7 @@ $(function() {
                         var startPos = match[docNr]['start'];
                         if ( isNaN(activeFeatures[startPos]) )
                             activeFeatures[startPos] = new Array();
-                        activeFeatures[startPos].push(matchTitle+activeFeatures.length);
+                        activeFeatures[startPos].push(matchTitle+activeFeatures[startPos].length);
                     }
                 });
                 nextFeaturePos = getNextFeaturePos(featurePositions);
