@@ -67,15 +67,11 @@ button {
 }
 
 #renderDiv .feature {
-    background-color: skyblue;
+    background-color: #034482;
 }
 
 #renderDiv .canvas {
     width: 20%;
     overflow-y: auto;
     background-color: inherit;
-}
-
-#renderDiv .leftArea *, #renderDiv .rightArea * {
-    margin: 0 1px; /* looks like space */
 }

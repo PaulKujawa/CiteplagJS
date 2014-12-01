@@ -6,7 +6,7 @@ $(function() {
 
     var collusionJSON, compareFilesXML = new Array(), matchTypes = new Object(), //[mType][m][d]['start']
         loadXMLFile, loadCompareXML, parseCollusionXML, findMatchFeatures,
-        createTab, convertXMLtoHTML, orderFeaturePos, render, getNextFeaturePos, connectFeatureOpening;
+        createTab, convertXMLtoHTML, orderFeaturePos, render, getNextFeaturePos, featureOpeningTag;
 
 
     inputTag.change(function() {
@@ -129,7 +129,7 @@ $(function() {
 
 
     convertXMLtoHTML = function(featurePositions, matches, docNr, matchTitle) {
-        var xmlString             = compareFilesXML[docNr],
+        var xmlString           = compareFilesXML[docNr],
         nextFeaturePos          = getNextFeaturePos(featurePositions),
         activeFeatures          = new Array(),
         closingPos              = null;
@@ -137,8 +137,10 @@ $(function() {
         for(var pos = xmlString.length-1; pos >= 0; pos--) {
             if (xmlString[pos] === '>') {
                 closingPos = pos;
-                if (! $.isEmptyObject(activeFeatures))
-                    xmlString = connectFeatureOpening(xmlString, activeFeatures, closingPos);
+                if (! $.isEmptyObject(activeFeatures)) {
+                    xmlString = featureOpeningTag(xmlString, activeFeatures, closingPos);
+                    console.log("oben");
+                }
 
 
             } else if (xmlString[pos] === '<') { // replace tag
@@ -158,20 +160,22 @@ $(function() {
 
 
             } else if (pos == nextFeaturePos) {
-                $.each(matches, function(i, match) {
-                    if (! $.isEmptyObject(activeFeatures))
-                        xmlString = connectFeatureOpening(xmlString, activeFeatures, pos);
+                if (! $.isEmptyObject(activeFeatures))
+                    xmlString = featureOpeningTag(xmlString, activeFeatures, pos-1);
 
-                    if (match[docNr]['start'] == pos) { // todo pop in right order
-                        xmlString = xmlString.substr(0, pos) +'<div class="feature '+activeFeatures.pop()+'">'+ xmlString.substr(pos);
+                $.each(matches, function(i, match) {
+                    if (match[docNr]['start'] == pos) {
+                        activeFeatures.pop(); // todo pop in right order
+                        if (! $.isEmptyObject(activeFeatures)) // connectFeatureClosing
+                            xmlString = xmlString.substr(0, pos) +"</div>"+ xmlString.substr(pos);
+
+
                     } else if (match[docNr]['end'] == pos) {
                         xmlString = xmlString.substr(0, pos+1) +"</div>"+ xmlString.substr(pos+1);
+                        if (! $.isEmptyObject(activeFeatures)) // connectFeatureClosing
+                            xmlString = xmlString.substr(0, pos) +"</div>"+ xmlString.substr(pos);
                         activeFeatures.push(matchTitle+activeFeatures.length);
                     }
-
-                    if (! $.isEmptyObject(activeFeatures)) // connectFeatureClosing
-                        xmlString = xmlString.substr(0, pos) +"</div>"+ xmlString.substr(pos);
-
                 });
                 nextFeaturePos = getNextFeaturePos(featurePositions);
             }
@@ -180,7 +184,7 @@ $(function() {
     };
 
 
-    connectFeatureOpening = function(xmlString, activeFeatures, pos) {
+    featureOpeningTag = function(xmlString, activeFeatures, pos) {
         var classes = "";
         $.each(activeFeatures, function(i, featClass) {
             classes += featClass + " ";
