@@ -5,7 +5,7 @@
 		<feature id="cite5" type="citation" start="3002" length="18" value="cite5"/>
 		<feature id="cite3" type="citation" start="4434" length="33" value="cite3"/>
 		<feature id="cite5_1" type="citation" start="4434" length="33" value="cite5"/>
-		<feature id="cp1" type="paragraph" start="2390" length="1234"/>
+		<feature id="cp1" type="paragraph" start="2390" length="1212"/>
 
 		<feature id="pattern1" type="citation-chunk" start="2778" length="4467">
 			<link ref="#cite1" />
