@@ -2,11 +2,14 @@ $(function() {
     const   xmlFolder       =   "xmlFiles/",
             inputTag        = $('#collusionFileInput'),
             renderDiv       = $('#renderDiv'),
-            patternPanels   = $('#patternPanels');
+            patternPanels   = $('#patternPanels'),
+            detailsDiv      = $('aside'),
+            section         = $('section');
 
     var collusionJSON, compareFilesXML = new Array(), matchTypes = new Object(), //[mType][m][d]['start']
         loadXMLFile, loadCompareXML, parseCollusionXML, findMatchFeatures, replaceXMLTag, resetMarkup,
-        createTab, convertXMLtoHTML, orderFeaturePos, render, getNextFeaturePos, featureOpeningTag;
+        createTab, convertXMLtoHTML, orderFeaturePos, render, getNextFeaturePos, featureOpeningTag,
+        parseFeatureDetail;
 
 
     inputTag.change(function() {
@@ -79,7 +82,6 @@ $(function() {
 
 
     findMatchFeatures = function(vMatch) {
-        if (vMatch.detail !== undefined) {/* todo so what? */}
         if ( isNaN(matchTypes[vMatch.type]) )
             matchTypes[vMatch.type] = new Array();
 
@@ -92,8 +94,13 @@ $(function() {
                             var doc = new Object(); // todo <link ref> ignored yet
                             doc['start'] = parseInt(vFeat.start);
                             doc['end']   = parseInt(vFeat.start) + parseInt(vFeat.length);
+
                             if (vFeat.value !== undefined)
                                 doc['value'] = vFeat.value;
+
+                            if (vMatch.detail !== undefined)
+                                doc['detail'] = parseFeatureDetail(vMatch.detail);
+
                             docs.push(doc);
                         }
                     });
@@ -101,6 +108,28 @@ $(function() {
             });
         });
         matchTypes[vMatch.type].push(docs);
+    };
+
+
+    parseFeatureDetail = function(detail) {
+        var div = "";
+
+        if (detail.detail.name === undefined)
+            detail = detail.detail; // details
+
+        $.each(detail, function(i, vDetail) {
+            if (vDetail.name !== undefined)
+                div += '<div>' + vDetail.name;
+
+            if (vDetail.text !== undefined)
+                div += ': ' + vDetail.text;
+
+            if (vDetail.detail !== undefined) // recursive for nested details
+                div += parseFeatureDetail(vDetail);
+
+            div += '</div>';
+        });
+        return div;
     };
 
 
@@ -138,43 +167,47 @@ $(function() {
 
 
     convertXMLtoHTML = function(featurePositions, matches, docNr, matchTitle) {
-        var xmlString   = compareFilesXML[docNr],
-        nextFeaturePos  = getNextFeaturePos(featurePositions),
-        activeFeatures  = new Object(), // activeFeatures[position][i]
-        closingPos      = null;
+        var xmlString       = compareFilesXML[docNr],
+        nextFeaturePos      = getNextFeaturePos(featurePositions),
+        activeFeatClasses   = new Object(), // activeFeatClasses[position][i]
+        closingPos          = null;
 
         for(var pos = xmlString.length-1; pos >= 0; pos--) {
             if (xmlString[pos] === '>') {
                 closingPos = pos;
-                if (! $.isEmptyObject(activeFeatures))
-                    xmlString = featureOpeningTag(xmlString, activeFeatures, closingPos);
+                if (! $.isEmptyObject(activeFeatClasses))
+                    xmlString = featureOpeningTag(xmlString, activeFeatClasses, closingPos);
 
             } else if (xmlString[pos] === '<') {
                 xmlString = replaceXMLTag(xmlString, pos, closingPos);
-                if (! $.isEmptyObject(activeFeatures))
+                if (! $.isEmptyObject(activeFeatClasses))
                     xmlString = xmlString.substr(0, pos) +"</div>"+ xmlString.substr(pos);
 
 
             } else if (pos == nextFeaturePos) {
-                if (! $.isEmptyObject(activeFeatures))
-                    xmlString = featureOpeningTag(xmlString, activeFeatures, pos-1);
+                if (! $.isEmptyObject(activeFeatClasses))
+                    xmlString = featureOpeningTag(xmlString, activeFeatClasses, pos-1);
 
                 $.each(matches, function(i, match) {
                     if (match[docNr]['start'] == pos) {
-                        delete activeFeatures[pos];
+                        delete activeFeatClasses[pos];
 
-                        if (! $.isEmptyObject(activeFeatures))
+                        if (! $.isEmptyObject(activeFeatClasses))
                             xmlString = xmlString.substr(0, pos) +"</div>"+ xmlString.substr(pos);
 
                     } else if (match[docNr]['end'] == pos) {
                         xmlString = xmlString.substr(0, pos+1) +"</div>"+ xmlString.substr(pos+1);
-                        if (! $.isEmptyObject(activeFeatures))
+                        if (! $.isEmptyObject(activeFeatClasses))
                             xmlString = xmlString.substr(0, pos) +"</div>"+ xmlString.substr(pos);
 
                         var startPos = match[docNr]['start'];
-                        if ( isNaN(activeFeatures[startPos]) )
-                            activeFeatures[startPos] = new Array();
-                        activeFeatures[startPos].push(matchTitle+activeFeatures[startPos].length);
+                        if ( isNaN(activeFeatClasses[startPos]) )
+                            activeFeatClasses[startPos] = new Array();
+                        activeFeatClasses[startPos].push(matchTitle+activeFeatClasses[startPos].length);
+                        // todo same construction for details, just .push(match[docNr]['detail'])
+                        // todo check for same strings at this pos, so you don't push them twice
+                        // todo startPos group needs to be generated in parse function
+                        //  -> feat has same class in both files
                     }
                 });
                 nextFeaturePos = getNextFeaturePos(featurePositions);
@@ -207,8 +240,22 @@ $(function() {
                 classes += featClass + " ";
             });
         });
-        classes = classes.slice(0, -1);
-        return xmlString.substr(0, pos+1) +'<div class="feature '+classes+'">'+ xmlString.substr(pos+1);
+        var tag = '<div class="feature '+ classes.slice(0, -1) +'">';
+
+
+        /*tag.mouseover(function() { todo match.detail in this func missing yet
+            section.addClass('col-md-9');
+            detailsDiv.removeClass('hidden');
+            detailsDiv.append('<h3>Feature details</h3>' + parseFeatureDetail(details));
+        });
+
+        tag.mouseleave(function() {
+            section.removeClass('col-md-9');
+            detailsDiv.addClass('hidden');
+            detailsDiv.empty();
+        });*/
+
+        return xmlString.substr(0, pos+1) +tag+ xmlString.substr(pos+1);
     };
 
 

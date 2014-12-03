@@ -79,3 +79,13 @@ button {
     overflow-y: auto;
     background-color: inherit;
 }
+
+.hidden {
+    visibility: hidden;
+}
+
+@media (min-width: 992px) {
+    aside {
+        padding-top: 290px;
+    }
+}
