@@ -6,10 +6,10 @@ $(function() {
             detailsDiv      = $('aside'),
             section         = $('section');
 
-    var collusionJSON, compareFilesXML = new Array(), matchTypes = new Object(), //[mType][m][d]['start']
-        loadXMLFile, loadCompareXML, parseCollusionXML, findMatchFeatures, replaceXMLTag, resetMarkup,
-        createTab, convertXMLtoHTML, orderFeaturePos, render, getNextFeaturePos, featureOpeningTag,
-        parseFeatureDetail;
+    var featDetails = new Object(), compareFilesXML = new Array(), matchTypes = new Object(), //[mType][m][d]['start']
+        collusionJSON, loadXMLFile, loadCompareXML, parseCollusionXML, parseMatches, replaceXMLTag, resetMarkup,
+        createTab, convertXMLtoHTML, orderFeaturePos, renderMatchTypes, getNextFeaturePos, featureOpeningTag,
+        parseMatchDetail, attachDetailsDiv;
 
 
     inputTag.change(function() {
@@ -74,14 +74,15 @@ $(function() {
         if (matches.match.ref === undefined)
             matches = matches.match; // matches
 
+        var cnt = 0;
         $.each(matches, function(i, vMatch) {
-            findMatchFeatures(vMatch);
+            cnt = parseMatches(vMatch, cnt);
         });
-        render();
+        renderMatchTypes();
     };
 
 
-    findMatchFeatures = function(vMatch) {
+    parseMatches = function(vMatch, cnt) {
         if ( isNaN(matchTypes[vMatch.type]) )
             matchTypes[vMatch.type] = new Array();
 
@@ -94,24 +95,27 @@ $(function() {
                             var doc = new Object(); // todo <link ref> ignored yet
                             doc['start'] = parseInt(vFeat.start);
                             doc['end']   = parseInt(vFeat.start) + parseInt(vFeat.length);
+                            doc['class'] = vMatch.type + cnt;
 
                             if (vFeat.value !== undefined)
                                 doc['value'] = vFeat.value;
 
                             if (vMatch.detail !== undefined)
-                                doc['detail'] = parseFeatureDetail(vMatch.detail);
+                                doc['detail'] = parseMatchDetail(vMatch.detail);
 
                             docs.push(doc);
+                            cnt++;
                         }
                     });
                 }
             });
         });
         matchTypes[vMatch.type].push(docs);
+        return cnt;
     };
 
 
-    parseFeatureDetail = function(detail) {
+    parseMatchDetail = function(detail) {
         var div = "";
 
         if (detail.detail.name === undefined)
@@ -125,7 +129,7 @@ $(function() {
                 div += ': ' + vDetail.text;
 
             if (vDetail.detail !== undefined) // recursive for nested details
-                div += parseFeatureDetail(vDetail);
+                div += parseMatchDetail(vDetail);
 
             div += '</div>';
         });
@@ -133,7 +137,7 @@ $(function() {
     };
 
 
-    render = function() {
+    renderMatchTypes = function() {
         $.each(matchTypes, function(matchTitle, mType) {
             var docNr = 0;
             var featurePositions    = orderFeaturePos(mType, docNr),
@@ -146,6 +150,7 @@ $(function() {
             createTab(matchTitle, leftFileHTML, rightFileHTML);
         });
 
+        attachDetailsDiv();
         patternPanels.find('li:first').addClass('active');
         renderDiv.find('div:first').addClass('active');
     };
@@ -203,11 +208,14 @@ $(function() {
                         var startPos = match[docNr]['start'];
                         if ( isNaN(activeFeatClasses[startPos]) )
                             activeFeatClasses[startPos] = new Array();
-                        activeFeatClasses[startPos].push(matchTitle+activeFeatClasses[startPos].length);
-                        // todo same construction for details, just .push(match[docNr]['detail'])
-                        // todo check for same strings at this pos, so you don't push them twice
-                        // todo startPos group needs to be generated in parse function
-                        //  -> feat has same class in both files
+                        var newClass = matchTitle+activeFeatClasses[startPos].length;
+                        activeFeatClasses[startPos].push(newClass);
+
+                        if (match[docNr]['detail'] !== undefined) {
+                            featDetails[newClass] = new Array();
+                            featDetails[newClass].push(match[docNr]['detail']);
+                        }
+                        // todo class needs to be generated in parse function
                     }
                 });
                 nextFeaturePos = getNextFeaturePos(featurePositions);
@@ -242,19 +250,6 @@ $(function() {
         });
         var tag = '<div class="feature '+ classes.slice(0, -1) +'">';
 
-
-        /*tag.mouseover(function() { todo match.detail in this func missing yet
-            section.addClass('col-md-9');
-            detailsDiv.removeClass('hidden');
-            detailsDiv.append('<h3>Feature details</h3>' + parseFeatureDetail(details));
-        });
-
-        tag.mouseleave(function() {
-            section.removeClass('col-md-9');
-            detailsDiv.addClass('hidden');
-            detailsDiv.empty();
-        });*/
-
         return xmlString.substr(0, pos+1) +tag+ xmlString.substr(pos+1);
     };
 
@@ -283,5 +278,25 @@ $(function() {
             .append('<div class="rightArea">'+rightFileHTML+'</div>')
             .append('<div class="clearFloat"></div>');
         renderDiv.append(div);
+    };
+
+
+    attachDetailsDiv = function() {
+        $.each(featDetails, function(theClass, details) {
+            var content = "";
+            $.each(details, function(i, div) {
+               content +=  div;
+            });
+
+            $('.'+theClass).mouseenter(function() {
+                section.addClass('col-md-9');
+                detailsDiv.removeClass('hidden');
+                detailsDiv.append('<h3>Feature details</h3>' + content);
+            });
+
+            $('.'+theClass).mouseleave(function() {
+                 detailsDiv.empty();
+             });
+        });
     };
 });
