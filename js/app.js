@@ -215,7 +215,6 @@ $(function() {
                             featDetails[newClass] = new Array();
                             featDetails[newClass].push(match[docNr]['detail']);
                         }
-                        // todo class needs to be generated in parse function
                     }
                 });
                 nextFeaturePos = getNextFeaturePos(featurePositions);
@@ -285,7 +284,7 @@ $(function() {
         $.each(featDetails, function(theClass, details) {
             var content = "";
             $.each(details, function(i, div) {
-               content +=  div;
+               content +=  div; // todo check for duplicate details
             });
 
             $('.'+theClass).mouseenter(function() {
