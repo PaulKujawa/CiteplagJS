@@ -7,8 +7,8 @@ $(function() {
             section         = $('section'),
             errorDiv        = $('#errorOutput');
 
-    var featDetails = new Object(), compareFilesXML = new Array(), matchTypes = new Object(), //[mType][m][d]['start']
-        collusionJSON, loadXMLFile, loadCompareXML, parseCollusionXML, parseMatches, replaceXMLTag, resetMarkup,
+    var collusionJSON, featDetails = {}, compareFilesXML = [], matchTypes = {}, /*[mType][m][d]['start']*/
+        loadXMLFile, loadCompareXML, parseCollusionXML, parseMatches, replaceXMLTag, resetMarkup,
         createTab, convertXMLtoHTML, orderFeaturePos, renderMatchTypes, getNextFeaturePos, featureOpeningTag,
         parseMatchDetail, attachDetailsDiv, throwErrorMsg;
 
@@ -27,8 +27,8 @@ $(function() {
         patternPanels.empty();
         renderDiv.empty();
         errorDiv.empty().addClass('hidden');
-        compareFilesXML = new Array(); // not necessary since always 2 elements
-        matchTypes = new Object();
+        compareFilesXML = []; // not necessary since always 2 elements
+        matchTypes = {};
     };
 
 
@@ -38,8 +38,8 @@ $(function() {
             url: xmlFolder + filename,
             dataType: "xml",
             success: callback,
-            error: function(xhr, textStatus, error) {
-                console.log( [textStatus, xhr.responseText].join(':') );
+            error: function(xhr) { //, textStatus, error
+                throwErrorMsg( xhr.responseText );
             }
         })
     };
@@ -64,7 +64,7 @@ $(function() {
                 else
                     parseCollusionXML();
             },
-            error: function(xhr, textStatus, error) {
+            error: function(xhr) { //, textStatus, error
                 throwErrorMsg( xhr.responseText );
             }
         });
@@ -86,16 +86,13 @@ $(function() {
 
 
     parseMatches = function(vMatch, cnt) {
-        if ( isNaN(matchTypes[vMatch.type]) )
-            matchTypes[vMatch.type] = new Array();
-
-        var docs = new Array();
+        var docs = [];
         $.each(vMatch.ref, function(j, vRef) {
             $.each(collusionJSON.document, function(k, vDoc) {
                 if (vDoc.id === vRef.document) {
                     $.each(vDoc.feature, function(h, vFeat) {
                         if (vFeat.id == vRef.feature) {
-                            var doc = new Object(); // todo <link ref> ignored yet
+                            var doc = {}; // todo <link ref> ignored yet
                             doc['start'] = parseInt(vFeat.start);
                             doc['end']   = parseInt(vFeat.start) + parseInt(vFeat.length);
                             doc['class'] = vMatch.type + cnt; // cnt doesn't begin for each matchType new
@@ -112,6 +109,10 @@ $(function() {
                 }
             });
         });
+
+        if ( isNaN(matchTypes[vMatch.type]) )
+            matchTypes[vMatch.type] = [];
+
         matchTypes[vMatch.type].push(docs);
     };
 
@@ -158,7 +159,7 @@ $(function() {
 
 
     orderFeaturePos = function(matchType, docCnt) {
-        var positions = new Array();
+        var positions = [];
 
         $.each(matchType, function(m, match) {
             positions.push(match[docCnt]['start']);
@@ -175,7 +176,7 @@ $(function() {
     convertXMLtoHTML = function(featurePositions, matches, docNr) {
         var xmlString       = compareFilesXML[docNr],
         nextFeaturePos      = getNextFeaturePos(featurePositions),
-        activeFeatClasses   = new Object(), // activeFeatClasses[position][i]
+        activeFeatClasses   = {}, // activeFeatClasses[position][i]
         closingPos          = null;
 
         for(var pos = xmlString.length-1; pos >= 0; pos--) {
@@ -210,11 +211,11 @@ $(function() {
                             featClass = match[docNr]['class'];
 
                         if ( isNaN(activeFeatClasses[startPos]) )
-                            activeFeatClasses[startPos] = new Array();
+                            activeFeatClasses[startPos] = [];
                         activeFeatClasses[startPos].push(featClass);
 
                         if (match[docNr]['detail'] !== undefined) {
-                            featDetails[featClass] = new Array();
+                            featDetails[featClass] = [];
                             featDetails[featClass].push(match[docNr]['detail']);
                         }
                     }
@@ -262,7 +263,7 @@ $(function() {
             featurePositions.splice(0, 1); // removes 1 item from index 0
         }
         return pos;
-    }
+    };
 
 
     createTab = function(patternTitle, leftFileHTML, rightFileHTML) {
@@ -289,13 +290,14 @@ $(function() {
                content +=  div; // todo check for duplicate details
             });
 
-            $('.'+theClass).mouseenter(function() {
+            theClass = "."+theClass;
+            $(theClass).mouseenter(function() {
                 section.addClass('col-md-9');
                 detailsDiv.removeClass('hidden');
                 detailsDiv.append('<h3>Feature details</h3>' + content);
             });
 
-            $('.'+theClass).mouseleave(function() {
+            $(theClass).mouseleave(function() {
                  detailsDiv.empty();
              });
         });
