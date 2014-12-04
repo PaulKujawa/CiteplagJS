@@ -7,11 +7,12 @@ $(function() {
             section         = $('section'),
             errorDiv        = $('#errorOutput');
 
-    var collusionJSON, featDetails = {}, compareFilesXML = [], matchTypes = {}, /*[mType][m][d]['start']*/
-        loadXMLFile, loadCompareXML, parseCollusionXML, parseMatches, replaceXMLTag, resetMarkup,
+    var collusionJSON, featDetails = {}, compareFilesXML = [], matchTypes = {}, /*[mType][m][d][f]['start']*/
+        loadXMLFile, loadCompareXML, parseMatches, parseMatch, replaceXMLTag, resetMarkup,
         createTab, convertXMLtoHTML, orderFeaturePos, renderMatchTypes, getNextFeaturePos, featureOpeningTag,
-        parseMatchDetail, attachDetailsDiv, throwErrorMsg;
+        parseMatchDetail, attachDetailsDiv, throwErrorMsg, parseFeature;
 
+    var debug=true;
 
     inputTag.change(function() {
         resetMarkup();
@@ -62,7 +63,7 @@ $(function() {
                 if (i === 0)
                     loadCompareXML(1);
                 else
-                    parseCollusionXML();
+                    parseMatches();
             },
             error: function(xhr) { //, textStatus, error
                 throwErrorMsg( xhr.responseText );
@@ -71,49 +72,75 @@ $(function() {
     };
 
 
-    parseCollusionXML = function() {
+    parseMatches = function() {
         var matches = collusionJSON.alignments; // match
         if (matches.match.ref === undefined)
             matches = matches.match; // matches
 
         var cnt = 0;
-        $.each(matches, function(i, vMatch) {
-            parseMatches(vMatch, cnt);
+        $.each(matches, function(i, match) {
+            if (isNaN(matchTypes[match.type]))
+                matchTypes[match.type] = [];
+            parseMatch(match, cnt);
             cnt++;
         });
         renderMatchTypes();
     };
 
 
-    parseMatches = function(vMatch, cnt) {
-        var docs = [];
-        $.each(vMatch.ref, function(j, vRef) {
-            $.each(collusionJSON.document, function(k, vDoc) {
-                if (vDoc.id === vRef.document) {
-                    $.each(vDoc.feature, function(h, vFeat) {
-                        if (vFeat.id == vRef.feature) {
-                            var doc = {}; // todo <link ref> ignored yet
-                            doc['start'] = parseInt(vFeat.start);
-                            doc['end']   = parseInt(vFeat.start) + parseInt(vFeat.length);
-                            doc['class'] = vMatch.type + cnt; // cnt doesn't begin for each matchType new
+    parseMatch = function(match, cnt) {
+        var documents = [];
+        $.each(match.ref, function(i, ref) {
+            var features = [];
 
-                            if (vFeat.value !== undefined)
-                                doc['value'] = vFeat.value;
+            $.each(collusionJSON.document, function(j, doc) {
+                if (doc.id == ref.document) {
+                    $.each(doc.feature, function(k, feature) {
+                        if (feature.id == ref.feature) {
+                            var parsedFeat = parseFeature(match, feature, cnt);
+                            features.push(parsedFeat);
 
-                            if (vMatch.detail !== undefined)
-                                doc['detail'] = parseMatchDetail(vMatch.detail);
-
-                            docs.push(doc);
+                            if (parsedFeat['group']) {
+                                var nestedCnt = 0;
+                                $.each(feature.link, function(l, linkedId) {
+                                    linkedId = linkedId.ref.substr(1); // cut off char #
+                                    $.each(doc.feature, function(m, linkedFeat) {
+                                        if (linkedFeat.id == linkedId) {
+                                            linkedFeat = parseFeature(match, linkedFeat, cnt+"_"+nestedCnt);
+                                            features.push(linkedFeat);
+                                        }
+                                    });
+                                    nestedCnt++;
+                                });
+                            }
                         }
                     });
                 }
             });
+            documents.push(features);
         });
+        matchTypes[match.type].push(documents);
+    };
 
-        if ( isNaN(matchTypes[vMatch.type]) )
-            matchTypes[vMatch.type] = [];
 
-        matchTypes[vMatch.type].push(docs);
+    parseFeature = function(vMatch, vFeat, cnt) {
+        var feature = {};
+        feature['start'] = parseInt(vFeat.start);
+        feature['end']   = parseInt(vFeat.start) + parseInt(vFeat.length);
+        feature['group'] = vFeat.link !== undefined;
+
+        if (feature['group'])
+            feature['class'] = "group" + cnt;
+        else
+            feature['class'] = "feature" + cnt;
+
+        if (vFeat.value !== undefined)
+            feature['value'] = vFeat.value;
+
+        if (vMatch.detail !== undefined)
+            feature['detail'] = parseMatchDetail(vMatch.detail);
+
+        return feature;
     };
 
 
@@ -140,14 +167,15 @@ $(function() {
 
 
     renderMatchTypes = function() {
-        $.each(matchTypes, function(matchTitle, mType) {
+        $.each(matchTypes, function(matchTitle, matches) {
+
             var docNr = 0;
-            var featurePositions    = orderFeaturePos(mType, docNr),
-                leftFileHTML        = convertXMLtoHTML(featurePositions, mType, docNr);
+            var featurePositions    = orderFeaturePos(matches, docNr),
+                leftFileHTML        = convertXMLtoHTML(featurePositions, matches, docNr);
 
             docNr++;
-            featurePositions        = orderFeaturePos(mType, docNr);
-            var rightFileHTML       = convertXMLtoHTML(featurePositions, mType, docNr);
+            featurePositions        = orderFeaturePos(matches, docNr);
+            var rightFileHTML       = convertXMLtoHTML(featurePositions, matches, docNr);
 
             createTab(matchTitle, leftFileHTML, rightFileHTML);
         });
@@ -158,12 +186,13 @@ $(function() {
     };
 
 
-    orderFeaturePos = function(matchType, docCnt) {
+    orderFeaturePos = function(matches, docNr) {
         var positions = [];
-
-        $.each(matchType, function(m, match) {
-            positions.push(match[docCnt]['start']);
-            positions.push(match[docCnt]['end']);
+        $.each(matches, function(m, match) {
+            $.each(match[docNr], function(f, feature) {
+                positions.push(feature['start']);
+                positions.push(feature['end']);
+            });
         });
 
         positions.sort(function(a, b) {
@@ -179,7 +208,7 @@ $(function() {
         activeFeatClasses   = {}, // activeFeatClasses[position][i]
         closingPos          = null;
 
-        for(var pos = xmlString.length-1; pos >= 0; pos--) {
+        for (var pos = xmlString.length-1; pos >= 0; pos--) {
             if (xmlString[pos] === '>') {
                 closingPos = pos;
                 if (! $.isEmptyObject(activeFeatClasses))
@@ -196,33 +225,36 @@ $(function() {
                     xmlString = featureOpeningTag(xmlString, activeFeatClasses, pos-1);
 
                 $.each(matches, function(i, match) {
-                    if (match[docNr]['start'] == pos) {
-                        delete activeFeatClasses[pos];
+                    $.each(match[docNr], function(f, feat) {
+                        if (feat['start'] == pos) {
+                            delete activeFeatClasses[pos];
 
-                        if (! $.isEmptyObject(activeFeatClasses))
-                            xmlString = xmlString.substr(0, pos) +"</div>"+ xmlString.substr(pos);
+                            if (! $.isEmptyObject(activeFeatClasses))
+                                xmlString = xmlString.substr(0, pos) +"</div>"+ xmlString.substr(pos);
 
-                    } else if (match[docNr]['end'] == pos) {
-                        xmlString = xmlString.substr(0, pos+1) +"</div>"+ xmlString.substr(pos+1);
-                        if (! $.isEmptyObject(activeFeatClasses))
-                            xmlString = xmlString.substr(0, pos) +"</div>"+ xmlString.substr(pos);
+                        } else if (feat['end'] == pos) {
+                            xmlString = xmlString.substr(0, pos+1) +"</div>"+ xmlString.substr(pos+1);
+                            if (! $.isEmptyObject(activeFeatClasses))
+                                xmlString = xmlString.substr(0, pos) +"</div>"+ xmlString.substr(pos);
 
-                        var startPos = match[docNr]['start'],
-                            featClass = match[docNr]['class'];
+                            var startPos = feat['start'],
+                                featClass = feat['class'];
 
-                        if ( isNaN(activeFeatClasses[startPos]) )
-                            activeFeatClasses[startPos] = [];
-                        activeFeatClasses[startPos].push(featClass);
+                            if ( isNaN(activeFeatClasses[startPos]) )
+                                activeFeatClasses[startPos] = [];
+                            activeFeatClasses[startPos].push(featClass);
 
-                        if (match[docNr]['detail'] !== undefined) {
-                            featDetails[featClass] = [];
-                            featDetails[featClass].push(match[docNr]['detail']);
+                            if (feat['detail'] !== undefined) {
+                                featDetails[featClass] = [];
+                                featDetails[featClass].push(feat['detail']);
+                            }
                         }
-                    }
+                    });
                 });
                 nextFeaturePos = getNextFeaturePos(featurePositions);
             }
         }
+        debug = false;
         return xmlString;
     };
 
