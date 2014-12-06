@@ -79,7 +79,7 @@ $(function() {
 
         var cnt = 0;
         $.each(matches, function(i, match) {
-            if (isNaN(matchTypes[match.type]))
+            if (matchTypes[match.type] === undefined)
                 matchTypes[match.type] = [];
             parseMatch(match, cnt);
             cnt++;
@@ -102,10 +102,12 @@ $(function() {
 
                             if (parsedFeat['group']) {
                                 var nestedCnt = 0;
-                                $.each(feature.link, function(l, linkedId) {
-                                    linkedId = linkedId.substr(1); // cut off char #
+                                $.each(feature.link, function(l, id) {
+                                    if (id.ref !== undefined)
+                                        id = id.ref;
+                                    id = id.substr(1); // cut off char #
                                     $.each(doc.feature, function(m, linkedFeat) {
-                                        if (linkedFeat.id == linkedId) {
+                                        if (linkedFeat.id == id) {
                                             linkedFeat = parseFeature(match, linkedFeat, cnt+"_"+nestedCnt);
                                             features.push(linkedFeat);
                                         }
@@ -217,15 +219,14 @@ $(function() {
             } else if (xmlString[pos] === '<') {
                 xmlString = replaceXMLTag(xmlString, pos, closingPos);
                 if (! $.isEmptyObject(activeFeatClasses))
-                    xmlString = xmlString.substr(0, pos) +"</div>"+ xmlString.substr(pos);
+                    xmlString = xmlString.substr(0, pos) +"#O_CD</div>"+ xmlString.substr(pos);
 
 
             } else if (pos == nextFeaturePos) {
                 $.each(matches, function(i, match) {
                     $.each(match[docNr], function(f, feat) {
                         if (feat['start'] == pos) {
-                            if (! $.isEmptyObject(activeFeatClasses))
-                                xmlString = featureOpeningTag(xmlString, activeFeatClasses, pos-1);
+                            xmlString = featureOpeningTag(xmlString, activeFeatClasses, pos-1);
                             delete activeFeatClasses[pos];
                             if (! $.isEmptyObject(activeFeatClasses))
                                 xmlString = xmlString.substr(0, pos) +"</div>"+ xmlString.substr(pos);
@@ -243,7 +244,7 @@ $(function() {
                             var startPos  = feat['start'],
                                 featClass = feat['class'];
 
-                            if ( isNaN(activeFeatClasses[startPos]) )
+                            if ( activeFeatClasses[startPos] === undefined )
                                 activeFeatClasses[startPos] = [];
                             activeFeatClasses[startPos].push(featClass);
 

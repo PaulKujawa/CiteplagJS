@@ -8,9 +8,9 @@
 		<feature id="cp1" type="paragraph" start="2390" length="1212"/>
 
 		<feature id="pattern1" type="citation-chunk" start="2778" length="4467">
+            <link ref="#cite1" />
             <link ref="#cite5" />
-            <!--<link ref="#cite1" />
-            <link ref="#cite3" />-->
+            <!--<link ref="#cite3" />-->
 		</feature>
 	</document>
 	<document id="8af0ang093" src="suspicious.xml" original="suspicious.txt" format="txt">
@@ -20,32 +20,32 @@
 		<feature id="cp1" type="paragraph" start="500" length="1234"/>
 
 		<feature id="pattern1" order="fix" type="foo" start="890" length="840">
+			<link ref="#cite5" />
 			<link ref="#cite3" />
-			<!--<link ref="#cite5" />
-			<link ref="#cite1" />-->
-		</feature>
-	</document>
-	<alignments>
-		<match score="0.76" type="citation">
-			<ref document="a9d87ah3f9a8h3f" feature="pattern1" />
-			<ref document="8af0ang093" feature="pattern1" />
+            <!--<link ref="#cite1" />-->
+        </feature>
+    </document>
+    <alignments>
+        <match score="0.76" type="citation">
+            <ref document="a9d87ah3f9a8h3f" feature="pattern1" />
+            <ref document="8af0ang093" feature="pattern1" />
 
-			<detail>
-				<detail name="computation">
-					<detail name="references">1412</detail>
-					<detail name="order">228</detail>
-				</detail>
-				<detail name="description">Lorem ipsum dolor sit amet, consetetur sadipscing
+            <detail>
+                <detail name="computation">
+                    <detail name="references">1412</detail>
+                    <detail name="order">228</detail>
+                </detail>
+                <detail name="description">Lorem ipsum dolor sit amet, consetetur sadipscing
                     elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna
                     aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo
                     dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus
                     est Lorem ipsum dolor sit amet.
-				</detail>
-			</detail>
-		</match>
-		<match score="1.0" type="copypaste">
-			<ref document="a9d87ah3f9a8h3f" feature="cp1" />
-			<ref document="8af0ang093" feature="cp1" />
-		</match>
-	</alignments>
+                </detail>
+            </detail>
+        </match>
+        <match score="1.0" type="copypaste">
+            <ref document="a9d87ah3f9a8h3f" feature="cp1" />
+            <ref document="8af0ang093" feature="cp1" />
+        </match>
+    </alignments>
 </collusion>
