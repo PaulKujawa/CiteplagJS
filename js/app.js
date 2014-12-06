@@ -103,7 +103,7 @@ $(function() {
                             if (parsedFeat['group']) {
                                 var nestedCnt = 0;
                                 $.each(feature.link, function(l, linkedId) {
-                                    linkedId = linkedId.ref.substr(1); // cut off char #
+                                    linkedId = linkedId.substr(1); // cut off char #
                                     $.each(doc.feature, function(m, linkedFeat) {
                                         if (linkedFeat.id == linkedId) {
                                             linkedFeat = parseFeature(match, linkedFeat, cnt+"_"+nestedCnt);
@@ -123,19 +123,19 @@ $(function() {
     };
 
 
-    parseFeature = function(vMatch, vFeat, cnt) {
+    parseFeature = function(vMatch, feat, cnt) {
         var feature = {};
-        feature['start'] = parseInt(vFeat.start);
-        feature['end']   = parseInt(vFeat.start) + parseInt(vFeat.length);
-        feature['group'] = vFeat.link !== undefined;
+        feature['start'] = parseInt(feat.start);
+        feature['end']   = parseInt(feat.start) + parseInt(feat.length);
+        feature['group'] = feat.link !== undefined;
 
         if (feature['group'])
             feature['class'] = "group" + cnt;
         else
             feature['class'] = "feature" + cnt;
 
-        if (vFeat.value !== undefined)
-            feature['value'] = vFeat.value;
+        if (feat.value !== undefined)
+            feature['value'] = feat.value;
 
         if (vMatch.detail !== undefined)
             feature['detail'] = parseMatchDetail(vMatch.detail);
@@ -221,23 +221,26 @@ $(function() {
 
 
             } else if (pos == nextFeaturePos) {
-                if (! $.isEmptyObject(activeFeatClasses))
-                    xmlString = featureOpeningTag(xmlString, activeFeatClasses, pos-1);
-
                 $.each(matches, function(i, match) {
                     $.each(match[docNr], function(f, feat) {
                         if (feat['start'] == pos) {
+                            if (! $.isEmptyObject(activeFeatClasses))
+                                xmlString = featureOpeningTag(xmlString, activeFeatClasses, pos-1);
                             delete activeFeatClasses[pos];
-
                             if (! $.isEmptyObject(activeFeatClasses))
                                 xmlString = xmlString.substr(0, pos) +"</div>"+ xmlString.substr(pos);
+                            return false; // stop each loop, since multiple features could start at this pos
 
                         } else if (feat['end'] == pos) {
-                            xmlString = xmlString.substr(0, pos+1) +"</div>"+ xmlString.substr(pos+1);
-                            if (! $.isEmptyObject(activeFeatClasses))
-                                xmlString = xmlString.substr(0, pos) +"</div>"+ xmlString.substr(pos);
 
-                            var startPos = feat['start'],
+                            if (! $.isEmptyObject(activeFeatClasses)) {
+                                xmlString = featureOpeningTag(xmlString, activeFeatClasses, pos-1);
+                                // pos = '<' of added connection opening tag now
+                                xmlString = xmlString.substr(0, pos) +"</div>"+ xmlString.substr(pos);
+                            } else
+                                xmlString = xmlString.substr(0, pos+1) +"</div>"+ xmlString.substr(pos+1);
+
+                            var startPos  = feat['start'],
                                 featClass = feat['class'];
 
                             if ( isNaN(activeFeatClasses[startPos]) )
@@ -248,7 +251,9 @@ $(function() {
                                 featDetails[featClass] = [];
                                 featDetails[featClass].push(feat['detail']);
                             }
-                        }
+                            return false; // stop each loop
+                        } else
+                            return true;
                     });
                 });
                 nextFeaturePos = getNextFeaturePos(featurePositions);
