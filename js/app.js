@@ -219,7 +219,7 @@ $(function() {
             } else if (xmlString[pos] === '<') {
                 xmlString = replaceXMLTag(xmlString, pos, closingPos);
                 if (! $.isEmptyObject(activeFeatClasses))
-                    xmlString = xmlString.substr(0, pos) +"#O_CD</div>"+ xmlString.substr(pos);
+                    xmlString = xmlString.substr(0, pos) +"#CON</div>"+ xmlString.substr(pos);
 
 
             } else if (pos == nextFeaturePos) {
@@ -230,34 +230,42 @@ $(function() {
                             delete activeFeatClasses[pos];
                             if (! $.isEmptyObject(activeFeatClasses))
                                 xmlString = xmlString.substr(0, pos) +"</div>"+ xmlString.substr(pos);
+                            nextFeaturePos = getNextFeaturePos(featurePositions);
                             return false; // stop each loop, since multiple features could start at this pos
 
                         } else if (feat['end'] == pos) {
-
                             if (! $.isEmptyObject(activeFeatClasses)) {
                                 xmlString = featureOpeningTag(xmlString, activeFeatClasses, pos-1);
-                                // pos = '<' of added connection opening tag now
-                                xmlString = xmlString.substr(0, pos) +"</div>"+ xmlString.substr(pos);
+                                xmlString = xmlString.substr(0, pos) +"</div>"+ xmlString.substr(pos); // pos = '<'
                             } else
                                 xmlString = xmlString.substr(0, pos+1) +"</div>"+ xmlString.substr(pos+1);
 
-                            var startPos  = feat['start'],
-                                featClass = feat['class'];
+                            while (pos == nextFeaturePos) { // more features ending at this pos?
+                                $.each(matches, function(g, match2) {
+                                    $.each(match2[docNr], function(h, feat2) {
+                                        if (feat2['end'] == pos) {
+                                            var startPos  = feat2['start'],
+                                                featClass = feat2['class'];
 
-                            if ( activeFeatClasses[startPos] === undefined )
-                                activeFeatClasses[startPos] = [];
-                            activeFeatClasses[startPos].push(featClass);
+                                            if ( activeFeatClasses[startPos] === undefined )
+                                                activeFeatClasses[startPos] = [];
+                                            activeFeatClasses[startPos].push(featClass);
 
-                            if (feat['detail'] !== undefined) {
-                                featDetails[featClass] = [];
-                                featDetails[featClass].push(feat['detail']);
+                                            if (feat2['detail'] !== undefined) {
+                                                featDetails[featClass] = [];
+                                                featDetails[featClass].push(feat2['detail']);
+                                            }
+                                            nextFeaturePos = getNextFeaturePos(featurePositions);
+                                        }
+                                    });
+                                });
                             }
+
                             return false; // stop each loop
                         } else
                             return true;
                     });
                 });
-                nextFeaturePos = getNextFeaturePos(featurePositions);
             }
         }
         debug = false;
