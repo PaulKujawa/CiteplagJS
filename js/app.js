@@ -1,11 +1,11 @@
 $(function() {
     const   xmlFolder       =   "./xmlFiles/",
-            inputTag        = $('#collusionFileInput'),
-            renderDiv       = $('#renderDiv'),
-            patternPanels   = $('#patternPanels'),
-            detailsDiv      = $('aside'),
-            section         = $('section'),
-            errorDiv        = $('#errorOutput');
+        inputTag        = $('#collusionFileInput'),
+        renderDiv       = $('#renderDiv'),
+        patternPanels   = $('#patternPanels'),
+        detailsDiv      = $('aside'),
+        section         = $('section'),
+        errorDiv        = $('#errorOutput');
 
     var collusionJSON, featDetails = {}, compareFilesXML = [], matchTypes = {}, /*[mType][m][d][f]['start']*/
         loadXMLFile, loadCompareXML, parseMatches, parseMatch, replaceXMLTag, resetMarkup,
@@ -205,40 +205,42 @@ $(function() {
 
 
     convertXMLtoHTML = function(featurePositions, matches, docNr) {
-        var xmlString       = compareFilesXML[docNr],
-        nextFeaturePos      = getNextFeaturePos(featurePositions),
-        activeFeatClasses   = {}, // activeFeatClasses[position][i]
-        closingPos          = null;
+        var xmlString   = compareFilesXML[docNr],
+            nextFeaturePos  = getNextFeaturePos(featurePositions),
+            activeFeatures  = {}, // activeFeatures[position][i]
+            activeGroups    = {},
+            closingPos      = null;
 
         for (var pos = xmlString.length-1; pos >= 0; pos--) {
             if (xmlString[pos] === '>') {
                 closingPos = pos;
-                if (! $.isEmptyObject(activeFeatClasses))
-                    xmlString = featureOpeningTag(xmlString, activeFeatClasses, closingPos);
+                if (! $.isEmptyObject(activeFeatures) || ! $.isEmptyObject(activeGroups))
+                    xmlString = featureOpeningTag(xmlString, activeFeatures, activeGroups, closingPos, 1);
 
             } else if (xmlString[pos] === '<') {
                 xmlString = replaceXMLTag(xmlString, pos, closingPos);
-                if (! $.isEmptyObject(activeFeatClasses))
-                    xmlString = xmlString.substr(0, pos) +"#CON</div>"+ xmlString.substr(pos);
+                if (! $.isEmptyObject(activeFeatures) || ! $.isEmptyObject(activeGroups))
+                    xmlString = xmlString.substr(0, pos) +"</div>"+ xmlString.substr(pos);
 
 
             } else if (pos == nextFeaturePos) {
                 $.each(matches, function(i, match) {
                     $.each(match[docNr], function(f, feat) {
                         if (feat['start'] == pos) {
-                            xmlString = featureOpeningTag(xmlString, activeFeatClasses, pos-1);
-                            delete activeFeatClasses[pos];
-                            if (! $.isEmptyObject(activeFeatClasses))
-                                xmlString = xmlString.substr(0, pos) +"</div>"+ xmlString.substr(pos);
+                            xmlString = featureOpeningTag(xmlString, activeFeatures, activeGroups, pos-1, 2);
+                            delete activeFeatures[pos];
+                            delete activeGroups[pos];
+                            if (! $.isEmptyObject(activeFeatures) || ! $.isEmptyObject(activeGroups))
+                                xmlString = xmlString.substr(0, pos) +"</div>"+ xmlString.substr(pos); // left
                             nextFeaturePos = getNextFeaturePos(featurePositions);
                             return false; // stop each loop, since multiple features could start at this pos
 
                         } else if (feat['end'] == pos) {
-                            if (! $.isEmptyObject(activeFeatClasses)) {
-                                xmlString = featureOpeningTag(xmlString, activeFeatClasses, pos-1);
-                                xmlString = xmlString.substr(0, pos) +"</div>"+ xmlString.substr(pos); // pos = '<'
+                            if (! $.isEmptyObject(activeFeatures) || ! $.isEmptyObject(activeGroups)) {
+                                xmlString = featureOpeningTag(xmlString, activeFeatures, activeGroups, pos-1, 3);
+                                xmlString = xmlString.substr(0, pos) +"</div>"+ xmlString.substr(pos); // right (pos = '<')
                             } else
-                                xmlString = xmlString.substr(0, pos+1) +"</div>"+ xmlString.substr(pos+1);
+                                xmlString = xmlString.substr(0, pos+1) +"</div>"+ xmlString.substr(pos+1); // right
 
                             while (pos == nextFeaturePos) { // more features ending at this pos?
                                 $.each(matches, function(g, match2) {
@@ -247,10 +249,15 @@ $(function() {
                                             var startPos  = feat2['start'],
                                                 featClass = feat2['class'];
 
-                                            if ( activeFeatClasses[startPos] === undefined )
-                                                activeFeatClasses[startPos] = [];
-                                            activeFeatClasses[startPos].push(featClass);
-
+                                            if (feat2['group']) {
+                                                if ( activeGroups[startPos] === undefined )
+                                                    activeGroups[startPos] = [];
+                                                activeGroups[startPos].push(featClass);
+                                            } else {
+                                                if ( activeFeatures[startPos] === undefined)
+                                                    activeFeatures[startPos] = [];
+                                                activeFeatures[startPos].push(featClass);
+                                            }
                                             if (feat2['detail'] !== undefined) {
                                                 featDetails[featClass] = [];
                                                 featDetails[featClass].push(feat2['detail']);
@@ -260,8 +267,7 @@ $(function() {
                                     });
                                 });
                             }
-
-                            return false; // stop each loop
+                            return false;
                         } else
                             return true;
                     });
@@ -275,7 +281,7 @@ $(function() {
 
     replaceXMLTag = function(xmlString, pos, closingPos) {
         if (xmlString[pos+1] === '/')
-            return xmlString.substr(0, pos) + '</div>' + xmlString.substr(closingPos+1);
+            return xmlString.substr(0, pos) + "</div>" + xmlString.substr(closingPos+1);
 
         else {
             var xmlTag = xmlString.substr(pos, closingPos-pos+1),
@@ -289,15 +295,28 @@ $(function() {
     };
 
 
-    featureOpeningTag = function(xmlString, activeFeatures, pos) {
+    featureOpeningTag = function(xmlString, activeFeatures, activeGroups, pos, x) {
         var classes = "";
+
+        if (! $.isEmptyObject(activeFeatures))
+            classes += "feature ";
+
+        if (! $.isEmptyObject(activeGroups))
+            classes += "group ";
+
         $.each(activeFeatures, function(i, position) {
             $.each(position, function(k, featClass) {
                 classes += featClass + " ";
             });
         });
-        var tag = '<div class="feature '+ classes.slice(0, -1) +'">';
 
+        $.each(activeGroups, function(i, position) {
+            $.each(position, function(k, featClass) {
+                classes += featClass + " ";
+            });
+        });
+
+        var tag = '<div class="'+ classes + " " + x + '">';
         return xmlString.substr(0, pos+1) +tag+ xmlString.substr(pos+1);
     };
 
@@ -316,7 +335,7 @@ $(function() {
         var tab = $(
             '<li>' +
                 '<a href="#'+patternTitle+'Tab" data-toggle="tab">'+patternTitle+'</a>' +
-            '</li>'
+                '</li>'
         );
         patternPanels.append(tab);
 
@@ -333,7 +352,7 @@ $(function() {
         $.each(featDetails, function(theClass, details) {
             var content = "";
             $.each(details, function(i, div) {
-               content +=  div; // todo check for duplicate details
+                content +=  div; // todo check for duplicate details
             });
 
             theClass = "."+theClass;
@@ -344,8 +363,8 @@ $(function() {
             });
 
             $(theClass).mouseleave(function() {
-                 detailsDiv.empty();
-             });
+                detailsDiv.empty();
+            });
         });
     };
 

@@ -35,14 +35,14 @@ button {
     transform: scale(1.3);
 }
 
-.destroy:after { content: '✖'; }
+.destroy:after {content: '✖';}
 
-.clearFloat { clear: both; }
+.clearFloat {clear: both;}
+
+.hidden {visibility: hidden;}
 
 
-#fileUpload {
-    margin: 20px 0;
-}
+#fileUpload {margin: 20px 0; }
 
 #fileUpload span {
     float: left;
@@ -70,9 +70,10 @@ button {
  /*   display: inline;*/
 }
 
-#renderDiv .feature {
-    background-color: rgba(3, 68, 130, 0.13);
-}
+#renderDiv .feature, #renderDiv .group {background-color: rgba(3, 68, 130, 0.13);}
+#renderDiv .group.feature {background-color: rgba(3, 68, 130, 0.25);}
+
+
 
 #renderDiv .canvas {
     width: 20%;
@@ -80,12 +81,7 @@ button {
     background-color: inherit;
 }
 
-.hidden {
-    visibility: hidden;
-}
 
 @media (min-width: 992px) {
-    aside {
-        padding-top: 290px;
-    }
+    aside {padding-top: 290px;}
 }
