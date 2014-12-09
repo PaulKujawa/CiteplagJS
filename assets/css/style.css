@@ -67,7 +67,7 @@ button {
 }
 
 #renderDiv .leftArea div, #renderDiv .rightArea div {
- /*   display: inline;*/
+    position: relative; /* for scrolling */
 }
 
 #renderDiv .feature, #renderDiv .group {background-color: rgba(3, 68, 130, 0.13);}
