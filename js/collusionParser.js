@@ -13,7 +13,7 @@ MyApp.CollusionParser = (function() {
 
         var cnt = 0;
         $.each(matches, function(i, match) {
-            if (_self.matchTypes()[match.type] === undefined)
+            if (_self.matchTypes[match.type] === undefined)
                 _self.matchTypes[match.type] = [];
             _self.parseMatch(match, cnt);
             cnt++;
@@ -27,12 +27,12 @@ MyApp.CollusionParser = (function() {
         $.each(_self.matchTypes, function(matchTitle, matches) {
 
             var docNr = 0;
-            _self.orderFeaturePos(matches, docNr);
-            var leftFileHTML = _self.convertXMLtoHTML(matches, docNr);
+            MyApp.ComparisonParser.orderFeaturePos(matches, docNr);
+            var leftFileHTML = MyApp.ComparisonParser.convertXMLtoHTML(matches, docNr);
 
             docNr++;
             MyApp.ComparisonParser.orderFeaturePos(matches, docNr);
-            var rightFileHTML = _self.convertXMLtoHTML(matches, docNr);
+            var rightFileHTML = MyApp.ComparisonParser.convertXMLtoHTML(matches, docNr);
 
             MyApp.Renderer.createTab(matchTitle, leftFileHTML, rightFileHTML);
             MyApp.Renderer.attachDetailsDiv();
@@ -122,4 +122,6 @@ MyApp.CollusionParser = (function() {
         });
         return div;
     };
+
+    return CollusionParser;
 })();

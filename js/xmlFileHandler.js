@@ -13,7 +13,7 @@ MyApp.XMLFileHandler = (function() {
     };
 
 
-    XMLFileHandler.loadCollusion = function(filename, callback) {
+    XMLFileHandler.loadCollusion = function(filename) {
         var _self = this;
 
         $.ajax({
@@ -21,7 +21,10 @@ MyApp.XMLFileHandler = (function() {
             url: _self.folder + filename,
             dataType: "xml",
 
-            success: callback,
+            success: function(file) {
+                MyApp.CollusionParser['collusionJSON'] = $.xml2json(file);
+                _self.loadCompare(0);
+            },
             error: function(xhr) {
                 _self.throwErrorMsg( xhr.responseText );
             }
@@ -43,9 +46,9 @@ MyApp.XMLFileHandler = (function() {
                     startPos  = xmlString.indexOf('<body>')+ 6,
                     length    = xmlString.indexOf('</body>') - startPos;
 
-                this.compareFilesXML[i] = xmlString.substr(startPos, length); // overwrites old values as well
-                if (i === 0)
-                    _self.loadCompare(i++);
+                _self.compareFilesXML[i] = xmlString.substr(startPos, length); // overwrites old values as well
+                if (i == 0)
+                    _self.loadCompare(1);
                 else
                     MyApp.CollusionParser.parseMatches();
             },

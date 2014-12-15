@@ -22,7 +22,7 @@ MyApp.ComparisonParser = (function() {
 
 
     ComparisonParser.convertXMLtoHTML = function(matches, docNr) {
-        var xmlString       = MyApp.XMLFileHandler.compareFilesXML()[docNr],
+        var xmlString       = MyApp.XMLFileHandler['compareFilesXML'][docNr],
             _self           = this,
             nextFeaturePos  = _self.getNextFeaturePos(),
             activeFeatures  = {}, // activeFeatures[position][i]
@@ -77,8 +77,8 @@ MyApp.ComparisonParser = (function() {
                                                 activeFeatures[startPos].push(featClass);
                                             }
                                             if (feat2['detail'] !== undefined) {
-                                                this.featDetails[featClass] = [];
-                                                this.featDetails[featClass].push(feat2['detail']);
+                                                _self.featDetails[featClass] = [];
+                                                _self.featDetails[featClass].push(feat2['detail']);
                                             }
                                             nextFeaturePos = _self.getNextFeaturePos();
                                         }
