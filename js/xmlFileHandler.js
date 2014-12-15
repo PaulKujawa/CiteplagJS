@@ -1,64 +1,59 @@
-var XmlFileHandler = function(folder) {
-    this.folder             = folder;
-    this.errorDiv           = $('#errorOutput');
-    this.compareFilesXML    = {};
-    this.collusionParser    = [];
-};
+MyApp.XMLFileHandler = (function() {
+    XMLFileHandler["folder"]          = "./xmlFiles/";
+    XMLFileHandler["errorDiv"]        = $('#errorOutput');
+    XMLFileHandler["compareFilesXML"] = {};
+
+    function XMLFileHandler() {}
+
+    XMLFileHandler.throwErrorMsg = function(content) {
+        this.errorDiv
+            .append('<span>' +content+ '</span>')
+            .removeClass('hidden');
+        return false;
+    };
 
 
-XmlFileHandler.prototype.throwErrorMsg = function(content) {
-    this.errorDiv
-        .append('<span>' +content+ '</span>')
-        .removeClass('hidden');
-    return false;
-};
+    XMLFileHandler.loadCollusion = function(filename, callback) {
+        var _self = this;
+
+        $.ajax({
+            type: "GET",
+            url: _self.folder + filename,
+            dataType: "xml",
+
+            success: callback,
+            error: function(xhr) {
+                _self.throwErrorMsg( xhr.responseText );
+            }
+        })
+    };
 
 
-XmlFileHandler.prototype.loadCollusion = function(filename, callback) {
-    $.ajax({
-        type: "GET",
-        url: this.folder + filename,
-        dataType: "xml",
+    XMLFileHandler.loadCompare = function(i) {
+        var filename = MyApp.CollusionParser['collusionJSON'].document[i].src,
+            _self = this;
 
-        success: callback,
-        error: function(xhr) {
-            this.throwErrorMsg( xhr.responseText );
-        }
-    })
-};
+        $.ajax({
+            type: "GET",
+            url: _self.folder + filename,
+            dataType: "xml",
 
+            success: function(file) {
+                var xmlString = (new XMLSerializer()).serializeToString(file),
+                    startPos  = xmlString.indexOf('<body>')+ 6,
+                    length    = xmlString.indexOf('</body>') - startPos;
 
-XmlFileHandler.prototype.loadCompare = function(i, collusionJSON) {
-    var filename = collusionJSON.document[i].src;
+                this.compareFilesXML[i] = xmlString.substr(startPos, length); // overwrites old values as well
+                if (i === 0)
+                    _self.loadCompare(i++);
+                else
+                    MyApp.CollusionParser.parseMatches();
+            },
+            error: function(xhr) {
+                _self.throwErrorMsg( xhr.responseText );
+            }
+        });
+    };
 
-    $.ajax({
-        type: "GET",
-        url: this.folder + filename,
-        dataType: "xml",
-
-        success: function(file) {
-            var xmlString = (new XMLSerializer()).serializeToString(file),
-                startPos  = xmlString.indexOf('<body>')+ 6,
-                length    = xmlString.indexOf('</body>') - startPos;
-
-            this.compareFilesXML[i] = xmlString.substr(startPos, length); // overwrites old values as well
-            if (i === 0)
-                this.loadCompare(i++, collusionJSON);
-            else
-                this.collusionParser.parseMatches();
-        },
-        error: function(xhr) {
-            this.throwErrorMsg( xhr.responseText );
-        }
-    });
-};
-
-
-XmlFileHandler.prototype.setCollusionParser = function(collusionParser) {
-    this.collusionParser = collusionParser;
-};
-
-
-XmlFileHandler.prototype.getCompareFilesXML = function() {
-    return this.compareFilesXML;
-};
+    return XMLFileHandler;
+})();
