@@ -134,8 +134,7 @@ MyApp.CollusionParser = (function() {
             }
             MyApp.Renderer.createTab(matchTitle, html[0], html[1]);
         });
-        MyApp.Renderer.attachDetails();
-        MyApp.Renderer.activateTab();
+        MyApp.Renderer.setUp();
     };
 
 
