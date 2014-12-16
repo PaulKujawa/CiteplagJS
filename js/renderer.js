@@ -1,9 +1,9 @@
 MyApp.Renderer = (function() {
-    Renderer["patternPanels"]     = $('#patternPanels');
-    Renderer["renderDiv"]         = $('#renderDiv');
-    Renderer["errorDiv"]          = $('#errorOutput');
-    Renderer["section"]           = $('section');
-    Renderer["detailsDiv"]        = $('aside');
+    Renderer.patternPanels     = $('#patternPanels');
+    Renderer.renderDiv         = $('#renderDiv');
+    Renderer.errorDiv          = $('#errorOutput');
+    Renderer.section           = $('section');
+    Renderer.detailsDiv        = $('aside');
 
 
     function Renderer() {}
@@ -33,20 +33,16 @@ MyApp.Renderer = (function() {
 
 
     Renderer.attachDetailsDiv = function() {
-        var featDetails = MyApp.ComparisonParser['featDetails'],
+        var featDetails = MyApp.ComparisonParser.featDetails,
             _self = this;
 
-        $.each(featDetails, function(theClass, details) {
-            var content = "";
-            $.each(details, function(i, div) {
-                content +=  div; // todo check for duplicate details
-            });
-
+        $.each(featDetails, function(theClass, detail) {
             theClass = "."+theClass;
+
             $(theClass).mouseenter(function() {
                 _self.section.addClass('col-md-9');
                 _self.detailsDiv.removeClass('hidden');
-                _self.detailsDiv.append('<h3>Feature details</h3>' + content);
+                _self.detailsDiv.append('<h3>Feature details</h3>' + detail);
             });
 
             $(theClass).mouseleave(function() {

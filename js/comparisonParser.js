@@ -33,7 +33,7 @@ MyApp.ComparisonParser = (function() {
             if (xmlString[pos] === '>') {
                 closingPos = pos;
                 if (! $.isEmptyObject(activeFeatures) || ! $.isEmptyObject(activeGroups))
-                    xmlString = _self.featureOpeningTag(xmlString, activeFeatures, activeGroups, closingPos, 1);
+                    xmlString = _self.featureOpeningTag(xmlString, activeFeatures, activeGroups, closingPos);
 
             } else if (xmlString[pos] === '<') {
                 xmlString = _self.replaceXMLTag(xmlString, pos, closingPos);
@@ -45,7 +45,7 @@ MyApp.ComparisonParser = (function() {
                 $.each(matches, function(i, match) {
                     $.each(match[docNr], function(f, feat) {
                         if (feat['start'] == pos) {
-                            xmlString = _self.featureOpeningTag(xmlString, activeFeatures, activeGroups, pos-1, 2);
+                            xmlString = _self.featureOpeningTag(xmlString, activeFeatures, activeGroups, pos-1);
                             delete activeFeatures[pos];
                             delete activeGroups[pos];
                             if (! $.isEmptyObject(activeFeatures) || ! $.isEmptyObject(activeGroups))
@@ -55,7 +55,7 @@ MyApp.ComparisonParser = (function() {
 
                         } else if (feat['end'] == pos) {
                             if (! $.isEmptyObject(activeFeatures) || ! $.isEmptyObject(activeGroups)) {
-                                xmlString = _self.featureOpeningTag(xmlString, activeFeatures, activeGroups, pos-1, 3);
+                                xmlString = _self.featureOpeningTag(xmlString, activeFeatures, activeGroups, pos-1);
                                 xmlString = xmlString.substr(0, pos) +"</div>"+ xmlString.substr(pos); // right (pos = '<')
                             } else
                                 xmlString = xmlString.substr(0, pos+1) +"</div>"+ xmlString.substr(pos+1); // right
@@ -76,7 +76,7 @@ MyApp.ComparisonParser = (function() {
                                                     activeFeatures[startPos] = [];
                                                 activeFeatures[startPos].push(featClass);
                                             }
-                                            if (feat2['detail'] !== undefined) {
+                                            if (feat2['detail'] !== undefined && docNr == 0) {
                                                 _self.featDetails[featClass] = [];
                                                 _self.featDetails[featClass].push(feat2['detail']);
                                             }
@@ -112,7 +112,7 @@ MyApp.ComparisonParser = (function() {
     };
 
 
-    ComparisonParser.featureOpeningTag = function(xmlString, activeFeatures, activeGroups, pos, x) {
+    ComparisonParser.featureOpeningTag = function(xmlString, activeFeatures, activeGroups, pos) {
         var classes = "";
 
         if (! $.isEmptyObject(activeFeatures))
@@ -133,7 +133,7 @@ MyApp.ComparisonParser = (function() {
             });
         });
 
-        var tag = '<div class="'+ classes + " " + x + '">';
+        var tag = '<div class="'+ classes + '">';
         return xmlString.substr(0, pos+1) +tag+ xmlString.substr(pos+1);
     };
 

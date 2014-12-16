@@ -35,9 +35,9 @@ MyApp.CollusionParser = (function() {
             var rightFileHTML = MyApp.ComparisonParser.convertXMLtoHTML(matches, docNr);
 
             MyApp.Renderer.createTab(matchTitle, leftFileHTML, rightFileHTML);
-            MyApp.Renderer.attachDetailsDiv();
-            MyApp.Renderer.activateTab();
         });
+        MyApp.Renderer.attachDetailsDiv();
+        MyApp.Renderer.activateTab();
     };
 
 
