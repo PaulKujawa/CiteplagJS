@@ -16,11 +16,7 @@ MyApp.Renderer = (function() {
 
 
     Renderer.createTab = function(patternTitle, leftFileHTML, rightFileHTML) {
-        var tab = $(
-            '<li>' +
-                '<a href="#'+patternTitle+'Tab" data-toggle="tab">'+patternTitle+'</a>' +
-            '</li>'
-        );
+        var tab = $('<li><a href="#'+patternTitle+'Tab" data-toggle="tab">'+patternTitle+'</a></li>');
         this.patternPanels.append(tab);
 
         var div = $('<div id="'+patternTitle+'Tab" class="tab-pane"></div>')
@@ -32,7 +28,7 @@ MyApp.Renderer = (function() {
     };
 
 
-    Renderer.attachDetailsDiv = function() {
+    Renderer.attachDetails = function() {
         var featDetails = MyApp.ComparisonParser.featDetails,
             _self = this;
 

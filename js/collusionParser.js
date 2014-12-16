@@ -1,6 +1,7 @@
 MyApp.CollusionParser = (function() {
-    CollusionParser["collusionJSON"]  = [];
-    CollusionParser["matchTypes"]     = {}; /*[mType][m][d][f]['start']*/
+    CollusionParser["collusionJSON"]    = [];
+    CollusionParser["matchTypes"]       = {}; /*[mType][m][d][f]['start']*/
+    CollusionParser["featurePositions"] = [];
 
     function CollusionParser() {}
 
@@ -18,26 +19,7 @@ MyApp.CollusionParser = (function() {
             _self.parseMatch(match, cnt);
             cnt++;
         });
-        _self.renderMatchTypes();
-    };
-
-
-    CollusionParser.renderMatchTypes = function() {
-        var _self = this;
-        $.each(_self.matchTypes, function(matchTitle, matches) {
-
-            var docNr = 0;
-            MyApp.ComparisonParser.orderFeaturePos(matches, docNr);
-            var leftFileHTML = MyApp.ComparisonParser.convertXMLtoHTML(matches, docNr);
-
-            docNr++;
-            MyApp.ComparisonParser.orderFeaturePos(matches, docNr);
-            var rightFileHTML = MyApp.ComparisonParser.convertXMLtoHTML(matches, docNr);
-
-            MyApp.Renderer.createTab(matchTitle, leftFileHTML, rightFileHTML);
-        });
-        MyApp.Renderer.attachDetailsDiv();
-        MyApp.Renderer.activateTab();
+        _self.handleMatchTypes();
     };
 
 
@@ -122,6 +104,40 @@ MyApp.CollusionParser = (function() {
         });
         return div;
     };
+
+
+    CollusionParser.orderFeaturePos = function(matches, docNr) {
+        var _self = this;
+        _self.featurePositions = [];
+
+        $.each(matches, function(m, match) {
+            $.each(match[docNr], function(f, feature) {
+                _self.featurePositions.push(feature['start']);
+                _self.featurePositions.push(feature['end']);
+            });
+        });
+
+        _self.featurePositions.sort(function(a, b) {
+            return b-a;
+        });
+    };
+
+
+    CollusionParser.handleMatchTypes = function() {
+        var _self = this;
+        $.each(_self.matchTypes, function(matchTitle, matches) {
+            var html = [];
+            for (var docNr = 0; docNr <= 1; docNr++) {
+                _self.orderFeaturePos(matches, docNr);
+                MyApp.ComparisonParser.convertFile(matches, docNr);
+                html.push(MyApp.ComparisonParser.xmlString);
+            }
+            MyApp.Renderer.createTab(matchTitle, html[0], html[1]);
+        });
+        MyApp.Renderer.attachDetails();
+        MyApp.Renderer.activateTab();
+    };
+
 
     return CollusionParser;
 })();
