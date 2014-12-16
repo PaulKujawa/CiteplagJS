@@ -59,17 +59,27 @@ MyApp.Renderer = (function() {
 
 
     Renderer.drawCanvas = function() {
-        var tabs = $('#renderDiv').children();
+        var tabs = this.renderDiv.children();
 
-        $.each(tabs, function(i, div) {
-            var canvasDiv = $(div).find('.canvas');
+        $.each(tabs, function(i, tab) {
+            var connectedClasses = [],
+                canvasDiv = $(tab).find('.canvas');
+
             MyApp.Raphael.paper = Raphael(canvasDiv.offset().left, canvasDiv.offset().top, 271, 500);
+            var canvasOffset = $('svg').offset().top;
 
-            var yLeft = 300, yRight = 3;
-            MyApp.Raphael.drawLeftCircle(yLeft);
-            MyApp.Raphael.drawRightCircle(yRight);
-            MyApp.Raphael.drawLine(yLeft, yRight);
+            $(tab).find(".leftArea [class^='feature']").filter(function() {
+                var classi = this.className.match(/feature(\d+)_(\d+)/)[0];
+                if (connectedClasses.indexOf(classi) == -1) { // original opening tag, no connecting tag
+                    connectedClasses.push(classi);
+                    var yLeft   = $(this).offset().top - canvasOffset,
+                        yRight  = $(tab).find('.rightArea .'+classi+':first').offset().top - canvasOffset;
 
+                    MyApp.Raphael.connect(yLeft, yRight)
+                }
+            });
+
+            console.log(connectedClasses);
             return false;
         });
     };
