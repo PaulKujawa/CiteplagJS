@@ -1,9 +1,10 @@
 MyApp.Renderer = (function() {
-    Renderer.patternPanels  = $('#patternPanels');
-    Renderer.section        = $('section');
-    Renderer.renderDiv      = $('#renderDiv');
-    Renderer.errorDiv       = $('#errorOutput');
-    Renderer.detailsDiv     = $('aside');
+    Renderer.patternPanels     = $('#patternPanels');
+    Renderer.renderDiv         = $('#renderDiv');
+    Renderer.errorDiv          = $('#errorOutput');
+    Renderer.section           = $('section');
+    Renderer.detailsDiv        = $('aside');
+
 
     function Renderer() {}
 
@@ -42,6 +43,8 @@ MyApp.Renderer = (function() {
             theClass = "."+theClass;
 
             $(theClass).mouseenter(function() {
+                _self.section.addClass('col-md-9');
+                _self.detailsDiv.removeClass('hidden');
                 _self.detailsDiv.append('<h3>Feature details</h3>' + detail);
             });
 
@@ -58,31 +61,37 @@ MyApp.Renderer = (function() {
     };
 
 
+
     Renderer.drawCanvas = function() {
         var tabs = this.renderDiv.children();
 
         $.each(tabs, function(i, tab) {
-            var connectedClasses = [],
-                canvasDiv = $(tab).find('.canvas');
+            var connectedClasses    = [],
+                leftArea            = $(tab).find('.leftArea'),
+                canvasDiv           = $(tab).find('.canvas'),
+                contentHeight       = leftArea[0].scrollHeight,
+                yRelation           = leftArea.height()/contentHeight,
+                top                 = canvasDiv.offset().top;
 
-            MyApp.Raphael.paper = Raphael(canvasDiv.offset().left, canvasDiv.offset().top, 271, 500);
-            var canvasOffset = $('svg').offset().top;
+            MyApp.Canvas.drawPaper(canvasDiv);
+
 
             $(tab).find(".leftArea [class^='feature']").filter(function() {
                 var classi = this.className.match(/feature(\d+)_(\d+)/)[0];
+
                 if (connectedClasses.indexOf(classi) == -1) { // original opening tag, no connecting tag
                     connectedClasses.push(classi);
-                    var yLeft   = $(this).offset().top - canvasOffset,
-                        yRight  = $(tab).find('.rightArea .'+classi+':first').offset().top - canvasOffset;
+                    var yLeft   = $(this).offset().top - top,
+                    yRight  = $(tab).find('.rightArea .'+classi+':first').offset().top - top;
 
-                    MyApp.Raphael.connect(yLeft, yRight)
+                    MyApp.Canvas.connect(yLeft*yRelation, yRight*yRelation);
                 }
             });
 
-            console.log(connectedClasses);
             return false;
         });
     };
 
+
     return Renderer;
-})();
+    })();
