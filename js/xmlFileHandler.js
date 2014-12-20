@@ -1,18 +1,22 @@
+/**
+ * responsible for file uploads, both collusion and comparison files
+ */
 MyApp.XMLFileHandler = (function() {
     XMLFileHandler["folder"]          = "./xmlFiles/";
-    XMLFileHandler["errorDiv"]        = $('#errorOutput');
     XMLFileHandler["compareFilesXML"] = {};
 
+    /**
+     *
+     * @constructor
+     */
     function XMLFileHandler() {}
 
-    XMLFileHandler.throwErrorMsg = function(content) {
-        this.errorDiv
-            .append('<span>' +content+ '</span>')
-            .removeClass('hidden');
-        return false;
-    };
 
-
+    /**
+     * loads collusion file via AJAX and converts from XML into JSON
+     * calls loadCompare(0) or Renderer.throwErrorMsg() on error
+     * @param filename
+     */
     XMLFileHandler.loadCollusion = function(filename) {
         var _self = this;
 
@@ -26,12 +30,17 @@ MyApp.XMLFileHandler = (function() {
                 _self.loadCompare(0);
             },
             error: function(xhr) {
-                _self.throwErrorMsg( xhr.responseText );
+                MyApp.Renderer.throwErrorMsg( xhr.responseText );
             }
         })
     };
 
 
+    /**
+     * loads body-parts, of source and suspicious file (recursive), and saves them as xml-strings
+     * calls CollusionParser.parseMatches()
+     * @param i
+     */
     XMLFileHandler.loadCompare = function(i) {
         var filename = MyApp.CollusionParser['collusionJSON'].document[i].src,
             _self = this;
@@ -53,7 +62,7 @@ MyApp.XMLFileHandler = (function() {
                     MyApp.CollusionParser.parseMatches();
             },
             error: function(xhr) {
-                _self.throwErrorMsg( xhr.responseText );
+                MyApp.Renderer.throwErrorMsg( xhr.responseText );
             }
         });
     };

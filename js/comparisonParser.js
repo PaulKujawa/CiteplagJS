@@ -1,15 +1,27 @@
+/**
+ * converts comparison files' bodies from xml into html markup and adds feature tags
+ */
 MyApp.ComparisonParser = (function() {
-    // OT = opening tag
-
     ComparisonParser.xmlString      = "";
     ComparisonParser["featDetails"] = {};
     ComparisonParser.activeFeatures = {}; //activeFeatures[position][i]
     ComparisonParser.activeGroups   = {};
     ComparisonParser.nextFeaturePos = 0;
 
+    /**
+     *
+     * @constructor
+     */
     function ComparisonParser() {}
 
 
+    /**
+     * main function, which parses the whole string (xml body)
+     * checks for xml tags and feature positions
+     * calls getNextFeaturePos(), insertFeatCT(), insertFeatOT(), convertXMLTag() and handleFeatPos()
+     * @param matches
+     * @param docNr
+     */
     ComparisonParser.convertFile = function(matches, docNr) {
         var _self           = this,
             closingPos      = null;
@@ -20,19 +32,27 @@ MyApp.ComparisonParser = (function() {
             if (_self.xmlString[pos] === '>') {
                 closingPos = pos;
                 if (! $.isEmptyObject(_self.activeFeatures) || ! $.isEmptyObject(_self.activeGroups))
-                    _self.insertFeatOT(closingPos);
+                    _self.insertFeatOT(closingPos); // feature opening tag, right of started xml tag
 
             } else if (_self.xmlString[pos] === '<') {
-                _self.replaceXMLTag(pos, closingPos);
+                _self.convertXMLTag(pos, closingPos);
                 if (! $.isEmptyObject(_self.activeFeatures) || ! $.isEmptyObject(_self.activeGroups))
-                    _self.xmlString = _self.xmlString.substr(0, pos) +"</div>"+ _self.xmlString.substr(pos);
+                    _self.insertFeatCT(pos); // feature closing tag, left of converted xml tag
 
             } else if (pos == _self.nextFeaturePos)
-                _self.handleFeatPos(matches, docNr, pos);
+                _self.handleFeatPos(matches, docNr, pos); // insert feature starting or closing tag
         }
     };
 
 
+    /**
+     * inserts end-tags and hold the classes of their opening tags "active" until their opening tags appear
+     * active classes (of feature or groups) are implemented through connecting divs before & after each tag
+     * calls insertFeatCT(), insertFeatOT(), getNextFeaturePos()
+     * @param matches
+     * @param docNr
+     * @param pos
+     */
     ComparisonParser.handleFeatPos = function(matches, docNr, pos) {
         var _self = this;
         $.each(matches, function(i, match) {
@@ -44,8 +64,7 @@ MyApp.ComparisonParser = (function() {
                     delete _self.activeGroups[pos];
 
                     if (! $.isEmptyObject(_self.activeFeatures) || ! $.isEmptyObject(_self.activeGroups))
-                        _self.xmlString = _self.xmlString.substr(0, pos) +"</div>"+ _self.xmlString.substr(pos); // left
-
+                        _self.insertFeatCT(pos); // left
                     _self.getNextFeaturePos();
                     return false; // stop each loop, since multiple features could start at this pos
 
@@ -53,9 +72,9 @@ MyApp.ComparisonParser = (function() {
                 } else if (feat['end'] == pos) {
                     if (! $.isEmptyObject(_self.activeFeatures) || ! $.isEmptyObject(_self.activeGroups)) {
                         _self.insertFeatOT(pos-1);
-                        _self.xmlString = _self.xmlString.substr(0, pos) +"</div>"+ _self.xmlString.substr(pos); // right (pos = '<')
+                        _self.insertFeatCT(pos); // right (pos = '<')
                     } else
-                        _self.xmlString = _self.xmlString.substr(0, pos+1) +"</div>"+ _self.xmlString.substr(pos+1); // right
+                        _self.insertFeatCT(pos+1); // right
 
                     while (pos == _self.nextFeaturePos) { // more features ending at this pos?
                         $.each(matches, function(g, match2) {
@@ -80,27 +99,28 @@ MyApp.ComparisonParser = (function() {
                                     _self.getNextFeaturePos();
                                 }
                             });
-
-
-
-
                         });
                     }
-                    return false;
+                    return false; // all closing feature found, break for performance
                 } else
-                    return true;
+                    return true; // no effect, just for consistent return points
             });
         });
     };
 
 
-    ComparisonParser.replaceXMLTag = function(pos, closingPos) {
+    /**
+     * convert xml tag into html tag with the previous xml tag as it's class
+     * @param pos
+     * @param closingPos
+     */
+    ComparisonParser.convertXMLTag = function(pos, closingPos) {
         if (this.xmlString[pos+1] === '/')
             this.xmlString = this.xmlString.substr(0, pos) + "</div>" + this.xmlString.substr(closingPos+1);
 
         else {
             var xmlTag = this.xmlString.substr(pos, closingPos-pos+1),
-                length = xmlTag.indexOf(' '); // would cut off attr
+                length = xmlTag.indexOf(' '); // cuts off any attributes
             if (length == -1)
                 length = closingPos-pos;
             xmlTag     = this.xmlString.substr(pos+1, length-1);
@@ -110,6 +130,19 @@ MyApp.ComparisonParser = (function() {
     };
 
 
+    /**
+     * insert feature closing tag
+     * @param pos
+     */
+    ComparisonParser.insertFeatCT = function(pos) {
+        this.xmlString = this.xmlString.substr(0, pos) +"</div>"+ this.xmlString.substr(pos);
+    };
+
+
+    /**
+     * insert feature opening tag with every active class of features or feature groups
+     * @param pos
+     */
     ComparisonParser.insertFeatOT = function(pos) {
         var classes = "";
 
@@ -136,6 +169,9 @@ MyApp.ComparisonParser = (function() {
     };
 
 
+    /**
+     * pops highest left feature position, which may be a opening or start tag
+     */
     ComparisonParser.getNextFeaturePos = function() {
         var pos = null;
         if (! $.isEmptyObject(MyApp.CollusionParser.featurePositions) ) {

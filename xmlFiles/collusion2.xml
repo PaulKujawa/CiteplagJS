@@ -1,129 +1,128 @@
-<?xml version="1.0"?>
-<collusion score="0.322" system="sciplag">
-    <document id="suspicious-document00014.txt" src="suspicious-document00014.txt" original="suspicious-document00014.txt" format="txt">
-        <feature id="274-276-ssw" type="ssw" start="274" length="2" value="wo"/>
-        <feature id="359-364-mfw" type="mfw" start="359" length="5" value="looks"/>
-        <feature id="507-509-ssw" type="ssw" start="507" length="2" value="wo"/>
-        <feature id="850-856-date" type="date" start="850" length="6" value="summer"/>
-        <feature id="892-897-mfw" type="mfw" start="892" length="5" value="looks"/>
-        <feature id="942-946-mfw" type="mfw" start="942" length="4" value="look"/>
-        <feature id="1017-1019-ssw" type="ssw" start="1017" length="2" value="wo"/>
-        <feature id="1189-1193-mfw" type="mfw" start="1189" length="4" value="look"/>
-        <feature id="1253-1255-ssw" type="ssw" start="1253" length="2" value="wo"/>
-        <feature id="1439-1444-mfw" type="mfw" start="1439" length="5" value="looks"/>
-        <feature id="1471-1475-mfw" type="mfw" start="1471" length="4" value="look"/>
-        <feature id="1620-1622-ssw" type="ssw" start="1620" length="2" value="wo"/>
-        <feature id="2443-2448-ssw" type="ssw" start="2443" length="5" value="wreck"/>
-        <feature id="2456-2461-ssw" type="ssw" start="2456" length="5" value="Exxon"/>
-        <feature id="2596-2616-location" type="location" start="2596" length="20" value="Prince William Sound"/>
-        <feature id="2622-2624-ssw" type="ssw" start="2622" length="2" value="wo"/>
-        <feature id="2640-2649-ssw" type="ssw" start="2640" length="9" value="assessing"/>
-        <feature id="2693-2698-ssw" type="ssw" start="2693" length="5" value="Exxon"/>
-        <feature id="2701-2711-money" type="money" start="2701" length="10" value="$2 billion"/>
-        <feature id="2778-2787-percentage" type="percentage" start="2778" length="9" value="9 percent"/>
-        <feature id="2854-2861-ssw" type="ssw" start="2854" length="7" value="skipper"/>
-        <feature id="2965-2970-ssw" type="ssw" start="2965" length="5" value="Exxon"/>
-        <feature id="3041-3043-ssw" type="ssw" start="3041" length="2" value="wo"/>
-        <feature id="5544-5546-ssw" type="ssw" start="5544" length="2" value="wo"/>
-        <feature id="5586-5590-mfw" type="mfw" start="5586" length="4" value="look"/>
-        <feature id="ed9f1c0d-cacd-4167-ab31-d5001d56bce8" type="Cluster" start="274" length="235">
-            <link ref="274-276-ssw" />
-            <link ref="359-364-mfw" />
-            <link ref="507-509-ssw" />
+<collusion score='0.322' system='sciplag'>
+    <document id='suspicious-document00014.txt' src='suspicious-document00014.txt' original='suspicious-document00014.txt' format='txt'>
+        <feature id='274-276-ssw' type='ssw' start='274' length='2' value='wo'/>
+        <feature id='359-364-mfw' type='mfw' start='359' length='5' value='looks'/>
+        <feature id='507-509-ssw' type='ssw' start='507' length='2' value='wo'/>
+        <feature id='850-856-date' type='date' start='850' length='6' value='summer'/>
+        <feature id='892-897-mfw' type='mfw' start='892' length='5' value='looks'/>
+        <feature id='942-946-mfw' type='mfw' start='942' length='4' value='look'/>
+        <feature id='1017-1019-ssw' type='ssw' start='1017' length='2' value='wo'/>
+        <feature id='1189-1193-mfw' type='mfw' start='1189' length='4' value='look'/>
+        <feature id='1253-1255-ssw' type='ssw' start='1253' length='2' value='wo'/>
+        <feature id='1439-1444-mfw' type='mfw' start='1439' length='5' value='looks'/>
+        <feature id='1471-1475-mfw' type='mfw' start='1471' length='4' value='look'/>
+        <feature id='1620-1622-ssw' type='ssw' start='1620' length='2' value='wo'/>
+        <feature id='2443-2448-ssw' type='ssw' start='2443' length='5' value='wreck'/>
+        <feature id='2456-2461-ssw' type='ssw' start='2456' length='5' value='Exxon'/>
+        <feature id='2596-2616-location' type='location' start='2596' length='20' value='Prince William Sound'/>
+        <feature id='2622-2624-ssw' type='ssw' start='2622' length='2' value='wo'/>
+        <feature id='2640-2649-ssw' type='ssw' start='2640' length='9' value='assessing'/>
+        <feature id='2693-2698-ssw' type='ssw' start='2693' length='5' value='Exxon'/>
+        <feature id='2701-2711-money' type='money' start='2701' length='10' value='$2 billion'/>
+        <feature id='2778-2787-percentage' type='percentage' start='2778' length='9' value='9 percent'/>
+        <feature id='2854-2861-ssw' type='ssw' start='2854' length='7' value='skipper'/>
+        <feature id='2965-2970-ssw' type='ssw' start='2965' length='5' value='Exxon'/>
+        <feature id='3041-3043-ssw' type='ssw' start='3041' length='2' value='wo'/>
+        <feature id='5544-5546-ssw' type='ssw' start='5544' length='2' value='wo'/>
+        <feature id='5586-5590-mfw' type='mfw' start='5586' length='4' value='look'/>
+        <feature id='ed9f1c0d-cacd-4167-ab31-d5001d56bce8' type='Cluster' start='274' length='235'>
+            <link ref='274-276-ssw' />
+            <link ref='359-364-mfw' />
+            <link ref='507-509-ssw' />
         </feature>
-        <feature id="98327189-b506-422b-86d2-e28deb6f5ac7" type="Cluster" start="850" length="772">
-            <link ref="850-856-date" />
-            <link ref="892-897-mfw" />
-            <link ref="942-946-mfw" />
-            <link ref="1017-1019-ssw" />
-            <link ref="1189-1193-mfw" />
-            <link ref="1253-1255-ssw" />
-            <link ref="1439-1444-mfw" />
-            <link ref="1471-1475-mfw" />
-            <link ref="1620-1622-ssw" />
+        <feature id='98327189-b506-422b-86d2-e28deb6f5ac7' type='Cluster' start='850' length='772'>
+            <link ref='850-856-date' />
+            <link ref='892-897-mfw' />
+            <link ref='942-946-mfw' />
+            <link ref='1017-1019-ssw' />
+            <link ref='1189-1193-mfw' />
+            <link ref='1253-1255-ssw' />
+            <link ref='1439-1444-mfw' />
+            <link ref='1471-1475-mfw' />
+            <link ref='1620-1622-ssw' />
         </feature>
-        <feature id="e21a01c8-c710-4688-9317-a778555693ef" type="Cluster" start="2443" length="600">
-            <link ref="2443-2448-ssw" />
-            <link ref="2456-2461-ssw" />
-            <link ref="2596-2616-location" />
-            <link ref="2622-2624-ssw" />
-            <link ref="2640-2649-ssw" />
-            <link ref="2693-2698-ssw" />
-            <link ref="2701-2711-money" />
-            <link ref="2778-2787-percentage" />
-            <link ref="2854-2861-ssw" />
-            <link ref="2965-2970-ssw" />
-            <link ref="3041-3043-ssw" />
+        <feature id='e21a01c8-c710-4688-9317-a778555693ef' type='Cluster' start='2443' length='600'>
+            <link ref='2443-2448-ssw' />
+            <link ref='2456-2461-ssw' />
+            <link ref='2596-2616-location' />
+            <link ref='2622-2624-ssw' />
+            <link ref='2640-2649-ssw' />
+            <link ref='2693-2698-ssw' />
+            <link ref='2701-2711-money' />
+            <link ref='2778-2787-percentage' />
+            <link ref='2854-2861-ssw' />
+            <link ref='2965-2970-ssw' />
+            <link ref='3041-3043-ssw' />
         </feature>
-        <feature id="05a8a10a-2629-4204-9e9d-76b6cefc3e9b" type="Cluster" start="5544" length="46">
-            <link ref="5544-5546-ssw" />
-            <link ref="5586-5590-mfw" />
+        <feature id='05a8a10a-2629-4204-9e9d-76b6cefc3e9b' type='Cluster' start='5544' length='46'>
+            <link ref='5544-5546-ssw' />
+            <link ref='5586-5590-mfw' />
         </feature>
     </document>
-    <document id="source-document03029.txt" src="source-document03029.txt" original="source-document03029.txt" format="txt">
-        <feature id="475-477-ssw" type="ssw" start="475" length="2" value="wo"/>
-        <feature id="661-681-location" type="location" start="661" length="20" value="Prince William Sound"/>
-        <feature id="710-722-organization" type="organization" start="710" length="12" value="Exxon Valdez"/>
-        <feature id="1080-1084-mfw" type="mfw" start="1080" length="4" value="look"/>
-        <feature id="1258-1263-ssw" type="ssw" start="1258" length="5" value="wreck"/>
-        <feature id="1271-1283-organization" type="organization" start="1271" length="12" value="Exxon Valdez"/>
-        <feature id="1364-1366-ssw" type="ssw" start="1364" length="2" value="wo"/>
-        <feature id="1452-1458-date" type="date" start="1452" length="6" value="summer"/>
-        <feature id="1464-1473-ssw" type="ssw" start="1464" length="9" value="assessing"/>
-        <feature id="1639-1644-ssw" type="ssw" start="1639" length="5" value="Exxon"/>
-        <feature id="1835-1841-date" type="date" start="1835" length="6" value="summer"/>
-        <feature id="1858-1870-organization" type="organization" start="1858" length="12" value="Exxon Valdez"/>
-        <feature id="1955-1957-ssw" type="ssw" start="1955" length="2" value="wo"/>
-        <feature id="2096-2101-ssw" type="ssw" start="2096" length="5" value="Exxon"/>
-        <feature id="2116-2126-money" type="money" start="2116" length="10" value="$2 billion"/>
-        <feature id="2188-2197-percentage" type="percentage" start="2188" length="9" value="9 percent"/>
-        <feature id="4041-4043-ssw" type="ssw" start="4041" length="2" value="wo"/>
-        <feature id="4047-4054-ssw" type="ssw" start="4047" length="7" value="skipper"/>
-        <feature id="4062-4074-organization" type="organization" start="4062" length="12" value="Exxon Valdez"/>
-        <feature id="4935-4940-ssw" type="ssw" start="4935" length="5" value="Exxon"/>
-        <feature id="5154-5156-ssw" type="ssw" start="5154" length="2" value="wo"/>
-        <feature id="46983791-44dc-40e9-933f-04b1731ac55d" type="Cluster" start="475" length="247">
-            <link ref="475-477-ssw" />
-            <link ref="661-681-location" />
-            <link ref="710-722-organization" />
+    <document id='source-document03029.txt' src='source-document03029.txt' original='source-document03029.txt' format='txt'>
+        <feature id='475-477-ssw' type='ssw' start='475' length='2' value='wo'/>
+        <feature id='661-681-location' type='location' start='661' length='20' value='Prince William Sound'/>
+        <feature id='710-722-organization' type='organization' start='710' length='12' value='Exxon Valdez'/>
+        <feature id='1080-1084-mfw' type='mfw' start='1080' length='4' value='look'/>
+        <feature id='1258-1263-ssw' type='ssw' start='1258' length='5' value='wreck'/>
+        <feature id='1271-1283-organization' type='organization' start='1271' length='12' value='Exxon Valdez'/>
+        <feature id='1364-1366-ssw' type='ssw' start='1364' length='2' value='wo'/>
+        <feature id='1452-1458-date' type='date' start='1452' length='6' value='summer'/>
+        <feature id='1464-1473-ssw' type='ssw' start='1464' length='9' value='assessing'/>
+        <feature id='1639-1644-ssw' type='ssw' start='1639' length='5' value='Exxon'/>
+        <feature id='1835-1841-date' type='date' start='1835' length='6' value='summer'/>
+        <feature id='1858-1870-organization' type='organization' start='1858' length='12' value='Exxon Valdez'/>
+        <feature id='1955-1957-ssw' type='ssw' start='1955' length='2' value='wo'/>
+        <feature id='2096-2101-ssw' type='ssw' start='2096' length='5' value='Exxon'/>
+        <feature id='2116-2126-money' type='money' start='2116' length='10' value='$2 billion'/>
+        <feature id='2188-2197-percentage' type='percentage' start='2188' length='9' value='9 percent'/>
+        <feature id='4041-4043-ssw' type='ssw' start='4041' length='2' value='wo'/>
+        <feature id='4047-4054-ssw' type='ssw' start='4047' length='7' value='skipper'/>
+        <feature id='4062-4074-organization' type='organization' start='4062' length='12' value='Exxon Valdez'/>
+        <feature id='4935-4940-ssw' type='ssw' start='4935' length='5' value='Exxon'/>
+        <feature id='5154-5156-ssw' type='ssw' start='5154' length='2' value='wo'/>
+        <feature id='46983791-44dc-40e9-933f-04b1731ac55d' type='Cluster' start='475' length='247'>
+            <link ref='475-477-ssw' />
+            <link ref='661-681-location' />
+            <link ref='710-722-organization' />
         </feature>
-        <feature id="4c0f53da-2891-49e6-90cf-4b329814e012" type="Cluster" start="1080" length="1117">
-            <link ref="1080-1084-mfw" />
-            <link ref="1258-1263-ssw" />
-            <link ref="1271-1283-organization" />
-            <link ref="1364-1366-ssw" />
-            <link ref="1452-1458-date" />
-            <link ref="1464-1473-ssw" />
-            <link ref="1639-1644-ssw" />
-            <link ref="1835-1841-date" />
-            <link ref="1858-1870-organization" />
-            <link ref="1955-1957-ssw" />
-            <link ref="2096-2101-ssw" />
-            <link ref="2116-2126-money" />
-            <link ref="2188-2197-percentage" />
+        <feature id='4c0f53da-2891-49e6-90cf-4b329814e012' type='Cluster' start='1080' length='1117'>
+            <link ref='1080-1084-mfw' />
+            <link ref='1258-1263-ssw' />
+            <link ref='1271-1283-organization' />
+            <link ref='1364-1366-ssw' />
+            <link ref='1452-1458-date' />
+            <link ref='1464-1473-ssw' />
+            <link ref='1639-1644-ssw' />
+            <link ref='1835-1841-date' />
+            <link ref='1858-1870-organization' />
+            <link ref='1955-1957-ssw' />
+            <link ref='2096-2101-ssw' />
+            <link ref='2116-2126-money' />
+            <link ref='2188-2197-percentage' />
         </feature>
-        <feature id="e5e5b5d7-e6b6-45be-b621-85c92a8992d3" type="Cluster" start="4041" length="33">
-            <link ref="4041-4043-ssw" />
-            <link ref="4047-4054-ssw" />
-            <link ref="4062-4074-organization" />
+        <feature id='e5e5b5d7-e6b6-45be-b621-85c92a8992d3' type='Cluster' start='4041' length='33'>
+            <link ref='4041-4043-ssw' />
+            <link ref='4047-4054-ssw' />
+            <link ref='4062-4074-organization' />
         </feature>
-        <feature id="f3ace7c4-4fba-4335-a63b-011e4d44cfb6" type="Cluster" start="4935" length="221">
-            <link ref="4935-4940-ssw" />
-            <link ref="5154-5156-ssw" />
+        <feature id='f3ace7c4-4fba-4335-a63b-011e4d44cfb6' type='Cluster' start='4935' length='221'>
+            <link ref='4935-4940-ssw' />
+            <link ref='5154-5156-ssw' />
         </feature>
     </document>
     <alignments>
-        <match score="0.8210702919505422" type="semplag">
-            <ref document="suspicious-document00014.txt" feature="e21a01c8-c710-4688-9317-a778555693ef" />
-            <ref document="source-document03029.txt" feature="4c0f53da-2891-49e6-90cf-4b329814e012" />
+        <match score='0.8210702919505422' type='semplag'>
+            <ref document='suspicious-document00014.txt' feature='e21a01c8-c710-4688-9317-a778555693ef' />
+            <ref document='source-document03029.txt' feature='4c0f53da-2891-49e6-90cf-4b329814e012' />
             <detail>
-                <detail name="computation">
-                    <detail name="feature-order">0.8</detail>
-                    <detail name="mutual-features">0.6666666666666666</detail>
-                    <detail name="feature-occurrences">0.8333333333333334</detail>
-                    <detail name="feature-distance">0.9842811678021686</detail>
-                    <detail name="Max Common Features">6</detail>
-                    <detail name="Total Score">0.8210702919505422</detail>
+                <detail name='computation'>
+                    <detail name='feature-order'>0.8</detail>
+                    <detail name='mutual-features'>0.6666666666666666</detail>
+                    <detail name='feature-occurrences'>0.8333333333333334</detail>
+                    <detail name='feature-distance'>0.9842811678021686</detail>
+                    <detail name='Max Common Features'>6</detail>
+                    <detail name='Total Score'>0.8210702919505422</detail>
                 </detail>
             </detail>
         </match>

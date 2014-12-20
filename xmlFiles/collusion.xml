@@ -8,9 +8,9 @@
 		<feature id="cp1" type="paragraph" start="2390" length="1212"/>
 
 		<feature id="pattern1" type="citation-chunk" start="2778" length="1689">
-            <link ref="#cite1" />
-            <link ref="#cite5" />
-            <link ref="#cite3" />
+            <link ref="cite1" />
+            <link ref="cite5" />
+            <link ref="cite3" />
 		</feature>
 	</document>
 	<document id="8af0ang093" src="suspicious.xml" original="suspicious.txt" format="txt">
@@ -20,9 +20,9 @@
 		<feature id="cp1" type="paragraph" start="500" length="1234"/>
 
 		<feature id="pattern1" order="fix" type="foo" start="890" length="840">
-			<link ref="#cite5" />
-			<link ref="#cite3" />
-            <link ref="#cite1" />
+			<link ref="cite5" />
+			<link ref="cite3" />
+            <link ref="cite1" />
         </feature>
     </document>
     <alignments>

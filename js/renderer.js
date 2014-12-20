@@ -1,3 +1,6 @@
+/**
+ * responsible for any html output
+ */
 MyApp.Renderer = (function() {
     Renderer.patternPanels     = $('#patternPanels');
     Renderer.renderDiv         = $('#renderDiv');
@@ -6,15 +9,43 @@ MyApp.Renderer = (function() {
     Renderer.detailsDiv        = $('aside');
 
 
+    /**
+     *
+     * @constructor
+     */
     function Renderer() {}
 
+
+    /**
+     * resets html markup
+     */
     Renderer.resetMarkup = function() {
         this.patternPanels.empty();
         this.renderDiv.empty();
         this.errorDiv.empty().addClass('hidden');
+        $('svg').remove();
     };
 
 
+    /**
+     * displays error message
+     * @param content
+     * @returns {boolean}
+     */
+    XMLFileHandler.throwErrorMsg = function(content) {
+        this.errorDiv
+            .append('<span>' +content+ '</span>')
+            .removeClass('hidden');
+        return false;
+    };
+
+
+    /**
+     * creates a tab for a matchType
+     * @param patternTitle
+     * @param leftFileHTML
+     * @param rightFileHTML
+     */
     Renderer.createTab = function(patternTitle, leftFileHTML, rightFileHTML) {
         var tab = $('<li><a href="#'+patternTitle+'Tab" data-toggle="tab">'+patternTitle+'</a></li>');
         this.patternPanels.append(tab);
@@ -28,40 +59,49 @@ MyApp.Renderer = (function() {
     };
 
 
+    /**
+     * todo needs to be changed
+     */
     Renderer.setUp = function() {
-        MyApp.Renderer.attachDetails();
+        MyApp.Renderer.handleDetails();
         MyApp.Renderer.activateTab();
         MyApp.Renderer.drawCanvas();
     };
 
 
-    Renderer.attachDetails = function() {
+    /**
+     * attaches click listener to feature divs to display their details
+     */
+    Renderer.handleDetails = function() {
         var featDetails = MyApp.ComparisonParser.featDetails,
             _self = this;
 
+        _self.patternPanels.click(function() {
+            _self.detailsDiv.empty();
+        });
+
         $.each(featDetails, function(theClass, detail) {
-            theClass = "."+theClass;
-
-            $(theClass).mouseenter(function() {
-                _self.section.addClass('col-md-9');
-                _self.detailsDiv.removeClass('hidden');
-                _self.detailsDiv.append('<h3>Feature details</h3>' + detail);
-            });
-
-            $(theClass).mouseleave(function() {
+            $("."+theClass).click(function() {
                 _self.detailsDiv.empty();
+                _self.detailsDiv.append('<h3>Feature details</h3>' + detail);
             });
         });
     };
 
 
+    /**
+     * activate the first tab as default
+     * todo could be inserted somewhere else
+     */
     Renderer.activateTab = function() {
         this.patternPanels.find('li:first').addClass('active');
         this.renderDiv.find('div:first').addClass('active');
     };
 
 
-
+    /**
+     * todo I'm working on
+     */
     Renderer.drawCanvas = function() {
         var tabs = this.renderDiv.children();
 
@@ -75,7 +115,6 @@ MyApp.Renderer = (function() {
 
             MyApp.Canvas.drawPaper(canvasDiv);
 
-
             $(tab).find(".leftArea [class^='feature']").filter(function() {
                 var classi = this.className.match(/feature(\d+)_(\d+)/)[0];
 
@@ -87,11 +126,9 @@ MyApp.Renderer = (function() {
                     MyApp.Canvas.connect(yLeft*yRelation, yRight*yRelation);
                 }
             });
-
             return false;
         });
     };
 
-
     return Renderer;
-    })();
+})();

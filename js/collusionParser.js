@@ -1,12 +1,25 @@
+/**
+ * Parses collusion file
+ */
 MyApp.CollusionParser = (function() {
     CollusionParser["collusionJSON"]    = [];
     CollusionParser["matchTypes"]       = {}; /*[mType][m][d][f]['start']*/
     CollusionParser["featurePositions"] = [];
 
+    /**
+     *
+     * @constructor
+     */
     function CollusionParser() {}
 
+
+    /**
+     * Catches all matches and saves them categorized to display as panels later
+     * calls parseMatch() & eventually handleMatchTypes()
+     */
     CollusionParser.parseMatches = function() {
         var _self = this;
+        _self.matchTypes = {};
 
         var matches = _self.collusionJSON.alignments; // match
         if (matches.match.ref === undefined)
@@ -23,6 +36,12 @@ MyApp.CollusionParser = (function() {
     };
 
 
+    /**
+     * loops referenced features, of a match, and stores them in matchTypes[type]
+     * calls parseFeature()
+     * @param match
+     * @param cnt
+     */
     CollusionParser.parseMatch = function(match, cnt) {
         var documents = [],
             _self = this;
@@ -34,18 +53,19 @@ MyApp.CollusionParser = (function() {
                 if (doc.id == ref.document) {
                     $.each(doc.feature, function(k, feature) {
                         if (feature.id == ref.feature) {
-                            var parsedFeat = _self.parseFeature(match, feature, cnt);
+                            var inGroup = false,
+                                parsedFeat = _self.parseFeature(match, feature, cnt, inGroup);
                             features.push(parsedFeat);
 
                             if (parsedFeat['group']) {
                                 var nestedCnt = 0;
+                                inGroup = true;
                                 $.each(feature.link, function(l, id) {
                                     if (id.ref !== undefined)
                                         id = id.ref;
-                                    id = id.substr(1); // cut off char #
                                     $.each(doc.feature, function(m, linkedFeat) {
                                         if (linkedFeat.id == id) {
-                                            linkedFeat = _self.parseFeature(match, linkedFeat, cnt+"_"+nestedCnt);
+                                            linkedFeat = _self.parseFeature(match, linkedFeat, cnt+"_"+nestedCnt, inGroup);
                                             features.push(linkedFeat);
                                         }
                                     });
@@ -62,7 +82,15 @@ MyApp.CollusionParser = (function() {
     };
 
 
-    CollusionParser.parseFeature = function(vMatch, feat, cnt) {
+    /**
+     * set up a representing object for a feature
+     * @param vMatch
+     * @param feat
+     * @param cnt
+     * @param inGroup
+     * @returns {{}}
+     */
+    CollusionParser.parseFeature = function(vMatch, feat, cnt, inGroup) {
         var feature = {};
         feature['start'] = parseInt(feat.start);
         feature['end']   = parseInt(feat.start) + parseInt(feat.length);
@@ -76,13 +104,18 @@ MyApp.CollusionParser = (function() {
         if (feat.value !== undefined)
             feature['value'] = feat.value;
 
-        if (vMatch.detail !== undefined)
+        if (!inGroup && vMatch.detail !== undefined)
             feature['detail'] = this.parseMatchDetail(vMatch.detail);
 
         return feature;
     };
 
 
+    /**
+     * recursively parses details and returns them as string
+     * @param detail
+     * @returns {string}
+     */
     CollusionParser.parseMatchDetail = function(detail) {
         var div = "",
             _self = this;
@@ -106,6 +139,11 @@ MyApp.CollusionParser = (function() {
     };
 
 
+    /**
+     * orders feature positions, both start & end, in reverse order for an efficient parsing
+     * @param matches
+     * @param docNr
+     */
     CollusionParser.orderFeaturePos = function(matches, docNr) {
         var _self = this;
         _self.featurePositions = [];
@@ -123,6 +161,10 @@ MyApp.CollusionParser = (function() {
     };
 
 
+    /**
+     * calls orderFeaturePos(), ComparisonParser.convertFile() and Renderer.createTab for every matchType
+     * finally, calls Renderer.setUp()
+     */
     CollusionParser.handleMatchTypes = function() {
         var _self = this;
         $.each(_self.matchTypes, function(matchTitle, matches) {
