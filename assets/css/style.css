@@ -1,3 +1,10 @@
+html, body {height: 100%; }
+section, aside {height: 100%; padding-top: 50px}
+
+
+#comparison, .tab-pane, .leftArea, .canvas, .rightArea { height: 100% !important; }
+
+
 body {
     color: #999999;
     line-height: 1.5em;
@@ -7,6 +14,9 @@ body {
 h1, h2, h3, a { color: #317eac; }
 
 .navbar {
+    position: absolute;
+    width: 100%;
+    z-index: 9999;
     background-image: linear-gradient(#1c4587, #2a508e);
     background-color: #034482;
     border-radius: 0;
@@ -15,6 +25,22 @@ h1, h2, h3, a { color: #317eac; }
 .navbar, .navbar a { color: #ffffff !important; }
 
 #navLogo { padding: 7px 15px !important; }
+
+
+
+#patternPanels {
+    float: left;
+    height: 50px;
+    list-style: none;
+    margin-bottom: 0;
+}
+
+#patternPanels li {
+    float: left;
+    margin-right: 12px;
+    margin-top: 13px; /* (50/2) -(24/2) */
+}
+
 
 button {
     width: 40px;
@@ -41,48 +67,40 @@ button {
 
 .hidden {visibility: hidden;}
 
-
-#fileUpload {margin: 20px 0; }
-
-#fileUpload span {
-    float: left;
-    font-size: 1.2em;
+#fileUpload {
+    background-color: rgba(20, 20, 20, 0.32);
+    border-radius: 6px;
+    left: 50%;
+    padding: 24px;
+    position: absolute;
+    top: 50%;
+    z-index: 9999;
 }
 
 #fileUpload input {
-    float: left;
-    width: 30%;
-    margin-left: 20px;
     padding: 0;
 }
 
-#renderDiv .leftArea, #renderDiv .canvas, #renderDiv .rightArea {
+#comparison .leftArea, #comparison .canvas, #comparison .rightArea {
     float: left;
     width: 40%;
-    height: 500px;
-    margin-top: 50px;
     padding: 10px;
     overflow-y: scroll;
     background-color: aliceblue;
 }
 
-#renderDiv .leftArea div, #renderDiv .rightArea div {
+#comparison .leftArea div, #comparison .rightArea div {
     position: relative; /* for scrolling */
     display: inline;
 }
 
-#renderDiv .feature, #renderDiv .group {background-color: rgba(3, 68, 130, 0.13);}
-#renderDiv .group.feature {background-color: rgba(3, 68, 130, 0.25);}
+#comparison .feature, #comparison .group {background-color: rgba(3, 68, 130, 0.13);}
+#comparison .group.feature {background-color: rgba(3, 68, 130, 0.25);}
 
 
 
-#renderDiv .canvas {
+#comparison .canvas {
     width: 20%;
     overflow-y: auto;
     background-color: inherit;
-}
-
-
-@media (min-width: 992px) {
-    aside {padding-top: 290px;}
 }

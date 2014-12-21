@@ -20,12 +20,11 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="about.html">
-                    <span class="glyphicon glyphicon-info-sign"></span> About
-                </a>
                 <a class="navbar-brand" id="navLogo" href="http://www.sciplore.org" target="_blank">
                     <img src="assets/images/sciplore_logo.png" alt="SciPlore Logo">
                 </a>
+                <a class="navbar-brand" id="newFile" href="">Browse...</a>
+                <ul id="patternPanels"><!-- JS --></ul>
             </div>
 
             <!-- all elements for toggling -->
@@ -36,34 +35,29 @@
     </nav>
 
     <section class="container col-md-9">
-        <div id="welcomeSection">
-            <h1>CitePlag demonstrates Citation-based Plagiarism Detection (CbPD)</h1>
-            <p>
-                CbPD is a novel approach to identifying plagiarism by analyzing citation pattern
-                matches between documents to detect both local and global document similarities
-                at the semantic level. For details on CbPD see our related publications or the
-                doctoral thesis of Bela Gipp.</br>
-                If you have any questions please <a href="mailto:team@sciplore.org">contact us</a>.
-            </p>
-        </div>
-
-        <div id="fileUpload">
-            <span>Your collusion file</span>
+        <div id="fileUpload" class="hidden">
             <input id="collusionFileInput" type="file" class="form-control" />
-            <div class="clearFloat"></div>
         </div>
 
-        <div id="errorOutput" class="alert alert-danger hidden">
-            <!-- JS todo change -->
-        </div>
+        <div id="errorOutput" class="alert alert-danger hidden"></div>
 
-        <div id="comparison">
-            <ul class="nav nav-tabs" id="patternPanels"><!-- JS --></ul>
-            <div id="renderDiv" class="tab-content"><!-- JS part--></div>
+        <div id="comparison" class="tab-content">
+            <div id="pagedescription">
+                <h1>CitePlag demonstrates Citation-based Plagiarism Detection (CbPD)</h1>
+                <p>
+                    CbPD is a novel approach to identifying plagiarism by analyzing citation pattern
+                    matches between documents to detect both local and global document similarities
+                    at the semantic level. For details on CbPD see our related publications or the
+                    doctoral thesis of Bela Gipp.</br>
+                    If you have any questions please <a href="mailto:team@sciplore.org">contact us</a>.
+                </p>
+            </div>
+            <!-- JS part-->
         </div>
     </section>
 
     <aside class="col-md-3"><!-- JS --></aside>
+    <div class="clearFloat"></div>
 
     <script src="js/libs/jquery-1.10.2.min.js"></script>
     <script src="js/libs/jquery-ui-1.11.2..js"></script> <!-- not required atm -->

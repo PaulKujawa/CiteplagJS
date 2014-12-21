@@ -5,9 +5,16 @@ var MyApp = MyApp || {};
  * calls xmlFileHandler.loadCollusion()
  */
 $(function() {
-    //$('#collusionFileInput').change(function() {
-        var filename = "collusion.xml"; //$(this).val();
+    $('#newFile').click(function(event) {
+        event.preventDefault();
+        var fileUpload = $('#fileUpload');
+        fileUpload.removeClass('hidden');
+    });
+
+
+    $('#collusionFileInput').change(function() {
+        var filename = $(this).val(); //"collusion.xml"; //
         MyApp.Renderer.resetMarkup();
         MyApp.XMLFileHandler.loadCollusion(filename);
-   // });
+    });
 });

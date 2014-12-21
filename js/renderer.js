@@ -3,11 +3,12 @@
  */
 MyApp.Renderer = (function() {
     Renderer.patternPanels     = $('#patternPanels');
-    Renderer.renderDiv         = $('#renderDiv');
+    Renderer.comparisonDiv     = $('#comparison');
     Renderer.errorDiv          = $('#errorOutput');
     Renderer.section           = $('section');
     Renderer.detailsDiv        = $('aside');
-
+    Renderer.pageDescription   = $('#pagedescription');
+    Renderer.fileUpload        = $('#fileUpload');
 
     /**
      *
@@ -20,9 +21,14 @@ MyApp.Renderer = (function() {
      * resets html markup
      */
     Renderer.resetMarkup = function() {
+        this.pageDescription.hide(1000, function() {
+            this.remove();
+        });
+
         this.patternPanels.empty();
-        this.renderDiv.empty();
+        this.comparisonDiv.empty();
         this.errorDiv.empty().addClass('hidden');
+        this.fileUpload.addClass('hidden');
         $('svg').remove();
     };
 
@@ -32,7 +38,7 @@ MyApp.Renderer = (function() {
      * @param content
      * @returns {boolean}
      */
-    XMLFileHandler.throwErrorMsg = function(content) {
+    Renderer.throwErrorMsg = function(content) {
         this.errorDiv
             .append('<span>' +content+ '</span>')
             .removeClass('hidden');
@@ -55,7 +61,7 @@ MyApp.Renderer = (function() {
             .append('<div class="canvas"></div>')
             .append('<div class="rightArea">'+rightFileHTML+'</div>')
             .append('<div class="clearFloat"></div>');
-        this.renderDiv.append(div);
+        this.comparisonDiv.append(div);
     };
 
 
@@ -95,7 +101,7 @@ MyApp.Renderer = (function() {
      */
     Renderer.activateTab = function() {
         this.patternPanels.find('li:first').addClass('active');
-        this.renderDiv.find('div:first').addClass('active');
+        this.comparisonDiv.find('div:first').addClass('active');
     };
 
 
@@ -103,7 +109,7 @@ MyApp.Renderer = (function() {
      * todo I'm working on
      */
     Renderer.drawCanvas = function() {
-        var tabs = this.renderDiv.children();
+        var tabs = this.comparisonDiv.children();
 
         $.each(tabs, function(i, tab) {
             var connectedClasses    = [],
