@@ -109,31 +109,30 @@ MyApp.Renderer = (function() {
      * todo I'm working on
      */
     Renderer.drawCanvas = function() {
-        var tabs = this.comparisonDiv.children();
+        var tab = this.comparisonDiv.find('.active'),
+            connectedClasses    = [],
+            leftArea            = $(tab).find('.leftArea'),
+            canvasDiv           = $(tab).find('.canvas'),
+            rightArea           = $(tab).find('.rightArea'),
+            height              = leftArea.height(),
+            yLeftRelation       = height/leftArea[0].scrollHeight,
+            yRightRelation      = height/rightArea[0].scrollHeight,
+            top                 = canvasDiv.offset().top;
 
-        $.each(tabs, function(i, tab) {
-            var connectedClasses    = [],
-                leftArea            = $(tab).find('.leftArea'),
-                canvasDiv           = $(tab).find('.canvas'),
-                contentHeight       = leftArea[0].scrollHeight,
-                yRelation           = leftArea.height()/contentHeight,
-                top                 = canvasDiv.offset().top;
+        MyApp.Canvas.drawPaper(canvasDiv);
 
-            MyApp.Canvas.drawPaper(canvasDiv);
+        $(tab).find(".leftArea [class^='feature']").filter(function() {
+            var classi = this.className.match(/feature(\d+)_(\d+)/)[0];
 
-            $(tab).find(".leftArea [class^='feature']").filter(function() {
-                var classi = this.className.match(/feature(\d+)_(\d+)/)[0];
+            if (connectedClasses.indexOf(classi) == -1) { // original opening tag, no connecting tag
+                connectedClasses.push(classi);
+                var yLeft   = $(this).offset().top - top,
+                yRight  = $(tab).find('.rightArea .'+classi+':first').offset().top - top;
 
-                if (connectedClasses.indexOf(classi) == -1) { // original opening tag, no connecting tag
-                    connectedClasses.push(classi);
-                    var yLeft   = $(this).offset().top - top,
-                    yRight  = $(tab).find('.rightArea .'+classi+':first').offset().top - top;
-
-                    MyApp.Canvas.connect(yLeft*yRelation, yRight*yRelation);
-                }
-            });
-            return false;
+                MyApp.Canvas.connect(yLeft*yLeftRelation, yRight*yRightRelation);
+            }
         });
+
     };
 
     return Renderer;

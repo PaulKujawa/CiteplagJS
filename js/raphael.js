@@ -2,7 +2,7 @@
  * responsible for the canvas between the texts
  */
 MyApp.Canvas = (function() {
-    Canvas.r       = 6;
+    Canvas.r       = 5;
     Canvas.paper   = {};
     Canvas.width   = 0;
 

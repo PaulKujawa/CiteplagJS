@@ -1,17 +1,24 @@
-.xmlp {
-    margin: 0 0 10px;
+#comparison  .title {
+    display: block !important;
+    font-size: 1.3em;
+    margin-top: 15px;
 }
 
-.xmlboxed_text {}
-
-.xmlsec {}
-
-.xmltitle {
-    font-size: 1.1em;
+#comparison > div > div > .p {
+    display: block !important;
+    margin-bottom: 2px;
 }
 
-.xmllist{
-    margin: 0 0 10px;
+#comparison .xref {
+    font-size: 0.7em;
+    vertical-align: super;
 }
 
-.xmlist_item {}
+#comparison .list-item {
+    display: block !important;
+    margin-bottom: 2px;
+}
+
+#comparison .list-item:before {
+    content: "°";
+}
