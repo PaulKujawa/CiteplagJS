@@ -20,16 +20,11 @@ MyApp.Renderer = (function() {
     /**
      * resets html markup
      */
-    Renderer.resetMarkup = function() {
-        this.pageDescription.hide(1000, function() {
-            this.remove();
-        });
-
+    Renderer.resetForNewFile = function() {
         this.patternPanels.empty();
         this.comparisonDiv.empty();
         this.errorDiv.empty().addClass('hidden');
         this.fileUpload.addClass('hidden');
-        $('svg').remove();
     };
 
 
@@ -109,30 +104,42 @@ MyApp.Renderer = (function() {
      * todo I'm working on
      */
     Renderer.drawCanvas = function() {
-        var tab = this.comparisonDiv.find('.active'),
+        var tab = this.comparisonDiv.find('.tab-pane.active'),
             connectedClasses    = [],
             leftArea            = $(tab).find('.leftArea'),
             canvasDiv           = $(tab).find('.canvas'),
             rightArea           = $(tab).find('.rightArea'),
-            height              = leftArea.height(),
-            yLeftRelation       = height/leftArea[0].scrollHeight,
-            yRightRelation      = height/rightArea[0].scrollHeight,
-            top                 = canvasDiv.offset().top;
+            heightOffset        = leftArea.offset().top;
 
+        $('svg').remove();
         MyApp.Canvas.drawPaper(canvasDiv);
 
-        $(tab).find(".leftArea [class^='feature']").filter(function() {
-            var classi = this.className.match(/feature(\d+)_(\d+)/)[0];
 
-            if (connectedClasses.indexOf(classi) == -1) { // original opening tag, no connecting tag
-                connectedClasses.push(classi);
-                var yLeft   = $(this).offset().top - top,
-                yRight  = $(tab).find('.rightArea .'+classi+':first').offset().top - top;
+        // heights & y-positions
+        var divHeight           = leftArea.height(),
+            heightRelLeft       = divHeight/leftArea[0].scrollHeight,
+            heightRelRight      = divHeight/rightArea[0].scrollHeight,
+            heightOffsetLeft    = leftArea.scrollTop(),
+            heightOffsetRight   = rightArea.scrollTop();
 
-                MyApp.Canvas.connect(yLeft*yLeftRelation, yRight*yRightRelation);
+
+        $(tab).find(".leftArea [class^='feature']").filter(function() { // all divs with .feature
+
+            // looks for .featureX_Y or .featureX
+            var featClass = this.className.match(/feature(\d+)_(\d+)/); // feature in grp
+            if (featClass == null) featClass = this.className.match(/feature(\d+)/); // feature alone
+            featClass = featClass[0]; // featureX
+
+            if (connectedClasses.indexOf(featClass) == -1) { // first appearance so original OT
+                connectedClasses.push(featClass);
+
+                var rightDiv = rightArea.find('.'+featClass+':first'),
+                yLeft   =  $(this).offset().top - heightOffset + heightOffsetLeft,
+                yRight  = rightDiv.offset().top - heightOffset + heightOffsetRight;
+
+                MyApp.Canvas.connect(yLeft*heightRelLeft, yRight*heightRelRight);
             }
         });
-
     };
 
     return Renderer;

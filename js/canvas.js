@@ -29,6 +29,20 @@ MyApp.Canvas = (function() {
     };
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     /**
      * draws two points and connects them
      * @param yLeft
@@ -39,6 +53,36 @@ MyApp.Canvas = (function() {
         MyApp.Canvas.drawRightDot(yRight);
         MyApp.Canvas.drawLine(yLeft, yRight);
     };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     /**

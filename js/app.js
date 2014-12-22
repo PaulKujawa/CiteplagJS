@@ -1,7 +1,7 @@
 var MyApp = MyApp || {};
 
 /**
- * start point of application, after initial collusion file is selected
+ * start point of application & any user-event listener
  * calls xmlFileHandler.loadCollusion()
  */
 $(function() {
@@ -12,9 +12,22 @@ $(function() {
     });
 
 
-    //$('#collusionFileInput').change(function() {
-        var filename = "collusion.xml"; // $(this).val(); //
-        MyApp.Renderer.resetMarkup();
-        MyApp.XMLFileHandler.loadCollusion(filename);
-    //});
+
+    // SO.com/questions/19741754/capturing-shown-event-from-bootstrap-tab
+    $(document).on('shown.bs.tab', 'a[data-toggle="tab"]', function (e) {
+        MyApp.Renderer.drawCanvas();
+    });
+
+
+    /**
+     * start point, after a file as been chosen
+     */
+    $('#collusionFileInput').change(function() {
+        var filename = $(this).val();
+        MyApp.Renderer.pageDescription.hide(1000, function() {
+            this.remove();
+            MyApp.Renderer.resetForNewFile();
+            MyApp.XMLFileHandler.loadCollusion(filename);
+        });
+    });
 });
