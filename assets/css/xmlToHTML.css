@@ -20,5 +20,5 @@
 }
 
 #comparison .list-item:before {
-    content: "°";
+    content: "✖";
 }

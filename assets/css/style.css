@@ -6,7 +6,7 @@ section, aside {height: 100%; padding-top: 50px}
 
 
 body {
-    color: #999999;
+    color: #777;
     line-height: 1.5em;
     font-size: 16px;
 }
@@ -81,26 +81,36 @@ button {
     padding: 0;
 }
 
-#comparison .leftArea, #comparison .canvas, #comparison .rightArea {
+#comparison .leftArea,
+#comparison .canvas,
+#comparison .rightArea {
     float: left;
     width: 40%;
     padding: 10px;
     overflow-y: scroll;
-    background-color: aliceblue;
 }
 
 
-#comparison .leftArea div, #comparison .rightArea div {
+#comparison .leftArea div,
+#comparison .rightArea div {
     position: relative; /* for scrolling */
     display: inline;
 }
 
-#comparison .feature, #comparison .group {background-color: rgba(3, 68, 130, 0.13);}
-#comparison .group.feature {background-color: rgba(3, 68, 130, 0.25);}
-#comparison .feature {white-space: nowrap; }
+#comparison .feature,
+#comparison .group {background-color: rgba(209, 224, 238, 0.7);}
+
+#comparison .group.feature {background-color: rgb(191, 216, 238);}
+/*#comparison .feature {white-space: nowrap;}*/
 
 #comparison .canvas {
     width: 20%;
     overflow-y: auto;
     background-color: inherit;
+}
+
+.alert {padding: 0;}
+.alert-info {
+    background-color: #d9edf7 !important;
+    font-weight: bold;
 }

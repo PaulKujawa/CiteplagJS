@@ -148,9 +148,39 @@ MyApp.Renderer = (function() {
                 var leftPoint   = {x: xLeft*widthRelation, y: yLeft*heightRelLeft},
                     rightPoint  = {x: xRight*widthRelation, y: yRight*heightRelRight};
 
-                MyApp.Canvas.connect(leftPoint, rightPoint);
+                MyApp.Canvas.connect(leftPoint, rightPoint, featClass);
             }
         });
+    };
+
+    /**
+     * scrolls clicked features into top of scrollable view and highlight them
+     * gets called after click events, eg. from Canvas.drawLeftDot()
+     * @param featClass
+     */
+    Renderer.scrollIntoView = function(featClass) {
+        var tab = this.comparisonDiv.find('.tab-pane.active'),
+            leftArea            = $(tab).find('.leftArea'),
+            rightArea           = $(tab).find('.rightArea'),
+            yOffset             = leftArea.offset().top;
+
+        $.each([leftArea, rightArea], function(i, area) { // left & right
+            var feature     = area.find('.'+featClass+":first"),
+                lineHeight  = parseFloat(feature.css('line-height')),
+                pos         = feature.offset().top - yOffset + area.scrollTop();
+
+            if (pos >= lineHeight)
+                pos -= lineHeight; // to show previous line as well for context
+
+            area.animate({scrollTop: pos}, 'slow')
+                    .find("."+featClass).addClass('alert alert-info');
+        });
+
+        setTimeout(function() {
+            leftArea.find("."+featClass).removeClass('alert alert-info');
+            rightArea.find("."+featClass).removeClass('alert alert-info');
+        }, 5000);
+
     };
 
     return Renderer;
