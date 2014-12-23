@@ -101,7 +101,8 @@ MyApp.Renderer = (function() {
 
 
     /**
-     * todo I'm working on
+     * drawing the canvas, inclusive all points
+     * calls Canvas.connect()
      */
     Renderer.drawCanvas = function() {
         var tab = this.comparisonDiv.find('.tab-pane.active'),
@@ -109,35 +110,45 @@ MyApp.Renderer = (function() {
             leftArea            = $(tab).find('.leftArea'),
             canvasDiv           = $(tab).find('.canvas'),
             rightArea           = $(tab).find('.rightArea'),
-            heightOffset        = leftArea.offset().top;
+            yOffset             = leftArea.offset().top,
+            xOffset             = leftArea.offset().left;
 
         $('svg').remove();
         MyApp.Canvas.drawPaper(canvasDiv);
 
-
-        // heights & y-positions
-        var divHeight           = leftArea.height(),
-            heightRelLeft       = divHeight/leftArea[0].scrollHeight,
-            heightRelRight      = divHeight/rightArea[0].scrollHeight,
-            heightOffsetLeft    = leftArea.scrollTop(),
-            heightOffsetRight   = rightArea.scrollTop();
+        // calculate widths & heights
+        var canvasHeight        = canvasDiv.height(),
+            canvasWidth         = canvasDiv.width(),
+            heightRelLeft       = canvasHeight/leftArea[0].scrollHeight,
+            heightRelRight      = canvasHeight/rightArea[0].scrollHeight,
+            widthRelation       = canvasWidth/(rightArea.offset().left + rightArea.outerWidth()),
+            scrollOffsetLeft    = leftArea.scrollTop(),
+            scrollOffsetRight   = rightArea.scrollTop();
 
 
         $(tab).find(".leftArea [class^='feature']").filter(function() { // all divs with .feature
+            var leftFeat = this;
 
             // looks for .featureX_Y or .featureX
-            var featClass = this.className.match(/feature(\d+)_(\d+)/); // feature in grp
-            if (featClass == null) featClass = this.className.match(/feature(\d+)/); // feature alone
+            var featClass = leftFeat.className.match(/feature(\d+)_(\d+)/); // feature in grp
+            if (featClass == null) featClass = leftFeat.className.match(/feature(\d+)/); // feature alone
             featClass = featClass[0]; // featureX
 
-            if (connectedClasses.indexOf(featClass) == -1) { // first appearance so original OT
+            // first appearance so original OT
+            if (connectedClasses.indexOf(featClass) == -1) {
                 connectedClasses.push(featClass);
 
-                var rightDiv = rightArea.find('.'+featClass+':first'),
-                yLeft   =  $(this).offset().top - heightOffset + heightOffsetLeft,
-                yRight  = rightDiv.offset().top - heightOffset + heightOffsetRight;
+                // set position into relation
+                var rightFeat = rightArea.find('.'+featClass+':first'),
+                    xLeft   = $(leftFeat).offset().left - xOffset,
+                    yLeft   = $(leftFeat).offset().top - yOffset + scrollOffsetLeft,
+                    xRight  = rightFeat.offset().left - xOffset,
+                    yRight  = rightFeat.offset().top - yOffset + scrollOffsetRight;
 
-                MyApp.Canvas.connect(yLeft*heightRelLeft, yRight*heightRelRight);
+                var leftPoint   = {x: xLeft*widthRelation, y: yLeft*heightRelLeft},
+                    rightPoint  = {x: xRight*widthRelation, y: yRight*heightRelRight};
+
+                MyApp.Canvas.connect(leftPoint, rightPoint);
             }
         });
     };

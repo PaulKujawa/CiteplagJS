@@ -5,6 +5,7 @@ MyApp.Canvas = (function() {
     Canvas.r       = 5;
     Canvas.paper   = {};
     Canvas.width   = 0;
+    Canvas.height  = 0;
 
     /**
      *
@@ -24,76 +25,46 @@ MyApp.Canvas = (function() {
             height      = canvasDiv.outerHeight();
 
         this.width = canvasDiv.innerWidth() - 2*padding;
+        this.height = canvasDiv.outerHeight();
+
         this.paper = Raphael(left, top, this.width, height);
-        //this.paper = Raphael( $(".canvas").eq(0) , 200, 200);
+        MyApp.Canvas.drawRectangle();
     };
 
 
+    Canvas.drawRectangle = function() {
+        var width = this.width/ 2,
+            rl = this.paper.rect(0, 1, width, this.height-1), // border are cut off
+            rr = this.paper.rect(width, 1, width, this.height-1);
 
+        rl.attr("fill", "#F0F8FF");
+        rl.attr("stroke", "#B4CBDF");
 
-
-
-
-
-
-
-
-
-
-
-
+        rr.attr("fill", "#F0F8FF");
+        rr.attr("stroke", "#B4CBDF");
+    };
 
     /**
      * draws two points and connects them
-     * @param yLeft
-     * @param yRight
+     * @param left
+     * @param right
      */
-    Canvas.connect = function(yLeft, yRight) {
-        MyApp.Canvas.drawLeftDot(yLeft);
-        MyApp.Canvas.drawRightDot(yRight);
-        MyApp.Canvas.drawLine(yLeft, yRight);
+    Canvas.connect = function(left, right) {
+        MyApp.Canvas.drawLeftDot(left);
+        MyApp.Canvas.drawRightDot(right);
+        MyApp.Canvas.drawLine(left, right);
     };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     /**
      * draws a point for the left document
-     * @param y
+     * @param pos
      */
-    Canvas.drawLeftDot = function(y) {
-        var x = this.r;
-        y += this.r;
+    Canvas.drawLeftDot = function(pos) {
+        pos.x += this.r;
+        pos.y += this.r;
 
-        var circle = this.paper.circle(x, y, this.r);
+        var circle = this.paper.circle(pos.x, pos.y, this.r);
         circle.attr("fill", "#D1E0EE");
         circle.attr("stroke", "#B4CBDF");
     };
@@ -101,13 +72,13 @@ MyApp.Canvas = (function() {
 
     /**
      * draws a point for the right document
-     * @param y
+     * @param pos
      */
-    Canvas.drawRightDot = function(y) {
-        var x = this.width - this.r;
-        y += this.r;
+    Canvas.drawRightDot = function(pos) {
+        pos.x -= this.r;
+        pos.y += this.r;
 
-        var circle = this.paper.circle(x, y, this.r);
+        var circle = this.paper.circle(pos.x, pos.y, this.r);
         circle.attr("fill", "#D1E0EE");
         circle.attr("stroke", "#B4CBDF");
     };
@@ -115,17 +86,17 @@ MyApp.Canvas = (function() {
 
     /**
      * draws a line (normally between two points)
-     * @param yLeft
-     * @param yRight
+     * @param left
+     * @param right
      */
-    Canvas.drawLine = function(yLeft, yRight) {
-        var xLeft   = this.r*2;
-        var xRight  = this.width - 2*this.r;
-        yLeft      += this.r;
-        yRight     += this.r;
+    Canvas.drawLine = function(left, right) {
+        left.x += this.r;
 
-        var line = this.paper.path("M"+xLeft+"," + yLeft + " L0"+xRight+"," + yRight);
-        line.attr("stroke-width", 0.5);
+        right.x -= this.r;
+
+        var line = this.paper.path("M"+ left.x +","+ left.y +" L0"+ right.x +","+ right.y);
+        line.attr("stroke-width", 1);
+        line.attr("stroke", "#B4CBDF");
     };
 
     return Canvas;
