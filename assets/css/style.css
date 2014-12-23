@@ -97,8 +97,7 @@ button {
 
 #comparison .feature, #comparison .group {background-color: rgba(3, 68, 130, 0.13);}
 #comparison .group.feature {background-color: rgba(3, 68, 130, 0.25);}
-
-
+#comparison .feature {white-space: nowrap; }
 
 #comparison .canvas {
     width: 20%;
