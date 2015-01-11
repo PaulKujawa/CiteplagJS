@@ -20,6 +20,9 @@ MyApp.XMLFileHandler = (function() {
     XMLFileHandler.loadCollusion = function(filename) {
         var _self = this;
 
+        if (filename.split(".").pop() != "xml")
+            return MyApp.Renderer.throwErrorMsg( "Wrong file type. Please choose a xml file." );
+
         $.ajax({
             type: "GET",
             url: _self.folder + filename,
@@ -55,11 +58,15 @@ MyApp.XMLFileHandler = (function() {
                     startPos  = xmlString.indexOf('<body>')+ 6,
                     length    = xmlString.indexOf('</body>') - startPos;
 
+                if (startPos == -1 || length < 0)
+                    return MyApp.Renderer.throwErrorMsg( "Compare files must have body tags." );
+
                 _self.compareFilesXML[i] = xmlString.substr(startPos, length); // overwrites old values as well
                 if (i == 0)
                     _self.loadCompare(1);
                 else
                     MyApp.CollusionParser.parseMatches();
+                return true;
             },
             error: function(xhr) {
                 MyApp.Renderer.throwErrorMsg( xhr.responseText );

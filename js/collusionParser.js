@@ -25,8 +25,15 @@ MyApp.CollusionParser = (function() {
         if (matches.match.ref === undefined)
             matches = matches.match; // matches
 
+
+        if (typeof(matches) == "function")
+            return MyApp.Renderer.throwErrorMsg("Your collusion.xml has no 'match' in 'alignments'.");
+
         var cnt = 0;
         $.each(matches, function(i, match) {
+            if (match.type === undefined)
+                return MyApp.Renderer.throwErrorMsg("A 'match' in your collusion.xml has no 'type' attribute given.");
+
             if (_self.matchTypes[match.type] === undefined)
                 _self.matchTypes[match.type] = [];
             _self.parseMatch(match, cnt);
@@ -45,6 +52,9 @@ MyApp.CollusionParser = (function() {
     CollusionParser.parseMatch = function(match, cnt) {
         var documents = [],
             _self = this;
+
+        if (match.ref.length != 2)
+            return MyApp.Renderer.throwErrorMsg("A 'match' has less than 2 'ref' tags.");
 
         $.each(match.ref, function(i, ref) {
             var features = [];

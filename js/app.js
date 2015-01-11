@@ -24,10 +24,8 @@ $(function() {
      */
     $('#collusionFileInput').change(function() {
         var filename = $(this).val();
-        MyApp.Renderer.pageDescription.hide(1000, function() {
-            this.remove();
-            MyApp.Renderer.resetForNewFile();
-            MyApp.XMLFileHandler.loadCollusion(filename);
-        });
+        MyApp.Renderer.pageDescription.remove();
+        MyApp.Renderer.resetForNewFile();
+        MyApp.XMLFileHandler.loadCollusion(filename);
     });
 });

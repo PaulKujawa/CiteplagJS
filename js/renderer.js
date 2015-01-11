@@ -48,7 +48,7 @@ MyApp.Renderer = (function() {
      * @param rightFileHTML
      */
     Renderer.createTab = function(patternTitle, leftFileHTML, rightFileHTML) {
-        var tab = $('<li><a href="#'+patternTitle+'Tab" data-toggle="tab">'+patternTitle+'</a></li>');
+        var tab = $('<li class="navbar-brand"><a href="#'+patternTitle+'Tab" data-toggle="tab">'+patternTitle+'</a></li>');
         this.patternPanels.append(tab);
 
         var div = $('<div id="'+patternTitle+'Tab" class="tab-pane"></div>')
@@ -92,12 +92,15 @@ MyApp.Renderer = (function() {
 
     /**
      * activate the first tab as default
-     * todo could be inserted somewhere else
      */
     Renderer.activateTab = function() {
         this.patternPanels.find('li:first').addClass('active');
         this.comparisonDiv.find('div:first').addClass('active');
     };
+
+    $(window).resize(function() {
+        MyApp.Renderer.drawCanvas();
+    });
 
 
     /**
@@ -107,6 +110,7 @@ MyApp.Renderer = (function() {
     Renderer.drawCanvas = function() {
         var tab = this.comparisonDiv.find('.tab-pane.active'),
             connectedClasses    = [],
+            color               = MyApp.Renderer.newColor();
             leftArea            = $(tab).find('.leftArea'),
             canvasDiv           = $(tab).find('.canvas'),
             rightArea           = $(tab).find('.rightArea'),
@@ -127,16 +131,23 @@ MyApp.Renderer = (function() {
 
 
         $(tab).find(".leftArea [class^='feature']").filter(function() { // all divs with .feature
-            var leftFeat = this;
+            var leftFeat = this,
+                inGrp = true,
+                featClass = leftFeat.className.match(/feature(\d+)_(\d+)/); // feature in grp
 
-            // looks for .featureX_Y or .featureX
-            var featClass = leftFeat.className.match(/feature(\d+)_(\d+)/); // feature in grp
-            if (featClass == null) featClass = leftFeat.className.match(/feature(\d+)/); // feature alone
-            featClass = featClass[0]; // featureX
+            if (featClass == null) {
+                featClass = leftFeat.className.match(/feature(\d+)/); // feature | group itself
+                inGrp = false;
+            }
 
             // first appearance so original OT
+            featClass = featClass[0];
             if (connectedClasses.indexOf(featClass) == -1) {
                 connectedClasses.push(featClass);
+
+                if (!inGrp) {
+                    color = MyApp.Renderer.newColor();
+                }
 
                 // set position into relation
                 var rightFeat = rightArea.find('.'+featClass+':first'),
@@ -148,10 +159,23 @@ MyApp.Renderer = (function() {
                 var leftPoint   = {x: xLeft*widthRelation, y: yLeft*heightRelLeft},
                     rightPoint  = {x: xRight*widthRelation, y: yRight*heightRelRight};
 
-                MyApp.Canvas.connect(leftPoint, rightPoint, featClass);
+                MyApp.Canvas.connect(leftPoint, rightPoint, featClass, color);
             }
         });
+
     };
+
+
+    /**
+     * Returns "random" color
+     * @returns {string}
+     */
+    Renderer.newColor = function() {
+        // from http://www.paulirish.com/2009/random-hex-color-code-snippets/ @11.01.2015
+        return '#'+Math.floor(Math.random()*16777215).toString(16);
+    };
+
+
 
     /**
      * scrolls clicked features into top of scrollable view and highlight them
