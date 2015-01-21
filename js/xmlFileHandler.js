@@ -48,6 +48,9 @@ MyApp.XMLFileHandler = (function() {
         var filename = MyApp.CollusionParser['collusionJSON'].document[i].src,
             _self = this;
 
+        if (filename === undefined)
+            return MyApp.Renderer.throwErrorMsg( "No comparison files in your Collusion.xml given." );
+
         $.ajax({
             type: "GET",
             url: _self.folder + filename,
