@@ -111,6 +111,9 @@ MyApp.CollusionParser = (function() {
         else
             feature['class'] = "feature" + cnt;
 
+        if (cnt == "0_0")
+            console.log("feature0_0 ist einem match vergeben"); // todo debugPK
+
         if (feat.value !== undefined)
             feature['value'] = feat.value;
 

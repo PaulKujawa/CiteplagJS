@@ -39,77 +39,86 @@ MyApp.ComparisonParser = (function() {
                 if (! $.isEmptyObject(_self.activeFeatures) || ! $.isEmptyObject(_self.activeGroups))
                     _self.insertFeatCT(pos); // feature closing tag, left of converted xml tag
 
-            } else if (pos == _self.nextFeaturePos)
+            } else if (pos == _self.nextFeaturePos) {
                 _self.handleFeatPos(matches, docNr, pos); // insert feature starting or closing tag
+
+                var oldPos = _self.nextFeaturePos;
+                while (oldPos == _self.nextFeaturePos)
+                    _self.getNextFeaturePos();
+            }
         }
     };
 
 
     /**
-     * inserts end-tags and hold the classes of their opening tags "active" until their opening tags appear
+     * inserts end-tags or opening tags to hold classes between their tags active
      * active classes (of feature or groups) are implemented through connecting divs before & after each tag
-     * calls insertFeatCT(), insertFeatOT(), getNextFeaturePos()
+     * calls insertFeatCT(), insertFeatOT(), addActiveClass()
      * @param matches
      * @param docNr
      * @param pos
      */
     ComparisonParser.handleFeatPos = function(matches, docNr, pos) {
-        var _self = this;
-        $.each(matches, function(i, match) {
+        var _self = this,
+            noStartYet = true,
+            noEndYet = true;
 
+        $.each(matches, function(i, match) { // one time "for" OT and all times "for" CT
             $.each(match[docNr], function(f, feat) {
-                if (feat['start'] == pos) {
-                    _self.insertFeatOT(pos-1);
+                if (noStartYet && feat['start'] == pos) { // set OT just once
+                    _self.insertFeatOT(pos-1); // OT left of pos
                     delete _self.activeFeatures[pos];
                     delete _self.activeGroups[pos];
+                    noStartYet = false;
 
                     if (! $.isEmptyObject(_self.activeFeatures) || ! $.isEmptyObject(_self.activeGroups))
-                        _self.insertFeatCT(pos); // left
-                    _self.getNextFeaturePos();
-                    return false; // stop each loop, since multiple features could start at this pos
+                        _self.insertFeatCT(pos); // now CT right of pos (left of OT)
+                }
 
-
-                } else if (feat['end'] == pos) {
-                    if (! $.isEmptyObject(_self.activeFeatures) || ! $.isEmptyObject(_self.activeGroups)) {
-                        _self.insertFeatOT(pos-1);
-                        _self.insertFeatCT(pos); // right (pos = '<')
-                    } else
-                        _self.insertFeatCT(pos+1); // right
-
-                    while (pos == _self.nextFeaturePos) { // more features ending at this pos?
-                        $.each(matches, function(g, match2) {
-                            $.each(match2[docNr], function(h, feat2) {
-                                if (feat2['end'] == pos) {
-                                    var startPos  = feat2['start'],
-                                        featClass = feat2['class'];
-
-                                    if (feat2['group']) {
-                                        if ( _self.activeGroups[startPos] === undefined )
-                                            _self.activeGroups[startPos] = [];
-                                        _self.activeGroups[startPos].push(featClass);
-                                    } else {
-                                        if ( _self.activeFeatures[startPos] === undefined)
-                                            _self.activeFeatures[startPos] = [];
-                                        _self.activeFeatures[startPos].push(featClass);
-                                    }
-                                    if (feat2['detail'] !== undefined && docNr == 0) {
-                                        _self.featDetails[featClass] = [];
-                                        _self.featDetails[featClass].push(feat2['detail']);
-                                    }
-                                    _self.getNextFeaturePos();
-                                }
-                            });
-                        });
+                if (feat['end'] == pos) {
+                    if (noEndYet) { // set CT just once
+                        if (! $.isEmptyObject(_self.activeFeatures) || ! $.isEmptyObject(_self.activeGroups))
+                            _self.insertFeatOT(pos); // first OT right of pos
+                        _self.insertFeatCT(pos+1); // now CT right of pos (left of OT)
+                        noEndYet = false;
                     }
-                    return false; // all closing feature found, break for performance
-                } else
-                    return true; // no effect, just for consistent return points
+                    _self.addActiveClass(feat, docNr); // add ALL CT to stacks
+                }
             });
         });
     };
 
 
+
     /**
+     * Adds feature to stack (feat, group, detail)
+     * @param feat
+     * @param docNr
+     */
+    ComparisonParser.addActiveClass = function(feat, docNr) {
+        var startPos  = feat['start'],
+            featClass = feat['class'];
+
+        if (feat['group']) { // push group class to active ones
+            if ( this.activeGroups[startPos] === undefined )
+                this.activeGroups[startPos] = [];
+            this.activeGroups[startPos].push(featClass);
+
+        } else { // push feature class to active ones
+            if ( this.activeFeatures[startPos] === undefined)
+                this.activeFeatures[startPos] = [];
+            this.activeFeatures[startPos].push(featClass);
+        }
+
+        if (feat['detail'] !== undefined && docNr == 0) { // no equivalent pushes
+            this.featDetails[featClass] = [];
+            this.featDetails[featClass].push(feat['detail']);
+        }
+    };
+
+
+
+     /**
      * convert xml tag into html tag with the previous xml tag as it's class
      * @param pos
      * @param closingPos

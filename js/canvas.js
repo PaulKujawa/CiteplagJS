@@ -111,7 +111,6 @@ MyApp.Canvas = (function() {
     };
 
     Canvas.setAttributes = function(element, featClass, color) {
-        console.log(color);
         element
             .attr("stroke", color)
             .attr("cursor", "pointer")

@@ -145,16 +145,15 @@ MyApp.Renderer = (function() {
             if (connectedClasses.indexOf(featClass) == -1) {
                 connectedClasses.push(featClass);
 
-                if (!inGrp) {
+                if (!inGrp)
                     color = MyApp.Renderer.newColor();
-                }
 
                 // set position into relation
-                var rightFeat = rightArea.find('.'+featClass+':first'),
-                    xLeft   = $(leftFeat).offset().left - xOffset,
-                    yLeft   = $(leftFeat).offset().top - yOffset + scrollOffsetLeft,
-                    xRight  = rightFeat.offset().left - xOffset,
-                    yRight  = rightFeat.offset().top - yOffset + scrollOffsetRight;
+                var rightFeat   = rightArea.find('.'+featClass+':first'),
+                    xLeft       = $(leftFeat).offset().left - xOffset,
+                    yLeft       = $(leftFeat).offset().top - yOffset + scrollOffsetLeft,
+                    xRight      = rightFeat.offset().left - xOffset,
+                    yRight      = rightFeat.offset().top - yOffset + scrollOffsetRight;
 
                 var leftPoint   = {x: xLeft*widthRelation, y: yLeft*heightRelLeft},
                     rightPoint  = {x: xRight*widthRelation, y: yRight*heightRelRight};
