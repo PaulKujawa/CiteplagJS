@@ -25,6 +25,7 @@ MyApp.Renderer = (function() {
         this.comparisonDiv.empty();
         this.errorDiv.empty().addClass('hidden');
         this.fileUpload.addClass('hidden');
+        $('svg').remove();
     };
 
 

@@ -25,7 +25,6 @@ MyApp.CollusionParser = (function() {
         if (matches.match.ref === undefined)
             matches = matches.match; // matches
 
-
         if (typeof(matches) == "function")
             return MyApp.Renderer.throwErrorMsg("Your collusion.xml has no 'match' in 'alignments'.");
 
@@ -54,7 +53,7 @@ MyApp.CollusionParser = (function() {
             _self = this;
 
         if (match.ref.length != 2)
-            return MyApp.Renderer.throwErrorMsg("A 'match' has less than 2 'ref' tags.");
+            return MyApp.Renderer.throwErrorMsg("A 'match' has less than two 'ref' tags.");
 
         $.each(match.ref, function(i, ref) {
             var features = [];
@@ -110,9 +109,6 @@ MyApp.CollusionParser = (function() {
             feature['class'] = "group" + cnt;
         else
             feature['class'] = "feature" + cnt;
-
-        if (cnt == "0_0")
-            console.log("feature0_0 ist einem match vergeben"); // todo debugPK
 
         if (feat.value !== undefined)
             feature['value'] = feat.value;

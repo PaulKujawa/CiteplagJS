@@ -23,7 +23,11 @@
                 <a class="navbar-brand" id="navLogo" href="http://www.sciplore.org" target="_blank">
                     <img src="assets/images/sciplore_logo.png" alt="SciPlore Logo">
                 </a>
-                <a class="navbar-brand btn btn-primary" id="newFile" href="">Compare...</a>
+
+                <button id="selectCollusionBtn" class="navbar-brand btn btn-primary" type="button" data-toggle="modal" data-target="#collusionModal">
+                    Select Collusion.xml
+                </button>
+
                 <ul id="patternPanels"><!-- JS --></ul>
             </div>
 
@@ -35,12 +39,28 @@
     </nav>
 
     <section class="container col-md-9">
-        <div id="fileUpload" class="hidden">
-            <span>
-                Select your collusion.xml from the xmlFiles folder inside the projekt folder.
-                <a href="">More details</a>
-            </span>
-            <input id="collusionFileInput" type="file" class="form-control" />
+
+        <!-- Modal -->
+        <div class="modal fade" id="collusionModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Define Collusion.xml</h4>
+                    </div>
+                    <div class="modal-body">
+                        <label>You can define a different path to your folder, with your files, here.</label>
+                        <input id="xmlFolder" type="text" name="xmlFolder" value="./xmlFiles/">
+
+                        <label>Browse your Collusion.xml file to visualize it's matches.</label>
+                        <input id="collusionInput" type="file" class="form-control" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="saveUpload">Go</button>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div id="errorOutput" class="alert alert-danger hidden"></div>

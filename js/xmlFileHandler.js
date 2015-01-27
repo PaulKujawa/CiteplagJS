@@ -2,7 +2,7 @@
  * responsible for file uploads, both collusion and comparison files
  */
 MyApp.XMLFileHandler = (function() {
-    XMLFileHandler["folder"]          = "./xmlFiles/";
+    XMLFileHandler["folder"]          = "";
     XMLFileHandler["compareFilesXML"] = {};
 
     /**
@@ -17,8 +17,9 @@ MyApp.XMLFileHandler = (function() {
      * calls loadCompare(0) or Renderer.throwErrorMsg() on error
      * @param filename
      */
-    XMLFileHandler.loadCollusion = function(filename) {
+    XMLFileHandler.loadCollusion = function(folder, filename) {
         var _self = this;
+        _self.folder = folder;
 
         if (filename.split(".").pop() != "xml")
             return MyApp.Renderer.throwErrorMsg( "Wrong file type. Please choose a xml file." );
@@ -33,7 +34,7 @@ MyApp.XMLFileHandler = (function() {
                 _self.loadCompare(0);
             },
             error: function(xhr) {
-                MyApp.Renderer.throwErrorMsg( xhr.responseText );
+                return MyApp.Renderer.throwErrorMsg( xhr.responseText );
             }
         })
     };
@@ -49,7 +50,7 @@ MyApp.XMLFileHandler = (function() {
             _self = this;
 
         if (filename === undefined)
-            return MyApp.Renderer.throwErrorMsg( "No comparison files in your Collusion.xml given." );
+            return MyApp.Renderer.throwErrorMsg( "Not two comparison files in your Collusion.xml given." );
 
         $.ajax({
             type: "GET",

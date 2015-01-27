@@ -26,7 +26,24 @@ h1, h2, h3, a { color: #317eac; }
 
 #navLogo { padding: 7px 15px !important; }
 
-#newFile { margin-left: 20px }
+#selectCollusionBtn {
+    margin-left: 20px;
+    color: #ffffff !important;
+    border-radius:  0;
+}
+
+#collusionModal {
+    margin-top: 60px;
+}
+
+#collusionModal label:not(:first-child) {
+    margin-top: 40px;
+}
+
+#collusionModal input {
+    padding: 0;
+}
+
 
 
 #patternPanels {
@@ -45,19 +62,7 @@ h1, h2, h3, a { color: #317eac; }
 #patternPanels li.active { text-decoration: underline }
 
 
-button {
-    width: 40px;
-    height: 40px;
-    display: block;
-    margin: auto 0;
-    padding: 0;
-    border: 0;
-    vertical-align: baseline;
-    font-size: 22px;
-    color: #a88a8a;
-    background: none;
-    transition: all 0.2s;
-}
+
 
 .destroy:hover {
     text-shadow: 0 0 1px #000, 0 0 10px rgba(199, 107, 107, 0.8);
@@ -70,24 +75,6 @@ button {
 
 .hidden {visibility: hidden;}
 
-#fileUpload {
-    position: absolute;
-        top: 50%;
-        left: 50%;
-    margin-top: -58px;
-    z-index: 9999;
-    padding: 24px;
-    border-radius: 6px;
-    background-color: rgba(20, 20, 20, 0.6);
-    color: #fff;
-}
-
-#fileUpload a { color: #fff; text-decoration: underline }
-
-#fileUpload input {
-    margin-top: 10px;
-    padding: 0;
-}
 
 #comparison .leftArea,
 #comparison .canvas,
