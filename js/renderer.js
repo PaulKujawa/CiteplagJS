@@ -110,7 +110,8 @@ MyApp.Renderer = (function() {
     Renderer.drawCanvas = function() {
         var tab = this.comparisonDiv.find('.tab-pane.active'),
             connectedClasses    = [],
-            color               = MyApp.Renderer.newColor();
+            color               = MyApp.Renderer.newColor(),
+            lastGrp             = -1,
             leftArea            = $(tab).find('.leftArea'),
             canvasDiv           = $(tab).find('.canvas'),
             rightArea           = $(tab).find('.rightArea'),
@@ -132,24 +133,22 @@ MyApp.Renderer = (function() {
 
         $(tab).find(".leftArea [class^='feature']").filter(function() { // all divs with .feature
             var leftFeat = this,
-                inGrp = true,
                 featClass = leftFeat.className.match(/feature(\d+)_(\d+)/); // feature in grp
 
-            if (featClass == null) {
-                featClass = leftFeat.className.match(/feature(\d+)/); // feature | group itself
-                inGrp = false;
-            }
+            if (featClass == null)
+                featClass = leftFeat.className.match(/feature(\d+)/); // feature | group
 
-            // first appearance so original OT
-            featClass = featClass[0];
-            if (connectedClasses.indexOf(featClass) == -1) {
-                connectedClasses.push(featClass);
+            // featClass eg ["feautre0_1", "0", "1"]
+            if (connectedClasses.indexOf(featClass[0]) == -1) { // first occurrence
+                connectedClasses.push(featClass[0]);
 
-                if (!inGrp)
+                if (featClass[1] != lastGrp) {
                     color = MyApp.Renderer.newColor();
+                    lastGrp = featClass[1];
+                }
 
                 // set position into relation
-                var rightFeat   = rightArea.find('.'+featClass+':first'),
+                var rightFeat   = rightArea.find('.'+featClass[0]+':first'),
                     xLeft       = $(leftFeat).offset().left - xOffset,
                     yLeft       = $(leftFeat).offset().top - yOffset + scrollOffsetLeft,
                     xRight      = rightFeat.offset().left - xOffset,
@@ -158,7 +157,7 @@ MyApp.Renderer = (function() {
                 var leftPoint   = {x: xLeft*widthRelation, y: yLeft*heightRelLeft},
                     rightPoint  = {x: xRight*widthRelation, y: yRight*heightRelRight};
 
-                MyApp.Canvas.connect(leftPoint, rightPoint, featClass, color);
+                MyApp.Canvas.connect(leftPoint, rightPoint, featClass[0], color);
             }
         });
 
@@ -182,7 +181,7 @@ MyApp.Renderer = (function() {
      * @param featClass
      */
     Renderer.scrollIntoView = function(featClass) {
-        var tab = this.comparisonDiv.find('.tab-pane.active'),
+        var tab                 = this.comparisonDiv.find('.tab-pane.active'),
             leftArea            = $(tab).find('.leftArea'),
             rightArea           = $(tab).find('.rightArea'),
             yOffset             = leftArea.offset().top;
