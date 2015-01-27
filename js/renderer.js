@@ -84,7 +84,7 @@ MyApp.Renderer = (function() {
         $.each(featDetails, function(theClass, detail) {
             $("."+theClass).click(function() {
                 _self.detailsDiv.empty();
-                _self.detailsDiv.append('<h3>Feature details</h3>' + detail);
+                _self.detailsDiv.append('<h3>Match details</h3>' + detail);
             });
         });
     };

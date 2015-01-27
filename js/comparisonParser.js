@@ -28,7 +28,7 @@ MyApp.ComparisonParser = (function() {
         _self.xmlString     = MyApp.XMLFileHandler['compareFilesXML'][docNr];
         _self.getNextFeaturePos();
 
-        for (var pos = _self.xmlString.length-1; pos >= 0; pos--) {
+        for (var pos = _self.xmlString.length-1; 0 <= pos; pos--) {
             if (_self.xmlString[pos] === '>') {
                 closingPos = pos;
                 if (! $.isEmptyObject(_self.activeFeatures) || ! $.isEmptyObject(_self.activeGroups))
@@ -42,7 +42,7 @@ MyApp.ComparisonParser = (function() {
             } else if (pos == _self.nextFeaturePos) {
                 _self.handleFeatPos(matches, docNr, pos); // insert feature starting or closing tag
 
-                var oldPos = _self.nextFeaturePos;
+                var oldPos = _self.nextFeaturePos; // since multiple OT / CT are handled together
                 while (oldPos == _self.nextFeaturePos)
                     _self.getNextFeaturePos();
             }
@@ -66,13 +66,13 @@ MyApp.ComparisonParser = (function() {
         $.each(matches, function(i, match) { // one time "for" OT and all times "for" CT
             $.each(match[docNr], function(f, feat) {
                 if (noStartYet && feat['start'] == pos) { // set OT just once
-                    _self.insertFeatOT(pos-1); // OT left of pos
+                    _self.insertFeatOT(pos); // OT left of pos todo eig pos+1
                     delete _self.activeFeatures[pos];
                     delete _self.activeGroups[pos];
                     noStartYet = false;
 
                     if (! $.isEmptyObject(_self.activeFeatures) || ! $.isEmptyObject(_self.activeGroups))
-                        _self.insertFeatCT(pos); // now CT right of pos (left of OT)
+                        _self.insertFeatCT(pos+1); // now CT right of pos (left of OT) todo eig pos+0
                 }
 
                 if (feat['end'] == pos) {
