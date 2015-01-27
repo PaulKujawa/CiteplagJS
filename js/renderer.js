@@ -9,6 +9,7 @@ MyApp.Renderer = (function() {
     Renderer.detailsDiv        = $('aside');
     Renderer.pageDescription   = $('#pagedescription');
     Renderer.fileUpload        = $('#fileUpload');
+    Renderer.usedColors        = [];
 
     /**
      *
@@ -62,7 +63,7 @@ MyApp.Renderer = (function() {
 
 
     /**
-     * todo needs to be changed
+     * Setup function
      */
     Renderer.setUp = function() {
         MyApp.Renderer.handleDetails();
@@ -110,6 +111,7 @@ MyApp.Renderer = (function() {
      */
     Renderer.drawCanvas = function() {
         var tab = this.comparisonDiv.find('.tab-pane.active'),
+            _self               = this,
             connectedClasses    = [],
             color               = MyApp.Renderer.newColor(),
             lastGrp             = -1,
@@ -119,8 +121,14 @@ MyApp.Renderer = (function() {
             yOffset             = leftArea.offset().top,
             xOffset             = leftArea.offset().left;
 
+        // in case of redrawing
         $('svg').remove();
         MyApp.Canvas.drawPaper(canvasDiv);
+
+        // same colors every time
+        var colorsCopy = [];
+        if (_self.usedColors.length > 0)
+            colorsCopy = _self.usedColors.slice();
 
         // calculate widths & heights
         var canvasHeight        = canvasDiv.height(),
@@ -144,8 +152,14 @@ MyApp.Renderer = (function() {
                 connectedClasses.push(featClass[0]);
 
                 if (featClass[1] != lastGrp) {
-                    color = MyApp.Renderer.newColor();
                     lastGrp = featClass[1];
+
+                    if (colorsCopy.length > 0)
+                        color = colorsCopy.pop();
+                    else {
+                        color = MyApp.Renderer.newColor();
+                        _self.usedColors.push(color);
+                    }
                 }
 
                 // set position into relation
@@ -161,7 +175,6 @@ MyApp.Renderer = (function() {
                 MyApp.Canvas.connect(leftPoint, rightPoint, featClass[0], color);
             }
         });
-
     };
 
 
