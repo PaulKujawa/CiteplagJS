@@ -55,15 +55,17 @@ MyApp.XMLFileHandler = (function() {
         $.ajax({
             type: "GET",
             url: _self.folder + filename,
-            dataType: "xml",
+            dataType: "html",
 
-            success: function(file) {
-                var xmlString = (new XMLSerializer()).serializeToString(file),
-                    startPos  = xmlString.indexOf('<body>')+ 6,
-                    length    = xmlString.indexOf('</body>') - startPos;
+            success: function(xmlString) {
+                var startPos    = xmlString.indexOf('<body>') + 6,
+                    length      = xmlString.indexOf('</body>');
 
-                if (startPos == -1 || length < 0)
-                    return MyApp.Renderer.throwErrorMsg( "Compare files must have body tags." );
+                if (startPos == 5)  { // no <body> tag
+                    startPos = 0;
+                    length = xmlString.length;
+                }
+                length -= startPos;
 
                 _self.compareFilesXML[i] = xmlString.substr(startPos, length); // overwrites old values as well
                 if (i == 0)
