@@ -104,6 +104,7 @@ MyApp.CollusionParser = (function() {
         feature['start'] = parseInt(feat.start);
         feature['end']   = parseInt(feat.start) + parseInt(feat.length);
         feature['group'] = feat.link !== undefined;
+        feature['id']    = feat.id;
 
         if (feature['group'])
             feature['class'] = "group" + cnt;

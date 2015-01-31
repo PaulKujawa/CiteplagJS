@@ -6,6 +6,7 @@ MyApp.ComparisonParser = (function() {
     ComparisonParser["featDetails"] = {};
     ComparisonParser.activeFeatures = {}; //activeFeatures[position][i]
     ComparisonParser.activeGroups   = {};
+    ComparisonParser.activeIds      = {};
     ComparisonParser.nextFeaturePos = 0;
 
     /**
@@ -40,7 +41,7 @@ MyApp.ComparisonParser = (function() {
                     _self.insertFeatCT(pos); // feature closing tag, left of converted xml tag
 
             } else if (pos == _self.nextFeaturePos) {
-                _self.handleFeatPos(matches, docNr, pos); // insert feature starting or closing tag
+                _self.handleFeatPos(matches, docNr, pos); // insert feature OT / CT
 
                 var oldPos = _self.nextFeaturePos; // since multiple OT / CT are handled together
                 while (oldPos == _self.nextFeaturePos)
@@ -66,13 +67,14 @@ MyApp.ComparisonParser = (function() {
         $.each(matches, function(i, match) { // one time "for" OT and all times "for" CT
             $.each(match[docNr], function(f, feat) {
                 if (noStartYet && feat['start'] == pos) { // set OT just once
-                    _self.insertFeatOT(pos); // OT left of pos todo eig pos+1
+                    _self.insertFeatOT(pos); // OT left of pos
                     delete _self.activeFeatures[pos];
                     delete _self.activeGroups[pos];
+                    delete _self.activeIds[pos];
                     noStartYet = false;
 
                     if (! $.isEmptyObject(_self.activeFeatures) || ! $.isEmptyObject(_self.activeGroups))
-                        _self.insertFeatCT(pos+1); // now CT right of pos (left of OT) todo eig pos+0
+                        _self.insertFeatCT(pos+1); // now CT right of pos (left of OT)
                 }
 
                 if (feat['end'] == pos) {
@@ -109,6 +111,10 @@ MyApp.ComparisonParser = (function() {
                 this.activeFeatures[startPos] = [];
             this.activeFeatures[startPos].push(featClass);
         }
+
+        if ( this.activeIds[startPos] === undefined) // push Id of feature/group to active ones
+            this.activeIds[startPos] = [];
+        this.activeIds[startPos].push(feat['id']);
 
         if (feat['detail'] !== undefined && docNr == 0) { // no equivalent pushes
             this.featDetails[featClass] = [];
@@ -153,13 +159,11 @@ MyApp.ComparisonParser = (function() {
      * @param pos
      */
     ComparisonParser.insertFeatOT = function(pos) {
-        var classes = "";
+        var classes = "",
+            ids     = "";
 
-        if (! $.isEmptyObject(this.activeFeatures))
-            classes += "feature ";
-
-        if (! $.isEmptyObject(this.activeGroups))
-            classes += "group ";
+        if (! $.isEmptyObject(this.activeFeatures)) classes += "feature ";
+        if (! $.isEmptyObject(this.activeGroups))   classes += "group ";
 
         $.each(this.activeFeatures, function(i, position) {
             $.each(position, function(k, featClass) {
@@ -173,7 +177,13 @@ MyApp.ComparisonParser = (function() {
             });
         });
 
-        var tag = '<div class="'+ classes + '">';
+        $.each(this.activeIds, function(i, position) {
+            $.each(position, function(k, featId) {
+                ids += featId + " ";
+            });
+        });
+
+        var tag = "<div class='" +classes.slice(0, -1)+ "' data-ids='" +ids.slice(0, -1)+ "'>";
         this.xmlString = this.xmlString.substr(0, pos+1) +tag+ this.xmlString.substr(pos+1);
     };
 
