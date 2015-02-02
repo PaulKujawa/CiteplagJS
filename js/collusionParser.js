@@ -47,7 +47,7 @@ MyApp.CollusionParser = (function() {
      */
     CollusionParser.parseMatchFeats = function(match, matchCnt) {
         var bothDocuments   = [],
-            _self       = this;
+            _self           = this;
 
         $.each(match.ref, function(refNr, ref) {
             var features = [];
@@ -160,7 +160,7 @@ MyApp.CollusionParser = (function() {
      * @param toClass
      */
     CollusionParser.connectFeats = function(fromClass, toClass) {
-        if (MyApp.Renderer.featToConnect.indexOf(fromClass) == -1)
+        if (MyApp.Renderer.featToConnect[fromClass] === undefined)
             MyApp.Renderer.featToConnect[fromClass] = [];
 
         MyApp.Renderer.featToConnect[fromClass].push(toClass); // eg a1->b2, a1->b3, a2->b1

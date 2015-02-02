@@ -9,8 +9,8 @@ MyApp.Renderer = (function() {
     Renderer.detailsDiv         = $('aside');
     Renderer.pageDescription    = $('#pagedescription');
     Renderer.fileUpload         = $('#fileUpload');
-    Renderer.featToConnect      = [];
     Renderer.usedColors         = [];
+    Renderer.featToConnect      = {};
 
     /**
      *
@@ -118,9 +118,8 @@ MyApp.Renderer = (function() {
      * calls Canvas.connect()
      */
     Renderer.drawCanvas = function() {
-        var tab = this.comparisonDiv.find('.tab-pane.active'),
+        var tab                 = this.comparisonDiv.find('.tab-pane.active'),
             _self               = this,
-            connectedClasses    = [],
             color               = MyApp.Renderer.newColor(),
             lastGrpNr           = -1,
             leftArea            = $(tab).find('.leftArea'),
@@ -147,24 +146,15 @@ MyApp.Renderer = (function() {
             scrollOffsetLeft    = leftArea.scrollTop(),
             scrollOffsetRight   = rightArea.scrollTop();
 
-        console.log(_self.featToConnect);
-
-        $(tab).find(".leftArea [class^='feature']").filter(function() { // all divs with .feature (at 1st class)
-            var leftFeat  = this,   featClass = leftFeat.className.match(/feature(\d+)_(\d+)/); // featureX_Y (in a grp)
-            if (featClass == null)  featClass = leftFeat.className.match(/feature(\d+)/);       // featureX (outside grp)
-
-            var grpNr     = featClass[1]; // grp nr eg 0 of feature0_1
-                featClass = featClass[0]; // whole class eg feature0_1
-
-            // only first occurrences
-            if (connectedClasses.indexOf(featClass) != -1)
-                return false;
-            connectedClasses.push(featClass);
 
 
-            // same color features within same group
-            if (grpNr != lastGrpNr) {
-                lastGrpNr = grpNr;
+        $.each(_self.featToConnect, function(leftClass, rightClass) {
+            // same color for features within same group
+            var                 group = leftClass.match(/feature(\d+)_(\d+)/);  // 0=featureX_Y, 1=X, 2=Y
+            if (group == null)  group = leftClass.match(/feature(\d+)/);        // 0=featureX,   1=X
+
+            if (group[1] != lastGrpNr) {
+                lastGrpNr = group[1];
 
                 if (colorsCopy.length > 0)
                     color = colorsCopy.pop();
@@ -175,7 +165,8 @@ MyApp.Renderer = (function() {
             }
 
             // set position into relation
-            var rightFeat   = rightArea.find('.'+featClass+':first'),
+            var leftFeat    = leftArea.find("." +leftClass).first(),
+                rightFeat   = rightArea.find('.'+rightClass).first(),
                 xLeft       = $(leftFeat).offset().left - xOffset,
                 yLeft       = $(leftFeat).offset().top  - yOffset + scrollOffsetLeft,
                 xRight      = rightFeat.offset().left   - xOffset,
@@ -184,7 +175,7 @@ MyApp.Renderer = (function() {
             var leftPoint   = {x: xLeft*widthRelation,  y: yLeft*heightRelLeft},
                 rightPoint  = {x: xRight*widthRelation, y: yRight*heightRelRight};
 
-            MyApp.Canvas.connect(leftPoint, rightPoint, featClass, color);
+            MyApp.Canvas.connect(leftPoint, rightPoint, leftClass, rightClass, color);
         });
     };
 
@@ -204,32 +195,43 @@ MyApp.Renderer = (function() {
     /**
      * scrolls clicked features into top of scrollable view and highlight them
      * gets called after click events, eg. from Canvas.drawLeftDot()
-     * @param featClass
+     * @paramLeftClass
+     * @paramRightClass
      */
-    Renderer.scrollIntoView = function(featClass) {
+    Renderer.scrollIntoView = function(leftClass, rightClass) {
         var tab                 = this.comparisonDiv.find('.tab-pane.active'),
             leftArea            = $(tab).find('.leftArea'),
             rightArea           = $(tab).find('.rightArea'),
             yOffset             = leftArea.offset().top;
 
-        $.each([leftArea, rightArea], function(i, area) { // left & right
-            var feature     = area.find('.'+featClass+":first"),
-                lineHeight  = parseFloat(feature.css('line-height')),
-                pos         = feature.offset().top - yOffset + area.scrollTop();
-
-            if (pos >= lineHeight)
-                pos -= lineHeight; // to show previous line as well for context
-
-            area.animate({scrollTop: pos}, 'slow')
-                    .find("."+featClass).addClass('alert alert-info');
-        });
+        MyApp.Renderer.scrollToClass(leftArea, leftClass, yOffset);
+        MyApp.Renderer.scrollToClass(rightArea, rightClass, yOffset);
 
         setTimeout(function() {
-            leftArea.find("."+featClass).removeClass('alert alert-info');
-            rightArea.find("."+featClass).removeClass('alert alert-info');
+            leftArea.find("."+leftClass).removeClass('alert alert-info');
+            rightArea.find("."+rightClass).removeClass('alert alert-info');
         }, 5000);
 
     };
+
+
+    /**
+     * Scolls one side to div with given class
+     * @param area
+     * @param featClass
+     * @param yOffset
+     */
+    Renderer.scrollToClass = function(area, featClass, yOffset) {
+        var feature         = area.find('.'+featClass).first(),
+            lineHeight      = parseFloat(feature.css('line-height')),
+            pos             = feature.offset().top - yOffset + area.scrollTop();
+
+        if (pos >= lineHeight)
+            pos -= lineHeight; // to show previous line as well for context
+
+        area.animate({scrollTop: pos}, 'slow').find("."+featClass).addClass('alert alert-info');
+    };
+
 
     return Renderer;
 })();

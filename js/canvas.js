@@ -46,15 +46,19 @@ MyApp.Canvas = (function() {
 
     /**
      * draws two points and connects them
-     * @param left
-     * @param right
-     * @param featClass
+     * @param leftPos
+     * @param rightPos
+     * @param leftClass
+     * @param rightClass
      * @param color
      */
-    Canvas.connect = function(left, right, featClass, color) {
-        MyApp.Canvas.drawLeftDot(left, featClass, color);
-        MyApp.Canvas.drawRightDot(right, featClass, color);
-        MyApp.Canvas.drawLine(left, right, featClass, color);
+    Canvas.connect = function(leftPos, rightPos, leftClass, rightClass, color) {
+        var leftDot     = MyApp.Canvas.drawLeftDot(leftPos);
+        var rightDot    = MyApp.Canvas.drawRightDot(rightPos);
+        var middleLine  = MyApp.Canvas.drawLine(leftPos, rightPos);
+        MyApp.Canvas.setAttributes(leftDot,     leftClass, rightClass, color);
+        MyApp.Canvas.setAttributes(rightDot,    leftClass, rightClass, color);
+        MyApp.Canvas.setAttributes(middleLine,  leftClass, rightClass, color);
     };
 
 
@@ -62,34 +66,22 @@ MyApp.Canvas = (function() {
      * draws a point for the left document
      * class Renderer.scrollIntoView()
      * @param pos
-     * @param featClass
-     * @param color
      */
-    Canvas.drawLeftDot = function(pos, featClass, color) {
+    Canvas.drawLeftDot = function(pos) {
         pos.x += this.r;
         pos.y += this.r;
-
-        var circle = this.paper.circle(pos.x, pos.y, this.r)
-            .attr("fill", "#D1E0EE");
-
-        this.setAttributes(circle, featClass, color);
+        return this.paper.circle(pos.x, pos.y, this.r).attr("fill", "#D1E0EE");
     };
 
 
     /**
      * draws a point for the right document
      * @param pos
-     * @param featClass
-     * @param color
      */
-    Canvas.drawRightDot = function(pos, featClass, color) {
+    Canvas.drawRightDot = function(pos) {
         pos.x -= this.r;
         pos.y += this.r;
-
-        var circle = this.paper.circle(pos.x, pos.y, this.r)
-            .attr("fill", "#D1E0EE");
-
-        this.setAttributes(circle, featClass, color);
+        return this.paper.circle(pos.x, pos.y, this.r).attr("fill", "#D1E0EE");
     };
 
 
@@ -97,26 +89,27 @@ MyApp.Canvas = (function() {
      * draws a line (normally between two points)
      * @param left
      * @param right
-     * @param featClass
-     * @param color
      */
-    Canvas.drawLine = function(left, right, featClass, color) {
+    Canvas.drawLine = function(left, right) {
         left.x += this.r;
         right.x -= this.r;
-
-        var line = this.paper.path("M"+ left.x +","+ left.y +" L0"+ right.x +","+ right.y);
-        line.attr("stroke-width", 3);
-        this.setAttributes(line, featClass, color);
-
+        return this.paper.path("M"+ left.x +","+ left.y +" L0"+ right.x +","+ right.y).attr("stroke-width", 3);
     };
 
-    Canvas.setAttributes = function(element, featClass, color) {
+
+    /**
+     * Sets attributes for dots and lines
+     * @param element
+     * @param leftClass
+     * @param rightClass
+     * @param color
+     */
+    Canvas.setAttributes = function(element, leftClass, rightClass, color) {
         element
             .attr("stroke", color)
             .attr("cursor", "pointer")
-            .data('class', featClass)
             .click(function() {
-                MyApp.Renderer.scrollIntoView( this.data('class') );
+                MyApp.Renderer.scrollIntoView(leftClass, rightClass);
             });
     };
 
