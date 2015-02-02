@@ -2,9 +2,9 @@
  * Parses collusion file
  */
 MyApp.CollusionParser = (function() {
-    CollusionParser["collusionJSON"]    = [];
-    CollusionParser["matchTypes"]       = {}; /*[mType][m][d][f]['start']*/
-    CollusionParser["featurePositions"] = [];
+    CollusionParser.collusionJSON    = [];
+    CollusionParser.matchTypes       = {}; /*[mType][m][d][f]['start']*/
+    CollusionParser.featurePositions = [];
 
     /**
      *
@@ -15,7 +15,6 @@ MyApp.CollusionParser = (function() {
 
     /**
      * Catches all matches and saves them categorized to display as panels later
-     * calls parseMatch() & eventually handleMatchTypes()
      */
     CollusionParser.parseMatches = function() {
         var _self = this;
@@ -28,66 +27,70 @@ MyApp.CollusionParser = (function() {
         if (typeof(matches) == "function")
             return MyApp.Renderer.throwErrorMsg("Your collusion.xml has no 'match' in 'alignments'.");
 
-        var cnt = 0;
+        var matchCnt = 0;
         $.each(matches, function(i, match) {
-            if (match.type === undefined)
-                return MyApp.Renderer.throwErrorMsg("A 'match' in your collusion.xml has no 'type' attribute given.");
-
             if (_self.matchTypes[match.type] === undefined)
                 _self.matchTypes[match.type] = [];
-            _self.parseMatch(match, cnt);
-            cnt++;
+
+            _self.parseMatchFeats(match, matchCnt);
+            matchCnt++;
         });
         _self.handleMatchTypes();
     };
 
 
+
     /**
-     * loops referenced features, of a match, and stores them in matchTypes[type]
-     * calls parseFeature()
+     * stores directly linked features of a match in matchTypes[type]
      * @param match
-     * @param cnt
+     * @param matchCnt
      */
-    CollusionParser.parseMatch = function(match, cnt) {
-        var documents = [],
-            _self = this;
+    CollusionParser.parseMatchFeats = function(match, matchCnt) {
+        var bothDocuments   = [],
+            _self       = this;
 
-        if (match.ref.length != 2)
-            return MyApp.Renderer.throwErrorMsg("A 'match' has less than two 'ref' tags.");
-
-        $.each(match.ref, function(i, ref) {
+        $.each(match.ref, function(refNr, ref) {
             var features = [];
 
             $.each(_self.collusionJSON.document, function(j, doc) {
                 if (doc.id == ref.document) {
                     $.each(doc.feature, function(k, feature) {
                         if (feature.id == ref.feature) {
-                            var inGroup = false,
-                                parsedFeat = _self.parseFeature(match, feature, cnt, inGroup);
+                            var parsedFeat = _self.parseFeature(match, feature, matchCnt, false); // false - not in grp
                             features.push(parsedFeat);
 
-                            if (parsedFeat['group']) {
-                                var nestedCnt = 0;
-                                inGroup = true;
+                            if (parsedFeat['isGroup']) {
+                                var matchSubCnt = 0;
+
                                 $.each(feature.link, function(l, id) {
-                                    if (id.ref !== undefined)
+                                    if (id.ref !== undefined) // just one link
                                         id = id.ref;
-                                    $.each(doc.feature, function(m, linkedFeat) {
-                                        if (linkedFeat.id == id) {
-                                            linkedFeat = _self.parseFeature(match, linkedFeat, cnt+"_"+nestedCnt, inGroup);
-                                            features.push(linkedFeat);
+
+                                    $.each(doc.feature, function(m, subFeat) {
+                                        if (subFeat.id == id) {
+                                            subFeat  = _self.parseFeature(match, subFeat, matchCnt+"_"+matchSubCnt, true); // true - in grp
+                                            features.push(subFeat);
+
+                                            if (refNr == 1) { // connect specific right sub-features with left sub-ones
+                                                var leftClassToConnect = CollusionParser.getLeftClassToConnect(match.subconnections, bothDocuments[0], doc.id, id);
+                                                if (leftClassToConnect != null) // not explicitly listed as subConnection
+                                                    _self.connectFeats(leftClassToConnect, subFeat['class']);
+                                            }
                                         }
                                     });
-                                    nestedCnt++;
+                                    matchSubCnt++;
                                 });
                             }
+
+                            else if (refNr == 1)// single feature out of grp && same class names both sides, runs just one time
+                                _self.connectFeats(feature['class'], feature['class']);
                         }
                     });
                 }
             });
-            documents.push(features);
+            bothDocuments.push(features);
         });
-        _self.matchTypes[match.type].push(documents);
+        _self.matchTypes[match.type].push(bothDocuments);
     };
 
 
@@ -95,29 +98,72 @@ MyApp.CollusionParser = (function() {
      * set up a representing object for a feature
      * @param vMatch
      * @param feat
-     * @param cnt
+     * @param matchCnt
      * @param inGroup
      * @returns {{}}
      */
-    CollusionParser.parseFeature = function(vMatch, feat, cnt, inGroup) {
-        var feature = {};
-        feature['start'] = parseInt(feat.start);
-        feature['end']   = parseInt(feat.start) + parseInt(feat.length);
-        feature['group'] = feat.link !== undefined;
-        feature['id']    = feat.id;
+    CollusionParser.parseFeature = function(vMatch, feat, matchCnt, inGroup) {
+        var feature             = {};
+            feature['start']    = parseInt(feat.start);
+            feature['end']      = parseInt(feat.start) + parseInt(feat.length);
+            feature['isGroup']  = feat.link !== undefined;
+            feature['id']       = feat.id;
 
-        if (feature['group'])
-            feature['class'] = "group" + cnt;
+        if (feature['isGroup'])
+            feature['class'] = "group" + matchCnt;
         else
-            feature['class'] = "feature" + cnt;
+            feature['class'] = "feature" + matchCnt;
 
         if (feat.value !== undefined)
             feature['value'] = feat.value;
 
         if (!inGroup && vMatch.detail !== undefined)
             feature['detail'] = this.parseMatchDetail(vMatch.detail);
-
         return feature;
+    };
+
+
+    /**
+     * Returns class of left feature, matching given right feature
+     * @param connections
+     * @param leftFeats
+     * @param docID
+     * @param featId
+     * @returns {boolean}
+     */
+    CollusionParser.getLeftClassToConnect = function(connections, leftFeats, docID, featId) {
+        var leftClass = null;
+
+        if (connections.ref !== undefined) // todo for just one connection
+            var x=1;
+
+        $.each(connections.connection, function(i, connection) {
+            if (docID == connection.ref[1].document && featId == connection.ref[1].feature) { // right side
+                var leftId = connection.ref[0].feature;
+
+                $.each(leftFeats, function(i, feat) {
+                    if (feat.id == leftId) {
+                        leftClass = feat.class;
+                        return true;
+                    }
+                });
+                if (leftClass != null) return true;
+            }
+        });
+        return leftClass;
+    };
+
+
+    /**
+     * adds 2 features, which have to be visually connected
+     * @param fromClass
+     * @param toClass
+     */
+    CollusionParser.connectFeats = function(fromClass, toClass) {
+        if (MyApp.Renderer.featToConnect.indexOf(fromClass) == -1)
+            MyApp.Renderer.featToConnect[fromClass] = [];
+
+        MyApp.Renderer.featToConnect[fromClass].push(toClass); // eg a1->b2, a1->b3, a2->b1
     };
 
 

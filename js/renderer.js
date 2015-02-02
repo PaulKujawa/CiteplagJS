@@ -2,20 +2,22 @@
  * responsible for any html output
  */
 MyApp.Renderer = (function() {
-    Renderer.patternPanels     = $('#patternPanels');
-    Renderer.comparisonDiv     = $('#comparison');
-    Renderer.errorDiv          = $('#errorOutput');
-    Renderer.section           = $('section');
-    Renderer.detailsDiv        = $('aside');
-    Renderer.pageDescription   = $('#pagedescription');
-    Renderer.fileUpload        = $('#fileUpload');
-    Renderer.usedColors        = [];
+    Renderer.patternPanels      = $('#patternPanels');
+    Renderer.comparisonDiv      = $('#comparison');
+    Renderer.errorDiv           = $('#errorOutput');
+    Renderer.section            = $('section');
+    Renderer.detailsDiv         = $('aside');
+    Renderer.pageDescription    = $('#pagedescription');
+    Renderer.fileUpload         = $('#fileUpload');
+    Renderer.featToConnect      = [];
+    Renderer.usedColors         = [];
 
     /**
      *
      * @constructor
      */
     function Renderer() {}
+
 
 
     /**
@@ -30,6 +32,7 @@ MyApp.Renderer = (function() {
     };
 
 
+
     /**
      * displays error message
      * @param content
@@ -41,6 +44,7 @@ MyApp.Renderer = (function() {
             .removeClass('hidden');
         return false;
     };
+
 
 
     /**
@@ -62,6 +66,7 @@ MyApp.Renderer = (function() {
     };
 
 
+
     /**
      * Setup function
      */
@@ -70,6 +75,7 @@ MyApp.Renderer = (function() {
         MyApp.Renderer.activateTab();
         MyApp.Renderer.drawCanvas();
     };
+
 
 
     /**
@@ -92,6 +98,7 @@ MyApp.Renderer = (function() {
     };
 
 
+
     /**
      * activate the first tab as default
      */
@@ -105,6 +112,7 @@ MyApp.Renderer = (function() {
     });
 
 
+
     /**
      * drawing the canvas, inclusive all points
      * calls Canvas.connect()
@@ -114,7 +122,7 @@ MyApp.Renderer = (function() {
             _self               = this,
             connectedClasses    = [],
             color               = MyApp.Renderer.newColor(),
-            lastGrp             = -1,
+            lastGrpNr           = -1,
             leftArea            = $(tab).find('.leftArea'),
             canvasDiv           = $(tab).find('.canvas'),
             rightArea           = $(tab).find('.rightArea'),
@@ -139,43 +147,47 @@ MyApp.Renderer = (function() {
             scrollOffsetLeft    = leftArea.scrollTop(),
             scrollOffsetRight   = rightArea.scrollTop();
 
+        console.log(_self.featToConnect);
 
-        $(tab).find(".leftArea [class^='feature']").filter(function() { // all divs with .feature
-            var leftFeat = this,
-                featClass = leftFeat.className.match(/feature(\d+)_(\d+)/); // feature in grp
+        $(tab).find(".leftArea [class^='feature']").filter(function() { // all divs with .feature (at 1st class)
+            var leftFeat  = this,   featClass = leftFeat.className.match(/feature(\d+)_(\d+)/); // featureX_Y (in a grp)
+            if (featClass == null)  featClass = leftFeat.className.match(/feature(\d+)/);       // featureX (outside grp)
 
-            if (featClass == null)
-                featClass = leftFeat.className.match(/feature(\d+)/); // feature | group
+            var grpNr     = featClass[1]; // grp nr eg 0 of feature0_1
+                featClass = featClass[0]; // whole class eg feature0_1
 
-            // featClass eg ["feautre0_1", "0", "1"]
-            if (connectedClasses.indexOf(featClass[0]) == -1) { // first occurrence
-                connectedClasses.push(featClass[0]);
+            // only first occurrences
+            if (connectedClasses.indexOf(featClass) != -1)
+                return false;
+            connectedClasses.push(featClass);
 
-                if (featClass[1] != lastGrp) {
-                    lastGrp = featClass[1];
 
-                    if (colorsCopy.length > 0)
-                        color = colorsCopy.pop();
-                    else {
-                        color = MyApp.Renderer.newColor();
-                        _self.usedColors.push(color);
-                    }
+            // same color features within same group
+            if (grpNr != lastGrpNr) {
+                lastGrpNr = grpNr;
+
+                if (colorsCopy.length > 0)
+                    color = colorsCopy.pop();
+                else {
+                    color = MyApp.Renderer.newColor();
+                    _self.usedColors.push(color);
                 }
-
-                // set position into relation
-                var rightFeat   = rightArea.find('.'+featClass[0]+':first'),
-                    xLeft       = $(leftFeat).offset().left - xOffset,
-                    yLeft       = $(leftFeat).offset().top - yOffset + scrollOffsetLeft,
-                    xRight      = rightFeat.offset().left - xOffset,
-                    yRight      = rightFeat.offset().top - yOffset + scrollOffsetRight;
-
-                var leftPoint   = {x: xLeft*widthRelation, y: yLeft*heightRelLeft},
-                    rightPoint  = {x: xRight*widthRelation, y: yRight*heightRelRight};
-
-                MyApp.Canvas.connect(leftPoint, rightPoint, featClass[0], color);
             }
+
+            // set position into relation
+            var rightFeat   = rightArea.find('.'+featClass+':first'),
+                xLeft       = $(leftFeat).offset().left - xOffset,
+                yLeft       = $(leftFeat).offset().top  - yOffset + scrollOffsetLeft,
+                xRight      = rightFeat.offset().left   - xOffset,
+                yRight      = rightFeat.offset().top    - yOffset + scrollOffsetRight;
+
+            var leftPoint   = {x: xLeft*widthRelation,  y: yLeft*heightRelLeft},
+                rightPoint  = {x: xRight*widthRelation, y: yRight*heightRelRight};
+
+            MyApp.Canvas.connect(leftPoint, rightPoint, featClass, color);
         });
     };
+
 
 
     /**

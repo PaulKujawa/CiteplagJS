@@ -3,7 +3,7 @@
  */
 MyApp.ComparisonParser = (function() {
     ComparisonParser.xmlString      = "";
-    ComparisonParser["featDetails"] = {};
+    ComparisonParser.featDetails    = {};
     ComparisonParser.activeFeatures = {}; //activeFeatures[position][i]
     ComparisonParser.activeGroups   = {};
     ComparisonParser.activeIds      = {};
@@ -101,7 +101,7 @@ MyApp.ComparisonParser = (function() {
         var startPos  = feat['start'],
             featClass = feat['class'];
 
-        if (feat['group']) { // push group class to active ones
+        if (feat['isGroup']) { // push group class to active ones
             if ( this.activeGroups[startPos] === undefined )
                 this.activeGroups[startPos] = [];
             this.activeGroups[startPos].push(featClass);
