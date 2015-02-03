@@ -1,0 +1,35 @@
+<collusion score='0.0' system='sciplag'>
+    <document id='suspicious-document00477.txt' src='suspicious-document00477.txt' original='suspicious-document00477.txt' format='txt'>
+        <feature id='b0b3091c-110b-4869-afdf-08023d26c260' type='translation' start='327' length='524' value='null'/>
+        <feature id='790a0f50-4e6a-4272-825d-c5d35c34f172' type='translation' start='2209' length='382' value='null'/>
+        <feature id='b2458fdf-cbbf-448f-a96b-9ae7181c2608' type='translation' start='13683' length='568' value='null'/>
+    </document>
+    <document id='source-document01238.txt' src='source-document01238.txt' original='source-document01238.txt' format='txt'>
+        <feature id='cd62121c-3dbe-4406-a68b-7c00f643cbdb' type='paragraph' start='1257' length='609' value='null'/>
+        <feature id='7989bc67-a0ff-4e42-87f2-dee0ae8f21db' type='paragraph' start='1' length='433' value='null'/>
+        <feature id='85c08f62-df2e-485b-ae43-0929605a2f3b' type='paragraph' start='496' length='649' value='null'/>
+    </document>
+    <alignments>
+        <match score='0.0' type='translation'>
+            <ref document='suspicious-document00477.txt' feature='b0b3091c-110b-4869-afdf-08023d26c260' />
+            <ref document='source-document01238.txt' feature='cd62121c-3dbe-4406-a68b-7c00f643cbdb' />
+            <detail>
+                <detail name='type'>translation</detail>
+            </detail>
+        </match>
+        <match score='0.0' type='translation'>
+            <ref document='suspicious-document00477.txt' feature='790a0f50-4e6a-4272-825d-c5d35c34f172' />
+            <ref document='source-document01238.txt' feature='7989bc67-a0ff-4e42-87f2-dee0ae8f21db' />
+            <detail>
+                <detail name='type'>translation</detail>
+            </detail>
+        </match>
+        <match score='0.0' type='translation'>
+            <ref document='suspicious-document00477.txt' feature='b2458fdf-cbbf-448f-a96b-9ae7181c2608' />
+            <ref document='source-document01238.txt' feature='85c08f62-df2e-485b-ae43-0929605a2f3b' />
+            <detail>
+                <detail name='type'>translation</detail>
+            </detail>
+        </match>
+    </alignments>
+</collusion>

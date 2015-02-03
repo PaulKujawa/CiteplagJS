@@ -1,0 +1,80 @@
+<collusion score='0.0' system='sciplag'>
+    <document id='suspicious-document00987.txt' src='suspicious-document00987.txt' original='suspicious-document00987.txt' format='txt'>
+        <feature id='0f96b528-0014-41d3-bc1a-1b25278f78bf' type='copy_and_paste' start='1' length='1083' value='null'/>
+        <feature id='8ba9b415-c77a-47b4-89b7-9ec7136029b9' type='copy_and_paste' start='9212' length='616' value='null'/>
+        <feature id='64ab4c02-d95d-4786-97b6-d4da8a7fd37e' type='copy_and_paste' start='9829' length='506' value='null'/>
+        <feature id='801dc895-63a4-4cdf-859e-956c16dfef23' type='copy_and_paste' start='12808' length='417' value='null'/>
+        <feature id='ae82fd16-7a80-420e-a91e-b92a1d802ca5' type='copy_and_paste' start='17902' length='495' value='null'/>
+        <feature id='5a5c8cda-6685-4f45-9705-1d1a6b769c4f' type='copy_and_paste' start='22423' length='466' value='null'/>
+        <feature id='86ed42dd-ccc3-4c28-89bb-bbec4f08d29a' type='copy_and_paste' start='22890' length='499' value='null'/>
+        <feature id='476fe875-f147-4369-a4ca-893799425d39' type='copy_and_paste' start='30379' length='768' value='null'/>
+    </document>
+    <document id='source-document02426.txt' src='source-document02426.txt' original='source-document02426.txt' format='txt'>
+        <feature id='6b55e085-1337-4784-bebf-f05dfcc60cbe' type='paragraph' start='3601' length='1083' value='null'/>
+        <feature id='c7e5a92e-7ffb-43e2-8181-975dbae16f1f' type='paragraph' start='1856' length='616' value='null'/>
+        <feature id='219cb69f-e1ec-4399-90ca-df37548ee168' type='paragraph' start='440' length='506' value='null'/>
+        <feature id='e853c946-9093-46be-9de1-fd36ea16e559' type='paragraph' start='6026' length='417' value='null'/>
+        <feature id='319fb547-d6cd-461e-8869-3c94ad4be087' type='paragraph' start='5302' length='495' value='null'/>
+        <feature id='b01ada3d-7224-4260-8aae-9b2d41796d6f' type='paragraph' start='2590' length='466' value='null'/>
+        <feature id='f9b48b3d-a283-4d94-9919-c5782f7a8fdd' type='paragraph' start='1234' length='499' value='null'/>
+        <feature id='2a0f9f61-02c8-43b2-9b54-cf78815719c1' type='paragraph' start='6671' length='768' value='null'/>
+    </document>
+    <alignments>
+        <match score='0.0' type='copy_and_paste'>
+            <ref document='suspicious-document00987.txt' feature='0f96b528-0014-41d3-bc1a-1b25278f78bf' />
+            <ref document='source-document02426.txt' feature='6b55e085-1337-4784-bebf-f05dfcc60cbe' />
+            <detail>
+                <detail name='type'>copy_and_paste</detail>
+            </detail>
+        </match>
+        <match score='0.0' type='copy_and_paste'>
+            <ref document='suspicious-document00987.txt' feature='8ba9b415-c77a-47b4-89b7-9ec7136029b9' />
+            <ref document='source-document02426.txt' feature='c7e5a92e-7ffb-43e2-8181-975dbae16f1f' />
+            <detail>
+                <detail name='type'>copy_and_paste</detail>
+            </detail>
+        </match>
+        <match score='0.0' type='copy_and_paste'>
+            <ref document='suspicious-document00987.txt' feature='64ab4c02-d95d-4786-97b6-d4da8a7fd37e' />
+            <ref document='source-document02426.txt' feature='219cb69f-e1ec-4399-90ca-df37548ee168' />
+            <detail>
+                <detail name='type'>copy_and_paste</detail>
+            </detail>
+        </match>
+        <match score='0.0' type='copy_and_paste'>
+            <ref document='suspicious-document00987.txt' feature='801dc895-63a4-4cdf-859e-956c16dfef23' />
+            <ref document='source-document02426.txt' feature='e853c946-9093-46be-9de1-fd36ea16e559' />
+            <detail>
+                <detail name='type'>copy_and_paste</detail>
+            </detail>
+        </match>
+        <match score='0.0' type='copy_and_paste'>
+            <ref document='suspicious-document00987.txt' feature='ae82fd16-7a80-420e-a91e-b92a1d802ca5' />
+            <ref document='source-document02426.txt' feature='319fb547-d6cd-461e-8869-3c94ad4be087' />
+            <detail>
+                <detail name='type'>copy_and_paste</detail>
+            </detail>
+        </match>
+        <match score='0.0' type='copy_and_paste'>
+            <ref document='suspicious-document00987.txt' feature='5a5c8cda-6685-4f45-9705-1d1a6b769c4f' />
+            <ref document='source-document02426.txt' feature='b01ada3d-7224-4260-8aae-9b2d41796d6f' />
+            <detail>
+                <detail name='type'>copy_and_paste</detail>
+            </detail>
+        </match>
+        <match score='0.0' type='copy_and_paste'>
+            <ref document='suspicious-document00987.txt' feature='86ed42dd-ccc3-4c28-89bb-bbec4f08d29a' />
+            <ref document='source-document02426.txt' feature='f9b48b3d-a283-4d94-9919-c5782f7a8fdd' />
+            <detail>
+                <detail name='type'>copy_and_paste</detail>
+            </detail>
+        </match>
+        <match score='0.0' type='copy_and_paste'>
+            <ref document='suspicious-document00987.txt' feature='476fe875-f147-4369-a4ca-893799425d39' />
+            <ref document='source-document02426.txt' feature='2a0f9f61-02c8-43b2-9b54-cf78815719c1' />
+            <detail>
+                <detail name='type'>copy_and_paste</detail>
+            </detail>
+        </match>
+    </alignments>
+</collusion>

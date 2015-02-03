@@ -67,21 +67,21 @@ MyApp.ComparisonParser = (function() {
         $.each(matches, function(i, match) { // one time "for" OT and all times "for" CT
             $.each(match[docNr], function(f, feat) {
                 if (noStartYet && feat['start'] == pos) { // set OT just once
-                    _self.insertFeatOT(pos); // OT left of pos
+                    _self.insertFeatOT(pos-1); // OT left of pos
                     delete _self.activeFeatures[pos];
                     delete _self.activeGroups[pos];
                     delete _self.activeIds[pos];
                     noStartYet = false;
 
                     if (! $.isEmptyObject(_self.activeFeatures) || ! $.isEmptyObject(_self.activeGroups))
-                        _self.insertFeatCT(pos+1); // now CT right of pos (left of OT)
+                        _self.insertFeatCT(pos); // now CT right of pos (left of OT)
                 }
 
                 if (feat['end'] == pos) {
                     if (noEndYet) { // set CT just once
                         if (! $.isEmptyObject(_self.activeFeatures) || ! $.isEmptyObject(_self.activeGroups))
-                            _self.insertFeatOT(pos); // first OT right of pos
-                        _self.insertFeatCT(pos+1); // now CT right of pos (left of OT)
+                            _self.insertFeatOT(pos-1); // first OT right of pos
+                        _self.insertFeatCT(pos); // now CT right of pos (left of OT)
                         noEndYet = false;
                     }
                     _self.addActiveClass(feat, docNr); // add ALL CT to stacks

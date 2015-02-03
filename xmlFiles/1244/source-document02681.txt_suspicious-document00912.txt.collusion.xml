@@ -1,0 +1,35 @@
+<collusion score='0.0' system='sciplag'>
+    <document id='suspicious-document00912.txt' src='suspicious-document00912.txt' original='suspicious-document00912.txt' format='txt'>
+        <feature id='639cf725-bf60-4859-875f-a86c8e9ef21f' type='translation' start='25083' length='1220' value='null'/>
+        <feature id='57329397-a325-4305-a8d0-b0de9722e3d5' type='translation' start='26866' length='370' value='null'/>
+        <feature id='3a1aa6e0-049b-4273-afed-153fa4482d74' type='translation' start='43172' length='311' value='null'/>
+    </document>
+    <document id='source-document02681.txt' src='source-document02681.txt' original='source-document02681.txt' format='txt'>
+        <feature id='2c89468f-29ba-4002-9620-f5845d0c1e8c' type='paragraph' start='1150' length='1271' value='null'/>
+        <feature id='3699dd08-f97f-49f2-95cb-d6621916b88b' type='paragraph' start='1' length='414' value='null'/>
+        <feature id='259cf810-4061-4182-a952-72f6f60a2158' type='paragraph' start='2639' length='329' value='null'/>
+    </document>
+    <alignments>
+        <match score='0.0' type='translation'>
+            <ref document='suspicious-document00912.txt' feature='639cf725-bf60-4859-875f-a86c8e9ef21f' />
+            <ref document='source-document02681.txt' feature='2c89468f-29ba-4002-9620-f5845d0c1e8c' />
+            <detail>
+                <detail name='type'>translation</detail>
+            </detail>
+        </match>
+        <match score='0.0' type='translation'>
+            <ref document='suspicious-document00912.txt' feature='57329397-a325-4305-a8d0-b0de9722e3d5' />
+            <ref document='source-document02681.txt' feature='3699dd08-f97f-49f2-95cb-d6621916b88b' />
+            <detail>
+                <detail name='type'>translation</detail>
+            </detail>
+        </match>
+        <match score='0.0' type='translation'>
+            <ref document='suspicious-document00912.txt' feature='3a1aa6e0-049b-4273-afed-153fa4482d74' />
+            <ref document='source-document02681.txt' feature='259cf810-4061-4182-a952-72f6f60a2158' />
+            <detail>
+                <detail name='type'>translation</detail>
+            </detail>
+        </match>
+    </alignments>
+</collusion>

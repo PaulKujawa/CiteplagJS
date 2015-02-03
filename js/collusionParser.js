@@ -83,7 +83,7 @@ MyApp.CollusionParser = (function() {
                             }
 
                             else if (refNr == 1)// single feature out of grp && same class names both sides, runs just one time
-                                _self.connectFeats(feature['class'], feature['class']);
+                                _self.connectFeats(parsedFeat['class'], parsedFeat['class']);
                         }
                     });
                 }

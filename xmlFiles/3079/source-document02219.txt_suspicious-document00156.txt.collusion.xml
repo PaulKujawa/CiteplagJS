@@ -1,0 +1,26 @@
+<collusion score='0.0' system='sciplag'>
+    <document id='suspicious-document00156.txt' src='suspicious-document00156.txt' original='suspicious-document00156.txt' format='txt'>
+        <feature id='23a1466c-d73e-47a1-b41b-fa14d92a4f7a' type='translation' start='15902' length='639' value='null'/>
+        <feature id='fe5c7a24-a164-4dd2-bb38-732092baec85' type='translation' start='20276' length='712' value='null'/>
+    </document>
+    <document id='source-document02219.txt' src='source-document02219.txt' original='source-document02219.txt' format='txt'>
+        <feature id='0d6e9f0f-a263-475e-8d9f-2b4869d45ac4' type='paragraph' start='2832' length='652' value='null'/>
+        <feature id='8340cda6-a43d-4ead-8e13-a3e68615ebdf' type='paragraph' start='1067' length='696' value='null'/>
+    </document>
+    <alignments>
+        <match score='0.0' type='translation'>
+            <ref document='suspicious-document00156.txt' feature='23a1466c-d73e-47a1-b41b-fa14d92a4f7a' />
+            <ref document='source-document02219.txt' feature='0d6e9f0f-a263-475e-8d9f-2b4869d45ac4' />
+            <detail>
+                <detail name='type'>translation</detail>
+            </detail>
+        </match>
+        <match score='0.0' type='translation'>
+            <ref document='suspicious-document00156.txt' feature='fe5c7a24-a164-4dd2-bb38-732092baec85' />
+            <ref document='source-document02219.txt' feature='8340cda6-a43d-4ead-8e13-a3e68615ebdf' />
+            <detail>
+                <detail name='type'>translation</detail>
+            </detail>
+        </match>
+    </alignments>
+</collusion>

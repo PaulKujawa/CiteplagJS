@@ -1,0 +1,26 @@
+<collusion score='0.0' system='sciplag'>
+    <document id='suspicious-document00562.txt' src='suspicious-document00562.txt' original='suspicious-document00562.txt' format='txt'>
+        <feature id='5e76b117-2781-4be1-bddb-79b8bec08b9d' type='translation' start='4939' length='961' value='null'/>
+        <feature id='6ab065fd-1447-4deb-8462-0c5bfa6623ff' type='translation' start='33637' length='889' value='null'/>
+    </document>
+    <document id='source-document01943.txt' src='source-document01943.txt' original='source-document01943.txt' format='txt'>
+        <feature id='700d1841-4d2e-4bad-8b04-0a5770a53439' type='paragraph' start='80' length='916' value='null'/>
+        <feature id='90aea2f0-9268-4042-b93f-bfb4d591b811' type='paragraph' start='1114' length='919' value='null'/>
+    </document>
+    <alignments>
+        <match score='0.0' type='translation'>
+            <ref document='suspicious-document00562.txt' feature='5e76b117-2781-4be1-bddb-79b8bec08b9d' />
+            <ref document='source-document01943.txt' feature='700d1841-4d2e-4bad-8b04-0a5770a53439' />
+            <detail>
+                <detail name='type'>translation</detail>
+            </detail>
+        </match>
+        <match score='0.0' type='translation'>
+            <ref document='suspicious-document00562.txt' feature='6ab065fd-1447-4deb-8462-0c5bfa6623ff' />
+            <ref document='source-document01943.txt' feature='90aea2f0-9268-4042-b93f-bfb4d591b811' />
+            <detail>
+                <detail name='type'>translation</detail>
+            </detail>
+        </match>
+    </alignments>
+</collusion>

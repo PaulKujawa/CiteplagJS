@@ -1,0 +1,35 @@
+<collusion score='0.0' system='sciplag'>
+    <document id='suspicious-document01294.txt' src='suspicious-document01294.txt' original='suspicious-document01294.txt' format='txt'>
+        <feature id='3174687e-7e20-4c1d-bf3f-99db83bac05d' type='copy_and_paste' start='2533' length='1295' value='null'/>
+        <feature id='5ead6ef8-d2a2-44c6-b1cc-c190c249ffce' type='copy_and_paste' start='8166' length='438' value='null'/>
+        <feature id='b73d516d-d7c8-4323-ac7b-f9c30df5bc12' type='copy_and_paste' start='12440' length='1239' value='null'/>
+    </document>
+    <document id='source-document01361.txt' src='source-document01361.txt' original='source-document01361.txt' format='txt'>
+        <feature id='21e54357-7908-4465-bb5b-2c754713f996' type='paragraph' start='519' length='1295' value='null'/>
+        <feature id='d438737e-f746-4fd3-9a6b-e00ea7fbc297' type='paragraph' start='1' length='438' value='null'/>
+        <feature id='76e0d330-4b58-461a-8e2b-36ffb61e410f' type='paragraph' start='2167' length='1239' value='null'/>
+    </document>
+    <alignments>
+        <match score='0.0' type='copy_and_paste'>
+            <ref document='suspicious-document01294.txt' feature='3174687e-7e20-4c1d-bf3f-99db83bac05d' />
+            <ref document='source-document01361.txt' feature='21e54357-7908-4465-bb5b-2c754713f996' />
+            <detail>
+                <detail name='type'>copy_and_paste</detail>
+            </detail>
+        </match>
+        <match score='0.0' type='copy_and_paste'>
+            <ref document='suspicious-document01294.txt' feature='5ead6ef8-d2a2-44c6-b1cc-c190c249ffce' />
+            <ref document='source-document01361.txt' feature='d438737e-f746-4fd3-9a6b-e00ea7fbc297' />
+            <detail>
+                <detail name='type'>copy_and_paste</detail>
+            </detail>
+        </match>
+        <match score='0.0' type='copy_and_paste'>
+            <ref document='suspicious-document01294.txt' feature='b73d516d-d7c8-4323-ac7b-f9c30df5bc12' />
+            <ref document='source-document01361.txt' feature='76e0d330-4b58-461a-8e2b-36ffb61e410f' />
+            <detail>
+                <detail name='type'>copy_and_paste</detail>
+            </detail>
+        </match>
+    </alignments>
+</collusion>

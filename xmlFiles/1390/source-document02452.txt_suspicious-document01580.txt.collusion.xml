@@ -1,0 +1,26 @@
+<collusion score='0.0' system='sciplag'>
+    <document id='suspicious-document01580.txt' src='suspicious-document01580.txt' original='suspicious-document01580.txt' format='txt'>
+        <feature id='1608aec2-e1c0-4a5b-b730-a69507be94ac' type='shake_and_paste' start='574' length='257' value='null'/>
+        <feature id='cd6daf0d-29d4-4da1-a571-6a3c6b50604b' type='shake_and_paste' start='2355' length='238' value='null'/>
+    </document>
+    <document id='source-document02452.txt' src='source-document02452.txt' original='source-document02452.txt' format='txt'>
+        <feature id='333c00c4-ae6b-4f4f-9b28-5ae50eb35162' type='paragraph' start='326' length='429' value='null'/>
+        <feature id='620710c9-f1d3-4a7c-a7b0-3ff619b543d7' type='paragraph' start='1131' length='375' value='null'/>
+    </document>
+    <alignments>
+        <match score='0.0' type='shake_and_paste'>
+            <ref document='suspicious-document01580.txt' feature='1608aec2-e1c0-4a5b-b730-a69507be94ac' />
+            <ref document='source-document02452.txt' feature='333c00c4-ae6b-4f4f-9b28-5ae50eb35162' />
+            <detail>
+                <detail name='type'>shake_and_paste</detail>
+            </detail>
+        </match>
+        <match score='0.0' type='shake_and_paste'>
+            <ref document='suspicious-document01580.txt' feature='cd6daf0d-29d4-4da1-a571-6a3c6b50604b' />
+            <ref document='source-document02452.txt' feature='620710c9-f1d3-4a7c-a7b0-3ff619b543d7' />
+            <detail>
+                <detail name='type'>shake_and_paste</detail>
+            </detail>
+        </match>
+    </alignments>
+</collusion>

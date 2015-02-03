@@ -1,0 +1,17 @@
+<collusion score='0.0' system='sciplag'>
+    <document id='suspicious-document00407.txt' src='suspicious-document00407.txt' original='suspicious-document00407.txt' format='txt'>
+        <feature id='267590d9-0f52-48eb-baf9-6d777c47a262' type='translation' start='3158' length='373' value='null'/>
+    </document>
+    <document id='source-document01868.txt' src='source-document01868.txt' original='source-document01868.txt' format='txt'>
+        <feature id='f0f985e9-fe5b-44c9-b6e2-76e5f293211e' type='paragraph' start='30' length='396' value='null'/>
+    </document>
+    <alignments>
+        <match score='0.0' type='translation'>
+            <ref document='suspicious-document00407.txt' feature='267590d9-0f52-48eb-baf9-6d777c47a262' />
+            <ref document='source-document01868.txt' feature='f0f985e9-fe5b-44c9-b6e2-76e5f293211e' />
+            <detail>
+                <detail name='type'>translation</detail>
+            </detail>
+        </match>
+    </alignments>
+</collusion>

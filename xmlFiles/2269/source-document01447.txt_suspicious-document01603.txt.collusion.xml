@@ -1,0 +1,35 @@
+<collusion score='0.0' system='sciplag'>
+    <document id='suspicious-document01603.txt' src='suspicious-document01603.txt' original='suspicious-document01603.txt' format='txt'>
+        <feature id='d4540079-e5a6-41a5-9560-41915afa2266' type='shake_and_paste' start='7099' length='155' value='null'/>
+        <feature id='978b8e1a-fc3c-456e-b564-f126c61f885f' type='shake_and_paste' start='11467' length='916' value='null'/>
+        <feature id='43017a56-0638-40dd-8d78-83f32f8a4e08' type='shake_and_paste' start='17067' length='804' value='null'/>
+    </document>
+    <document id='source-document01447.txt' src='source-document01447.txt' original='source-document01447.txt' format='txt'>
+        <feature id='72d3de9d-3acd-4da0-b6b4-a02934e5dd9e' type='paragraph' start='1' length='336' value='null'/>
+        <feature id='24fa8d9d-36a8-4feb-b35e-178a685da6e8' type='paragraph' start='353' length='915' value='null'/>
+        <feature id='76ecaa19-3fc9-4cf4-a047-07e953730853' type='paragraph' start='1331' length='799' value='null'/>
+    </document>
+    <alignments>
+        <match score='0.0' type='shake_and_paste'>
+            <ref document='suspicious-document01603.txt' feature='d4540079-e5a6-41a5-9560-41915afa2266' />
+            <ref document='source-document01447.txt' feature='72d3de9d-3acd-4da0-b6b4-a02934e5dd9e' />
+            <detail>
+                <detail name='type'>shake_and_paste</detail>
+            </detail>
+        </match>
+        <match score='0.0' type='shake_and_paste'>
+            <ref document='suspicious-document01603.txt' feature='978b8e1a-fc3c-456e-b564-f126c61f885f' />
+            <ref document='source-document01447.txt' feature='24fa8d9d-36a8-4feb-b35e-178a685da6e8' />
+            <detail>
+                <detail name='type'>shake_and_paste</detail>
+            </detail>
+        </match>
+        <match score='0.0' type='shake_and_paste'>
+            <ref document='suspicious-document01603.txt' feature='43017a56-0638-40dd-8d78-83f32f8a4e08' />
+            <ref document='source-document01447.txt' feature='76ecaa19-3fc9-4cf4-a047-07e953730853' />
+            <detail>
+                <detail name='type'>shake_and_paste</detail>
+            </detail>
+        </match>
+    </alignments>
+</collusion>
