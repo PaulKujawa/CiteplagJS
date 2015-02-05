@@ -174,8 +174,6 @@ MyApp.Renderer = (function() {
             var leftPoint   = {x: xLeft*widthRelation,  y: yLeft*heightRelLeft},
                 rightPoint  = {x: xRight*widthRelation, y: yRight*heightRelRight};
 
-            console.log(leftFeat);
-
             // add scrollMethod to features themselves
             leftFeat.click(function() {MyApp.Renderer.scrollIntoView(leftFeat, rightFeat)});
             rightFeat.click(function() {MyApp.Renderer.scrollIntoView(leftFeat, rightFeat)});
@@ -191,7 +189,7 @@ MyApp.Renderer = (function() {
      */
     Renderer.newColor = function() {
         // from http://www.paulirish.com/2009/random-hex-color-code-snippets/ @11.01.2015
-        return '#'+Math.floor(Math.random()*16777215).toString(16);
+        return '#'+ ('000000' + Math.floor(Math.random()*16777215).toString(16) ).slice(-6);
     };
 
 
