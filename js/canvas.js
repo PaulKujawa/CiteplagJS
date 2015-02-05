@@ -48,17 +48,17 @@ MyApp.Canvas = (function() {
      * draws two points and connects them
      * @param leftPos
      * @param rightPos
-     * @param leftClass
-     * @param rightClass
+     * @param leftFeat
+     * @param rightFeat
      * @param color
      */
-    Canvas.connect = function(leftPos, rightPos, leftClass, rightClass, color) {
+    Canvas.connect = function(leftPos, rightPos, leftFeat, rightFeat, color) {
         var leftDot     = MyApp.Canvas.drawLeftDot(leftPos);
         var rightDot    = MyApp.Canvas.drawRightDot(rightPos);
         var middleLine  = MyApp.Canvas.drawLine(leftPos, rightPos);
-        MyApp.Canvas.setAttributes(leftDot,     leftClass, rightClass, color);
-        MyApp.Canvas.setAttributes(rightDot,    leftClass, rightClass, color);
-        MyApp.Canvas.setAttributes(middleLine,  leftClass, rightClass, color);
+        MyApp.Canvas.setAttributes(leftDot,     leftFeat, rightFeat, color);
+        MyApp.Canvas.setAttributes(rightDot,    leftFeat, rightFeat, color);
+        MyApp.Canvas.setAttributes(middleLine,  leftFeat, rightFeat, color);
     };
 
 
@@ -100,16 +100,16 @@ MyApp.Canvas = (function() {
     /**
      * Sets attributes for dots and lines
      * @param element
-     * @param leftClass
-     * @param rightClass
+     * @param leftFeat
+     * @param rightFeat
      * @param color
      */
-    Canvas.setAttributes = function(element, leftClass, rightClass, color) {
+    Canvas.setAttributes = function(element, leftFeat, rightFeat, color) {
         element
             .attr("stroke", color)
             .attr("cursor", "pointer")
             .click(function() {
-                MyApp.Renderer.scrollIntoView(leftClass, rightClass);
+                leftFeat.trigger('click');
             });
     };
 

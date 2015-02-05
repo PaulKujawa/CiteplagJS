@@ -174,14 +174,15 @@ MyApp.Renderer = (function() {
             var leftPoint   = {x: xLeft*widthRelation,  y: yLeft*heightRelLeft},
                 rightPoint  = {x: xRight*widthRelation, y: yRight*heightRelRight};
 
-            MyApp.Canvas.connect(leftPoint, rightPoint, leftClass, rightClass, color);
+            console.log(leftFeat);
 
             // add scrollMethod to features themselves
-            leftArea.find("." +leftClass).click(function() {MyApp.Renderer.scrollIntoView(leftClass, rightClass)});
-            rightArea.find("." +rightClass).click(function() {MyApp.Renderer.scrollIntoView(leftClass, rightClass)});
+            leftFeat.click(function() {MyApp.Renderer.scrollIntoView(leftFeat, rightFeat)});
+            rightFeat.click(function() {MyApp.Renderer.scrollIntoView(leftFeat, rightFeat)});
+
+            MyApp.Canvas.connect(leftPoint, rightPoint, leftFeat, rightFeat, color);
         });
     };
-
 
 
     /**
@@ -201,38 +202,35 @@ MyApp.Renderer = (function() {
      * @paramLeftClass
      * @paramRightClass
      */
-    Renderer.scrollIntoView = function(leftClass, rightClass) {
-        var tab                 = this.comparisonDiv.find('.tab-pane.active'),
-            leftArea            = $(tab).find('.leftArea'),
-            rightArea           = $(tab).find('.rightArea'),
-            yOffset             = leftArea.offset().top;
-
-        MyApp.Renderer.scrollToClass(leftArea, leftClass, yOffset);
-        MyApp.Renderer.scrollToClass(rightArea, rightClass, yOffset);
+    Renderer.scrollIntoView = function(leftFeat, rightFeat) {
+        MyApp.Renderer.scrollToClass(leftFeat);
+        MyApp.Renderer.scrollToClass(rightFeat);
 
         setTimeout(function() {
-            leftArea.find("."+leftClass).removeClass('alert alert-info');
-            rightArea.find("."+rightClass).removeClass('alert alert-info');
+            leftFeat.removeClass('alert alert-info');
+            rightFeat.removeClass('alert alert-info');
         }, 5000);
 
     };
 
 
     /**
-     * Scolls one side to div with given class
-     * @param area
-     * @param featClass
-     * @param yOffset
+     * Scrolls one side to feature-div
+     * @param feature
      */
-    Renderer.scrollToClass = function(area, featClass, yOffset) {
-        var feature         = area.find('.'+featClass).first(),
-            lineHeight      = parseFloat(feature.css('line-height')),
-            pos             = feature.offset().top - yOffset + area.scrollTop();
+    Renderer.scrollToClass = function(feature) {
+        var lineHeight  = parseFloat(feature.css('line-height')),
+            area        = feature.closest('.leftArea, .rightArea'),
+            relFeatPos  = feature.offset().top - area.offset().top + area.scrollTop();
 
-        if (pos >= lineHeight)
-            pos -= lineHeight; // to show previous line as well for context
+        if (relFeatPos >= lineHeight)
+            relFeatPos -= lineHeight; // to show previous line as well for context
 
-        area.animate({scrollTop: pos}, 'slow').find("."+featClass).addClass('alert alert-info');
+        area.animate(
+            {scrollTop: relFeatPos},
+            'slow'
+        );
+        feature.addClass('alert alert-info');
     };
 
 
