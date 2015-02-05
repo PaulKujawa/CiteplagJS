@@ -147,7 +147,6 @@ MyApp.Renderer = (function() {
             scrollOffsetRight   = rightArea.scrollTop();
 
 
-
         $.each(_self.featToConnect, function(leftClass, rightClass) {
             // same color for features within same group
             var                 group = leftClass.match(/feature(\d+)_(\d+)/);  // 0=featureX_Y, 1=X, 2=Y
@@ -176,6 +175,10 @@ MyApp.Renderer = (function() {
                 rightPoint  = {x: xRight*widthRelation, y: yRight*heightRelRight};
 
             MyApp.Canvas.connect(leftPoint, rightPoint, leftClass, rightClass, color);
+
+            // add scrollMethod to features themselves
+            leftArea.find("." +leftClass).click(function() {MyApp.Renderer.scrollIntoView(leftClass, rightClass)});
+            rightArea.find("." +rightClass).click(function() {MyApp.Renderer.scrollIntoView(leftClass, rightClass)});
         });
     };
 

@@ -55,6 +55,8 @@ MyApp.CollusionParser = (function() {
             $.each(_self.collusionJSON.document, function(j, doc) {
                 if (doc.id == ref.document) {
                     $.each(doc.feature, function(k, feature) {
+                        if (typeof(feature) != "object") feature = doc.feature; // just one feature
+
                         if (feature.id == ref.feature) {
                             var parsedFeat = _self.parseFeature(match, feature, matchCnt, false); // false - not in grp
                             features.push(parsedFeat);
@@ -68,7 +70,7 @@ MyApp.CollusionParser = (function() {
 
                                     $.each(doc.feature, function(m, subFeat) {
                                         if (subFeat.id == id) {
-                                            subFeat  = _self.parseFeature(match, subFeat, matchCnt+"_"+matchSubCnt, true); // true - in grp
+                                            subFeat = _self.parseFeature(match, subFeat, matchCnt+"_"+matchSubCnt, true); // true - in grp
                                             features.push(subFeat);
 
                                             if (refNr == 1) { // connect specific right sub-features with left sub-ones
@@ -80,9 +82,7 @@ MyApp.CollusionParser = (function() {
                                     });
                                     matchSubCnt++;
                                 });
-                            }
-
-                            else if (refNr == 1)// single feature out of grp && same class names both sides, runs just one time
+                            } else if (refNr == 1)// single feature out of grp && same class names both sides, runs just one time
                                 _self.connectFeats(parsedFeat['class'], parsedFeat['class']);
                         }
                     });
@@ -173,8 +173,8 @@ MyApp.CollusionParser = (function() {
      * @returns {string}
      */
     CollusionParser.parseMatchDetail = function(detail) {
-        var div = "",
-            _self = this;
+        var div     = "",
+            _self   = this;
 
         if (detail.detail.name === undefined)
             detail = detail.detail; // details

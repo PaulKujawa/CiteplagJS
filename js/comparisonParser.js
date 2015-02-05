@@ -29,7 +29,12 @@ MyApp.ComparisonParser = (function() {
         _self.xmlString     = MyApp.XMLFileHandler['compareFilesXML'][docNr];
         _self.getNextFeaturePos();
 
+
         for (var pos = _self.xmlString.length-1; 0 <= pos; pos--) {
+
+            if (_self.xmlString[pos] == "")
+                console.log("xx");
+
             if (_self.xmlString[pos] === '>') {
                 closingPos = pos;
                 if (! $.isEmptyObject(_self.activeFeatures) || ! $.isEmptyObject(_self.activeGroups))
@@ -59,10 +64,10 @@ MyApp.ComparisonParser = (function() {
      * @param docNr
      * @param pos
      */
-    ComparisonParser.handleFeatPos = function(matches, docNr, pos) {
-        var _self = this,
-            noStartYet = true,
-            noEndYet = true;
+    ComparisonParser.handleFeatPos = function(matches, docNr, pos) {                                                        // todo feat ende 3653 | length 3652
+        var _self       = this,
+            noStartYet  = true,
+            noEndYet    = true;
 
         $.each(matches, function(i, match) { // one time "for" OT and all times "for" CT
             $.each(match[docNr], function(f, feat) {
@@ -80,8 +85,8 @@ MyApp.ComparisonParser = (function() {
                 if (feat['end'] == pos) {
                     if (noEndYet) { // set CT just once
                         if (! $.isEmptyObject(_self.activeFeatures) || ! $.isEmptyObject(_self.activeGroups))
-                            _self.insertFeatOT(pos-1); // first OT right of pos
-                        _self.insertFeatCT(pos); // now CT right of pos (left of OT)
+                            _self.insertFeatOT(pos-1); // first OT right of pos                                               theor. should be pos
+                        _self.insertFeatCT(pos); // now CT right of pos (left of OT)                                          theor. should be pos+1
                         noEndYet = false;
                     }
                     _self.addActiveClass(feat, docNr); // add ALL CT to stacks
