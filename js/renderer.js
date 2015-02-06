@@ -28,6 +28,7 @@ MyApp.Renderer = (function() {
         this.comparisonDiv.empty();
         this.errorDiv.empty().addClass('hidden');
         this.fileUpload.addClass('hidden');
+        this.detailsDiv.empty();
         $('svg').remove();
     };
 
@@ -68,36 +69,45 @@ MyApp.Renderer = (function() {
 
 
     /**
-     * Setup function
-     */
-    Renderer.setUp = function() {
-        MyApp.Renderer.handleDetails();
-        MyApp.Renderer.activateTab();
-        MyApp.Renderer.drawCanvas();
-    };
-
-
-
-    /**
      * attaches click listener to feature divs to display their details
      */
     Renderer.handleDetails = function() {
-        var featDetails = MyApp.ComparisonParser.featDetails,
-            _self = this;
+        var tab         = this.comparisonDiv.find('.tab-pane.active'),
+            leftArea    = $(tab).find('.leftArea'),
+            _self       = this;
 
-        _self.patternPanels.click(function() {
-            _self.detailsDiv.empty();
-        });
+        $(tab).find(".feature, .group, :not(.leftArea, .rightArea)").filter(function() { // no subfeats
+            // all get groupX & featureX classes
+            var featDiv         = this,
+                detailString    = "",
+                classList       = featDiv.classList.toString(),
+                groupClasses    = classList.match(/group(\d+)/g),
+                featClasses     = classList.match(/feature(\d+)/g);
 
-        $.each(featDetails, function(theClass, detail) {
-            $("."+theClass).click(function() {
+            if (groupClasses != null)   detailString = MyApp.Renderer.getDetail(groupClasses, detailString);
+            if (featClasses  != null)   detailString = MyApp.Renderer.getDetail(featClasses, detailString);
+
+            $(featDiv).click(function() {
                 _self.detailsDiv.empty();
-                _self.detailsDiv.append('<h3>Match details</h3>' + detail);
+                _self.detailsDiv.append(detailString);
             });
         });
     };
 
 
+    /**
+     * Get match detail for given class
+     * @param classList
+     * @param details
+     * @returns {*}
+     */
+    Renderer.getDetail = function(classList, details) {
+        $.each(classList, function(i, classi) {
+            if ( MyApp.CollusionParser.featDetails.hasOwnProperty(classi))
+                details += '<h3>Match detail ' +classi+ '</h3>' + MyApp.CollusionParser.featDetails[classi];
+        });
+        return details;
+    };
 
     /**
      * activate the first tab as default

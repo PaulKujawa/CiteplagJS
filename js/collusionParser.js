@@ -2,9 +2,10 @@
  * Parses collusion file
  */
 MyApp.CollusionParser = (function() {
-    CollusionParser.collusionJSON    = [];
-    CollusionParser.matchTypes       = {}; /*[mType][m][d][f]['start']*/
-    CollusionParser.featurePositions = [];
+    CollusionParser.collusionJSON       = [];
+    CollusionParser.matchTypes          = {}; /*[mType][m][d][f]['start']*/
+    CollusionParser.featurePositions    = [];
+    CollusionParser.featDetails         = {};
 
     /**
      *
@@ -58,7 +59,7 @@ MyApp.CollusionParser = (function() {
                         if (typeof(feature) != "object") feature = doc.feature; // just one feature
 
                         if (feature.id == ref.feature) {
-                            var parsedFeat = _self.parseFeature(match, feature, matchCnt, false); // false - not in grp
+                            var parsedFeat = _self.parseFeature(match, feature, matchCnt, refNr, false); // false - not in grp
                             features.push(parsedFeat);
 
                             if (parsedFeat['isGroup']) {
@@ -70,7 +71,7 @@ MyApp.CollusionParser = (function() {
 
                                     $.each(doc.feature, function(m, subFeat) {
                                         if (subFeat.id == id) {
-                                            subFeat = _self.parseFeature(match, subFeat, matchCnt+"_"+matchSubCnt, true); // true - in grp
+                                            subFeat = _self.parseFeature(match, subFeat, matchCnt+"_"+matchSubCnt, refNr, true); // true - in grp
                                             features.push(subFeat);
 
                                             if (refNr == 1) { // connect specific right sub-features with left sub-ones
@@ -99,26 +100,29 @@ MyApp.CollusionParser = (function() {
      * @param vMatch
      * @param feat
      * @param matchCnt
+     * @param refNr
      * @param inGroup
      * @returns {{}}
      */
-    CollusionParser.parseFeature = function(vMatch, feat, matchCnt, inGroup) {
+    CollusionParser.parseFeature = function(vMatch, feat, matchCnt, refNr, inGroup) {
         var feature             = {};
             feature['start']    = parseInt(feat.start);
             feature['end']      = parseInt(feat.start) + parseInt(feat.length);
             feature['isGroup']  = feat.link !== undefined;
+            feature['inGroup']  = inGroup;
             feature['id']       = feat.id;
 
-        if (feature['isGroup'])
-            feature['class'] = "group" + matchCnt;
-        else
-            feature['class'] = "feature" + matchCnt;
+        if (feature['isGroup'])             feature['class'] = "group" + matchCnt;
+        else                                feature['class'] = "feature" + matchCnt;
 
-        if (feat.value !== undefined)
-            feature['value'] = feat.value;
+        if (feat.value !== undefined)       feature['value'] = feat.value;
+        if (vMatch.detail !== undefined)    feature['detail'] = this.parseMatchDetail(vMatch.detail);
 
-        if (!inGroup && vMatch.detail !== undefined)
-            feature['detail'] = this.parseMatchDetail(vMatch.detail);
+        // no subFeatures -> left & right same class -> just left side to store
+        if (refNr == 0 && !feature['inGroup'] && feature['detail'] !== undefined) {
+            this.featDetails[feature['class']] = [];
+            this.featDetails[feature['class']].push(feature['detail']);
+        }
         return feature;
     };
 
@@ -218,8 +222,7 @@ MyApp.CollusionParser = (function() {
 
 
     /**
-     * calls orderFeaturePos(), ComparisonParser.convertFile() and Renderer.createTab for every matchType
-     * finally, calls Renderer.setUp()
+     * Attaches tabs for matchTypes with compiled texts
      */
     CollusionParser.handleMatchTypes = function() {
         var _self = this;
@@ -232,7 +235,10 @@ MyApp.CollusionParser = (function() {
             }
             MyApp.Renderer.createTab(matchTitle, html[0], html[1]);
         });
-        MyApp.Renderer.setUp();
+
+        MyApp.Renderer.activateTab();
+        MyApp.Renderer.handleDetails();
+        MyApp.Renderer.drawCanvas();
     };
 
 

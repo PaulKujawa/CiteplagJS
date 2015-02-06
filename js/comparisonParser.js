@@ -3,7 +3,6 @@
  */
 MyApp.ComparisonParser = (function() {
     ComparisonParser.xmlString      = "";
-    ComparisonParser.featDetails    = {};
     ComparisonParser.activeFeatures = {}; //activeFeatures[position][i]
     ComparisonParser.activeGroups   = {};
     ComparisonParser.activeIds      = {};
@@ -89,7 +88,7 @@ MyApp.ComparisonParser = (function() {
                         _self.insertFeatCT(pos); // now CT right of pos (left of OT)                                          theor. should be pos+1
                         noEndYet = false;
                     }
-                    _self.addActiveClass(feat, docNr); // add ALL CT to stacks
+                    _self.addActiveClass(feat); // add ALL CT to stacks
                 }
             });
         });
@@ -98,11 +97,10 @@ MyApp.ComparisonParser = (function() {
 
 
     /**
-     * Adds feature to stack (feat, group, detail)
+     * Adds feature to stack (features & groups )
      * @param feat
-     * @param docNr
      */
-    ComparisonParser.addActiveClass = function(feat, docNr) {
+    ComparisonParser.addActiveClass = function(feat) {
         var startPos  = feat['start'],
             featClass = feat['class'];
 
@@ -120,11 +118,6 @@ MyApp.ComparisonParser = (function() {
         if ( this.activeIds[startPos] === undefined) // push Id of feature/group to active ones
             this.activeIds[startPos] = [];
         this.activeIds[startPos].push(feat['id']);
-
-        if (feat['detail'] !== undefined && docNr == 0) { // no equivalent pushes
-            this.featDetails[featClass] = [];
-            this.featDetails[featClass].push(feat['detail']);
-        }
     };
 
 
