@@ -87,13 +87,10 @@ MyApp.Renderer = (function() {
             if (groupClasses != null)   detailString = MyApp.Renderer.getDetail(groupClasses, detailString);
             if (featClasses  != null)   detailString = MyApp.Renderer.getDetail(featClasses, detailString);
 
-            $(featDiv)
-                .click(function() {
-                    _self.detailsDiv.empty();
-                    _self.detailsDiv.append(detailString);
-                    $(featDiv).addClass('alert alert-info');
-                })
-                .css( 'cursor', 'pointer' );
+            $(featDiv).click(function() {
+                _self.detailsDiv.empty();
+                _self.detailsDiv.append(detailString);
+            });
         });
     };
 
@@ -190,10 +187,8 @@ MyApp.Renderer = (function() {
             // add scrollMethod to features themselves
             leftFeat.click(function() {MyApp.Renderer.scrollIntoView(leftFeat, rightFeat)});
             rightFeat.click(function() {MyApp.Renderer.scrollIntoView(leftFeat, rightFeat)});
-            MyApp.Canvas.connect(leftPoint, rightPoint, leftFeat, rightFeat, color);
 
-            leftFeat.css( 'cursor', 'pointer' );
-            rightFeat.css( 'cursor', 'pointer' );
+            MyApp.Canvas.connect(leftPoint, rightPoint, leftFeat, rightFeat, color);
         });
     };
 
@@ -216,18 +211,14 @@ MyApp.Renderer = (function() {
      * @paramRightClass
      */
     Renderer.scrollIntoView = function(leftFeat, rightFeat) {
-        var _self       = this,
-            tab         = this.comparisonDiv.find('.tab-pane.active');
-
-        tab.find('.leftArea *, .rightArea *').removeClass('alert alert-info'); // incl. feat highlighted for match details
-
         MyApp.Renderer.scrollToClass(leftFeat);
         MyApp.Renderer.scrollToClass(rightFeat);
 
-        tab.find('.leftArea *, .rightArea *').one("mouseup", function() {
-            tab.find('.leftArea *, .rightArea *').removeClass('alert alert-info'); // incl. feat highlighted for match details
-            _self.detailsDiv.empty();
-        });
+        setTimeout(function() {
+            leftFeat.removeClass('alert alert-info');
+            rightFeat.removeClass('alert alert-info');
+        }, 5000);
+
     };
 
 
