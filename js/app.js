@@ -12,6 +12,14 @@ $(function() {
 
 
     /**
+     * Redraw canvas on window resize
+     */
+    $(window).resize(function() {
+        MyApp.Renderer.drawCanvas();
+    });
+
+
+    /**
      * start point, after a file as been chosen
      */
     $('#saveUpload').click(function() {

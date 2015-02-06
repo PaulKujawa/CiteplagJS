@@ -91,7 +91,6 @@ MyApp.Renderer = (function() {
                 .click(function() {
                     _self.detailsDiv.empty();
                     _self.detailsDiv.append(detailString);
-                    $(featDiv).addClass('alert alert-info');
                 })
                 .css( 'cursor', 'pointer' );
         });
@@ -120,10 +119,6 @@ MyApp.Renderer = (function() {
         this.comparisonDiv.find('div:first').addClass('active');
     };
 
-    $(window).resize(function() {
-        MyApp.Renderer.drawCanvas();
-    });
-
 
 
     /**
@@ -131,43 +126,37 @@ MyApp.Renderer = (function() {
      * calls Canvas.connect()
      */
     Renderer.drawCanvas = function() {
-        var tab                 = this.comparisonDiv.find('.tab-pane.active'),
-            _self               = this,
-            color               = MyApp.Renderer.newColor(),
+        var _self               = this,
             lastGrpNr           = -1,
+            color               = MyApp.Renderer.newColor(),
+            tab                 = _self.comparisonDiv.find('.tab-pane.active'),
             leftArea            = $(tab).find('.leftArea'),
             canvasDiv           = $(tab).find('.canvas'),
             rightArea           = $(tab).find('.rightArea'),
             yOffset             = leftArea.offset().top,
-            xOffset             = leftArea.offset().left;
+            xOffset             = leftArea.offset().left,
+            heightRelLeft       = canvasDiv.height()/leftArea[0].scrollHeight,
+            heightRelRight      = canvasDiv.height()/rightArea[0].scrollHeight,
+            widthRelation       = canvasDiv.width()/(rightArea.offset().left + rightArea.outerWidth()),
+            scrollOffsetLeft    = leftArea.scrollTop(),
+            scrollOffsetRight   = rightArea.scrollTop();
 
-        // in case of redrawing
+        // setup (redraw as well)
         $('svg').remove();
         MyApp.Canvas.drawPaper(canvasDiv);
-
-        // same colors every time
         var colorsCopy = [];
         if (_self.usedColors.length > 0)
             colorsCopy = _self.usedColors.slice();
 
-        // calculate widths & heights
-        var canvasHeight        = canvasDiv.height(),
-            canvasWidth         = canvasDiv.width(),
-            heightRelLeft       = canvasHeight/leftArea[0].scrollHeight,
-            heightRelRight      = canvasHeight/rightArea[0].scrollHeight,
-            widthRelation       = canvasWidth/(rightArea.offset().left + rightArea.outerWidth()),
-            scrollOffsetLeft    = leftArea.scrollTop(),
-            scrollOffsetRight   = rightArea.scrollTop();
 
-
-        $.each(_self.featToConnect, function(leftClass, rightClass) {
+        $.each(_self.featToConnect, function(leftClass, rightClass) { // one match each
             // same color for features within same group
             var                 group = leftClass.match(/feature(\d+)_(\d+)/);  // 0=featureX_Y, 1=X, 2=Y
             if (group == null)  group = leftClass.match(/feature(\d+)/);        // 0=featureX,   1=X
 
+
             if (group[1] != lastGrpNr) {
                 lastGrpNr = group[1];
-
                 if (colorsCopy.length > 0)
                     color = colorsCopy.pop();
                 else {
