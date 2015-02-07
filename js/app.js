@@ -15,7 +15,7 @@ $(function() {
      * Redraw canvas on window resize
      */
     $(window).resize(function() {
-        MyApp.Renderer.drawCanvas();
+        MyApp.Canvas.drawCanvas();
     });
 
 

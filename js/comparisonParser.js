@@ -15,10 +15,10 @@ MyApp.ComparisonParser = (function() {
     function ComparisonParser() {}
 
 
+
     /**
      * main function, which parses the whole string (xml body)
      * checks for xml tags and feature positions
-     * calls getNextFeaturePos(), insertFeatCT(), insertFeatOT(), convertXMLTag() and handleFeatPos()
      * @param matches
      * @param docNr
      */
@@ -58,7 +58,6 @@ MyApp.ComparisonParser = (function() {
     /**
      * inserts end-tags or opening tags to hold classes between their tags active
      * active classes (of feature or groups) are implemented through connecting divs before & after each tag
-     * calls insertFeatCT(), insertFeatOT(), addActiveClass()
      * @param matches
      * @param docNr
      * @param pos
@@ -97,7 +96,7 @@ MyApp.ComparisonParser = (function() {
 
 
     /**
-     * Adds feature to stack (features & groups )
+     * Adds feature to stack (features & groups)
      * @param feat
      */
     ComparisonParser.addActiveClass = function(feat) {
@@ -143,6 +142,7 @@ MyApp.ComparisonParser = (function() {
     };
 
 
+
     /**
      * insert feature closing tag
      * @param pos
@@ -150,6 +150,7 @@ MyApp.ComparisonParser = (function() {
     ComparisonParser.insertFeatCT = function(pos) {
         this.xmlString = this.xmlString.substr(0, pos) +"</div>"+ this.xmlString.substr(pos);
     };
+
 
 
     /**
@@ -184,6 +185,7 @@ MyApp.ComparisonParser = (function() {
         var tag = "<div class='" +classes.slice(0, -1)+ "' data-ids='" +ids.slice(0, -1)+ "'>";
         this.xmlString = this.xmlString.substr(0, pos+1) +tag+ this.xmlString.substr(pos+1);
     };
+
 
 
     /**

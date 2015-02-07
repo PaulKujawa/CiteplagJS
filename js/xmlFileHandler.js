@@ -12,9 +12,9 @@ MyApp.XMLFileHandler = (function() {
     function XMLFileHandler() {}
 
 
+
     /**
      * loads collusion file via AJAX and converts from XML into JSON
-     * calls loadCompare(0) or Renderer.throwErrorMsg() on error
      * @param filename
      */
     XMLFileHandler.loadCollusion = function(folder, filename) {
@@ -40,9 +40,9 @@ MyApp.XMLFileHandler = (function() {
     };
 
 
+
     /**
      * loads body-parts, of source and suspicious file (recursive), and saves them as xml-strings
-     * calls CollusionParser.parseMatches()
      * @param i
      */
     XMLFileHandler.loadCompare = function(i) {

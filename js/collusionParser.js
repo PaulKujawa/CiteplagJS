@@ -14,6 +14,7 @@ MyApp.CollusionParser = (function() {
     function CollusionParser() {}
 
 
+
     /**
      * Catches all matches and saves them categorized to display as panels later
      */
@@ -95,6 +96,7 @@ MyApp.CollusionParser = (function() {
     };
 
 
+
     /**
      * set up a representing object for a feature
      * @param vMatch
@@ -125,6 +127,7 @@ MyApp.CollusionParser = (function() {
         }
         return feature;
     };
+
 
 
     /**
@@ -158,17 +161,19 @@ MyApp.CollusionParser = (function() {
     };
 
 
+
     /**
      * adds 2 features, which have to be visually connected
-     * @param fromClass
-     * @param toClass
+     * @param leftClass
+     * @param rightClass
      */
-    CollusionParser.connectFeats = function(fromClass, toClass) {
-        if (MyApp.Renderer.featToConnect[fromClass] === undefined)
-            MyApp.Renderer.featToConnect[fromClass] = [];
+    CollusionParser.connectFeats = function(leftClass, rightClass) {
+        if (MyApp.Renderer.featToConnect[leftClass] === undefined)
+            MyApp.Renderer.featToConnect[leftClass] = [];
 
-        MyApp.Renderer.featToConnect[fromClass].push(toClass); // eg a1->b2, a1->b3, a2->b1
+        MyApp.Renderer.featToConnect[leftClass].push(rightClass); // eg a1->b2, a1->b3, a2->b1
     };
+
 
 
     /**
@@ -199,6 +204,7 @@ MyApp.CollusionParser = (function() {
     };
 
 
+
     /**
      * orders feature positions, both start & end, in reverse order for an efficient parsing
      * @param matches
@@ -221,6 +227,7 @@ MyApp.CollusionParser = (function() {
     };
 
 
+
     /**
      * Attaches tabs for matchTypes with compiled texts
      */
@@ -236,9 +243,11 @@ MyApp.CollusionParser = (function() {
             MyApp.Renderer.createTab(matchTitle, html[0], html[1]);
         });
 
-        MyApp.Renderer.activateTab();
-        MyApp.Renderer.handleDetails();
-        MyApp.Renderer.drawCanvas();
+        MyApp.Renderer.patternPanels.find('li:first').addClass('active');
+        MyApp.Renderer.comparisonDiv.find('div:first').addClass('active');
+        MyApp.Renderer.attachDetails();
+        MyApp.Renderer.handleConnections();
+        MyApp.Canvas.drawCanvas();
     };
 
 
