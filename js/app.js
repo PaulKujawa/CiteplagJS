@@ -25,6 +25,7 @@ $(function() {
     $('#saveUpload').click(function() {
         $("#collusionModal").modal("hide");
         var filename = $("#collusionInput").val();
+
         MyApp.Renderer.pageDescription.remove();
         MyApp.Renderer.resetForNewFile();
         MyApp.XMLFileHandler.loadCollusion($("#xmlFolder").val(), filename);
