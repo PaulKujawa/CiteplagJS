@@ -72,7 +72,7 @@ MyApp.Canvas = (function() {
                 var leftPoint   = {x: xLeft*widthRelation,  y: yLeft*heightRelLeft},
                     rightPoint  = {x: xRight*widthRelation, y: yRight*heightRelRight};
 
-                MyApp.Canvas.connectPoints(leftPoint, rightPoint, leftFeat, color);
+                MyApp.Canvas.connectPoints(leftPoint, rightPoint, leftFeat, rightFeat, color);
             });
         });
     };
@@ -123,15 +123,16 @@ MyApp.Canvas = (function() {
      * @param leftPos
      * @param rightPos
      * @param leftFeat
+     * @param rightFeat
      * @param color
      */
-    Canvas.connectPoints = function(leftPos, rightPos, leftFeat, color) {
+    Canvas.connectPoints = function(leftPos, rightPos, leftFeat, rightFeat, color) {
         var leftDot     = MyApp.Canvas.drawLeftDot(leftPos);
         var rightDot    = MyApp.Canvas.drawRightDot(rightPos);
         var middleLine  = MyApp.Canvas.drawLine(leftPos, rightPos);
-        MyApp.Canvas.setAttributes(leftDot,     leftFeat, color);
-        MyApp.Canvas.setAttributes(rightDot,    leftFeat, color);
-        MyApp.Canvas.setAttributes(middleLine,  leftFeat, color);
+        MyApp.Canvas.setAttributes(leftDot,     leftFeat,   color);
+        MyApp.Canvas.setAttributes(rightDot,    rightFeat,  color);
+        MyApp.Canvas.setAttributes(middleLine,  null,       color);
     };
 
 
@@ -176,16 +177,15 @@ MyApp.Canvas = (function() {
     /**
      * Sets attributes for dots and lines
      * @param element
-     * @param leftFeat
+     * @param feat
      * @param color
      */
-    Canvas.setAttributes = function(element, leftFeat, color) {
-        element
-            .attr("stroke", color)
-            .attr("cursor", "pointer")
-            .click(function() {
-                leftFeat.trigger('click');
-            });
+    Canvas.setAttributes = function(element, feat, color) {
+        element.attr("stroke", color);
+
+        if (feat != null)
+            element.attr("cursor", "pointer")
+                   .click(function() {feat.trigger('click');});
     };
 
     return Canvas;

@@ -2,21 +2,21 @@
  * responsible for any html output
  */
 MyApp.Renderer = (function() {
-    Renderer.patternPanels      = $('#patternPanels');
-    Renderer.comparisonDiv      = $('#comparison');
-    Renderer.errorDiv           = $('#errorOutput');
-    Renderer.section            = $('section');
-    Renderer.detailsDiv         = $('aside');
-    Renderer.pageDescription    = $('#pagedescription');
-    Renderer.fileUpload         = $('#fileUpload');
-    Renderer.featToConnect      = {};
+    TextAreas.patternPanels      = $('#patternPanels');
+    TextAreas.comparisonDiv      = $('#comparison');
+    TextAreas.errorDiv           = $('#errorOutput');
+    TextAreas.section            = $('section');
+    TextAreas.detailsDiv         = $('aside');
+    TextAreas.pageDescription    = $('#pagedescription');
+    TextAreas.fileUpload         = $('#fileUpload');
+    TextAreas.featToConnect      = {};
 
 
     /**
      *
      * @constructor
      */
-    function Renderer() {}
+    function TextAreas() {}
 
 
 
@@ -25,7 +25,7 @@ MyApp.Renderer = (function() {
      * @param content
      * @returns {boolean}
      */
-    Renderer.throwErrorMsg = function(content) {
+    TextAreas.throwErrorMsg = function(content) {
         this.errorDiv
             .append('<span>' +content+ '</span>')
             .removeClass('hidden');
@@ -37,7 +37,7 @@ MyApp.Renderer = (function() {
     /**
      * resets html markup
      */
-    Renderer.resetForNewFile = function() {
+    TextAreas.resetForNewFile = function() {
         this.patternPanels.empty();
         this.comparisonDiv.empty();
         this.errorDiv.empty().addClass('hidden');
@@ -54,7 +54,7 @@ MyApp.Renderer = (function() {
      * @param leftFileHTML
      * @param rightFileHTML
      */
-    Renderer.createTab = function(patternTitle, leftFileHTML, rightFileHTML) {
+    TextAreas.createTab = function(patternTitle, leftFileHTML, rightFileHTML) {
         var tab = $('<li class="navbar-brand"><a href="#'+patternTitle+'Tab" data-toggle="tab">'+patternTitle+'</a></li>');
         this.patternPanels.append(tab);
 
@@ -71,7 +71,7 @@ MyApp.Renderer = (function() {
     /**
      * attaches click listener to feature divs to display their details
      */
-    Renderer.attachDetails = function() {
+    TextAreas.attachDetails = function() {
         var tab         = this.comparisonDiv.find('.tab-pane.active'),
             _self       = this;
 
@@ -103,7 +103,7 @@ MyApp.Renderer = (function() {
      * @param details
      * @returns {*}
      */
-    Renderer.getDetail = function(classList, details) {
+    TextAreas.getDetail = function(classList, details) {
         $.each(classList, function(i, classi) {
             if ( MyApp.CollusionParser.featDetails.hasOwnProperty(classi))
                 details += '<h3>Match detail ' +classi+ '</h3>' + MyApp.CollusionParser.featDetails[classi];
@@ -116,7 +116,7 @@ MyApp.Renderer = (function() {
     /**
      * Makes feature tags highlighted after clicks & scroll to them
      */
-    Renderer.handleConnections = function() {
+    TextAreas.handleConnections = function() {
         var tab = this.comparisonDiv.find('.tab-pane.active');
 
         $(tab).find(".leftArea .feature, .rightArea .feature").filter(function() {
@@ -145,7 +145,7 @@ MyApp.Renderer = (function() {
      * @param side
      * @returns {*}
      */
-    Renderer.getConnections = function(subFeatClasses, side) {
+    TextAreas.getConnections = function(subFeatClasses, side) {
         var _self       = this,
             connections = [];
         // featToConnect[leftClass] = rightClass
@@ -153,19 +153,23 @@ MyApp.Renderer = (function() {
         if (side === 'l') {
             $.each(subFeatClasses, function(i, leftClass) {
                 if ( _self.featToConnect.hasOwnProperty(leftClass)) {
-                    var connection = {leftClass: leftClass, rightClass: _self.featToConnect[leftClass]};
-                    connections.push(connection);
+                    $.each(_self.featToConnect[leftClass], function(i, rightClass) {
+                        var connection = {leftClass: leftClass, rightClass: rightClass};
+                        connections.push(connection);
+                    });
                 }
             });
 
         } else if (side === 'r') {
             $.each(subFeatClasses, function(i, rightClass) {
-                for (var leftClass in _self.featToConnect) {
-                    if (_self.featToConnect.hasOwnProperty(leftClass) && _self.featToConnect[leftClass] == rightClass) {
-                        var connection = {leftClass: leftClass, rightClass: rightClass};
-                        connections.push(connection);
-                    }
-                }
+                $.each(_self.featToConnect, function(leftClass, rightClasses) {
+                    $.each(rightClasses, function(i, classi) {
+                       if (classi == rightClass) {
+                           var connection = {leftClass: leftClass, rightClass: rightClass};
+                           connections.push(connection);
+                       }
+                    });
+                });
             });
         }
 
@@ -177,7 +181,7 @@ MyApp.Renderer = (function() {
      * Gets all connected classes of one feat-tag to highlight them and scroll them serially into view
      * @param connections
      */
-    Renderer.highlightConnection = function(connections) {
+    TextAreas.highlightConnection = function(connections) {
         var _self       = this,
             tab         = this.comparisonDiv.find('.tab-pane.active'),
             allDivs     = tab.find('.leftArea *, .rightArea *');
@@ -205,7 +209,7 @@ MyApp.Renderer = (function() {
      * Scrolls one side to feature-div
      * @param feature
      */
-    Renderer.scrollToFeature = function(feature) {
+    TextAreas.scrollToFeature = function(feature) {
         var lineHeight  = parseFloat(feature.css('line-height')),
             area        = feature.closest('.leftArea, .rightArea'),
             relFeatPos  = feature.offset().top - area.offset().top + area.scrollTop();
@@ -217,5 +221,5 @@ MyApp.Renderer = (function() {
     };
 
 
-    return Renderer;
+    return TextAreas;
 })();
