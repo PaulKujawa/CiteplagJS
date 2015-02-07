@@ -75,7 +75,7 @@ MyApp.CollusionParser = (function() {
                                             subFeat = _self.parseFeature(match, subFeat, matchCnt+"_"+matchSubCnt, refNr, true); // true - in grp
                                             features.push(subFeat);
 
-                                            if (refNr == 1) { // connect specific right sub-features with left sub-ones
+                                            if (refNr == 1 && match.subconnections !== undefined) { // connect specific right sub-features with left sub-ones
                                                 var leftClassToConnect = CollusionParser.getLeftClassToConnect(match.subconnections, bothDocuments[0], doc.id, id);
                                                 if (leftClassToConnect != null) // not explicitly listed as subConnection
                                                     _self.connectFeats(leftClassToConnect, subFeat['class']);
@@ -141,11 +141,11 @@ MyApp.CollusionParser = (function() {
     CollusionParser.getLeftClassToConnect = function(connections, leftFeats, docID, featId) {
         var leftClass = null;
 
-        if (connections.ref !== undefined) // todo for just one connection
-            var x=1;
+        if (connections.connection.ref === undefined)
+            connections = connections.connection; // just one connection
 
-        $.each(connections.connection, function(i, connection) {
-            if (docID == connection.ref[1].document && featId == connection.ref[1].feature) { // right side
+        $.each(connections, function(i, connection) {
+            if (docID == connection.ref[1].document && featId == connection.ref[1].feature) { // 2nd document (right side) && id matching
                 var leftId = connection.ref[0].feature;
 
                 $.each(leftFeats, function(i, feat) {

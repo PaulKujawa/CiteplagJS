@@ -124,7 +124,12 @@ MyApp.Renderer = (function() {
                 classList   = featDiv.classList.toString();
 
             // make all featureX & featureX_Y animated
-            var subFeatClasses = classList.match(/feature(\d+)_(\d+)/g); // todo attach features with comma, if != null
+            var subFeatClasses  = classList.match(/feature(\d+)_(\d+)/g),
+                featClasses     = classList.match(/feature(\d+)?!_/g);
+
+            if (featClasses != null)
+                $.merge(subFeatClasses, featClasses);
+
             if (subFeatClasses != null) {
                 var connections;
                 if ($(featDiv).parents('.leftArea').length > 0)
