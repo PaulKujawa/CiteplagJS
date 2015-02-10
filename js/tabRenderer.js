@@ -5,9 +5,7 @@ MyApp.TabRenderer = (function() {
     TextAreas.patternPanels      = $('#patternPanels');
     TextAreas.comparisonDiv      = $('#comparison');
     TextAreas.errorDiv           = $('#errorOutput');
-    TextAreas.section            = $('section');
     TextAreas.detailsDiv         = $('aside');
-    TextAreas.pageDescription    = $('#pagedescription');
     TextAreas.fileUpload         = $('#fileUpload');
     TextAreas.featToConnect      = {};
 
@@ -42,7 +40,9 @@ MyApp.TabRenderer = (function() {
         this.comparisonDiv.empty();
         this.errorDiv.empty().addClass('hidden');
         this.fileUpload.addClass('hidden');
-        this.detailsDiv.empty();
+        $('html, body').css('height', '100%');
+        $('#help').removeClass('hidden');
+        $('#pagedescription').remove();
         $('svg').remove();
     };
 

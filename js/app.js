@@ -26,7 +26,6 @@ $(function() {
         $("#collusionModal").modal("hide");
         var filename = $("#collusionInput").val();
 
-        MyApp.TabRenderer.pageDescription.remove();
         MyApp.TabRenderer.resetForNewFile();
         MyApp.XMLFileHandler.loadCollusion($("#xmlFolder").val(), filename);
     });

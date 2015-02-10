@@ -7,7 +7,7 @@
     <title>CitePlag</title>
     <link rel="stylesheet" href="assets/css/libs/bootstrap.css">
     <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/xmlToHTML.css">
+    <link rel="stylesheet" href="assets/css/textDecoration.css">
 </head>
 
 <body>
@@ -79,8 +79,34 @@
             <!-- JS part-->
         </div>
     </section>
-
-    <aside class="col-md-3"><!-- JS --></aside>
+    <aside class="col-md-3">
+        <div id="help" class="hidden">
+        <h2>Introduction</h2>
+            <h3>Navigation</h3>
+                <p>
+                    You find an individual <strong>list of match types</strong> here. Each tab has your both documents with
+                    different marked areas and connections, according to your selected algorithm. The first one
+                    is selected as default.
+                </p>
+            <h3>Text Areas</h3>
+                <p>
+                    Suspicious excerpts are <strong>highlighted in color</strong> and can contain different parts of your text,
+                    e.g. a title and part of the following paragraph as well. To focus a match just click on the excerpt
+                    or corresponding point in the centered canvas. A match can contain, separately highlighted,
+                    nested keywords. You can click on them as well, but not all of them are connected though.
+                </p>
+                <p>
+                    Your text were converted into HTML text. If desired, you can define your own CSS styles for
+                    a <strong>customized presentation</strong> of your XML tags. In order to apply your changes, take a look at the
+                    textDecoration.css file in the assets/css project folder.
+                </p>
+            <h3>Connections</h3>
+                <p>
+                    Each match, two connected suspicious excerpts, is visualized here. Keywords of one match have the same color,
+                    match themselves have unique ones. You can <strong>click on every point</strong> to see his excerpts' matches.
+                </p>
+        </div>
+    </aside>
     <div class="clearFloat"></div>
 
     <script src="js/libs/jquery-1.10.2.min.js"></script>
