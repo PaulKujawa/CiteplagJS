@@ -2,7 +2,7 @@ var MyApp = MyApp || {};
 
 /**
  * start point of application & any user-event listener
- * calls xmlFileHandler.loadCollusion()
+ * calls xmlFileHandler.loadFinding()
  */
 $(function() {
     // stackoverflow.com/questions/19741754/capturing-shown-event-from-bootstrap-tab
@@ -23,10 +23,10 @@ $(function() {
      * start point, after a file as been chosen
      */
     $('#saveUpload').click(function() {
-        $("#collusionModal").modal("hide");
-        var filename = $("#collusionInput").val();
+        $("#findingsModal").modal("hide");
+        var filename = $("#findingsInput").val();
 
         MyApp.TabRenderer.resetForNewFile();
-        MyApp.XMLFileHandler.loadCollusion($("#xmlFolder").val(), filename);
+        MyApp.XMLFileHandler.loadFinding($("#xmlFolder").val(), filename);
     });
 });

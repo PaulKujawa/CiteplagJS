@@ -24,8 +24,8 @@
                     <img src="assets/images/sciplore_logo.png" alt="SciPlore Logo">
                 </a>
 
-                <button id="selectCollusionBtn" class="navbar-brand btn btn-primary" type="button" data-toggle="modal" data-target="#collusionModal">
-                    Select Collusion.xml
+                <button id="selectFindingsBtn" class="navbar-brand btn btn-primary" type="button" data-toggle="modal" data-target="#findingsModal">
+                    Select Findings.xml
                 </button>
 
                 <ul id="patternPanels"><!-- JS --></ul>
@@ -41,19 +41,19 @@
     <section class="container col-md-9">
 
         <!-- Modal -->
-        <div class="modal fade" id="collusionModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal fade" id="findingsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Define Collusion.xml</h4>
+                        <h4 class="modal-title" id="myModalLabel">Define Findings xml file</h4>
                     </div>
                     <div class="modal-body">
                         <label>You can define a different path to your folder, with your files, here.</label>
                         <input id="xmlFolder" type="text" name="xmlFolder" value="./xmlFiles/0000/">
 
-                        <label>Browse your Collusion.xml file to visualize it's matches.</label>
-                        <input id="collusionInput" class="form-control" type="file" accept=".xml, application/xml" />
+                        <label>Browse your findings xml file to visualize it's matches.</label>
+                        <input id="findingsInput" class="form-control" type="file" accept=".xml, application/xml" />
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -117,7 +117,7 @@
 
     <script src="js/app.js"></script>
     <script src="js/xmlFileHandler.js"></script>
-    <script src="js/collusionParser.js"></script>
+    <script src="js/findingsParser.js"></script>
     <script src="js/comparisonParser.js"></script>
     <script src="js/tabRenderer.js"></script>
     <script src="js/canvas.js"></script>

@@ -1,5 +1,5 @@
 /**
- * responsible for file uploads, both collusion and comparison files
+ * responsible for file uploads, both findings and comparison files
  */
 MyApp.XMLFileHandler = (function() {
     XMLFileHandler["folder"]          = "";
@@ -14,10 +14,11 @@ MyApp.XMLFileHandler = (function() {
 
 
     /**
-     * loads collusion file via AJAX and converts from XML into JSON
+     * loads finding file via AJAX and converts from XML into JSON
+     * @param folder
      * @param filename
      */
-    XMLFileHandler.loadCollusion = function(folder, filename) {
+    XMLFileHandler.loadFinding = function(folder, filename) {
         var _self = this;
         _self.folder = folder;
 
@@ -30,7 +31,7 @@ MyApp.XMLFileHandler = (function() {
             dataType: "xml",
 
             success: function(file) {
-                MyApp.CollusionParser['collusionJSON'] = $.xml2json(file);
+                MyApp.FindingsParser['findingsJSON'] = $.xml2json(file);
                 _self.loadCompare(0);
             },
             error: function(xhr) {
@@ -46,11 +47,11 @@ MyApp.XMLFileHandler = (function() {
      * @param i
      */
     XMLFileHandler.loadCompare = function(i) {
-        var filename = MyApp.CollusionParser['collusionJSON'].document[i].src,
+        var filename = MyApp.FindingsParser['findingsJSON'].document[i].src,
             _self = this;
 
         if (filename === undefined)
-            return MyApp.TabRenderer.throwErrorMsg( "Not two comparison files in your Collusion.xml given." );
+            return MyApp.TabRenderer.throwErrorMsg( "Not two comparison files in your Findings file given." );
 
         $.ajax({
             type: "GET",
@@ -71,7 +72,7 @@ MyApp.XMLFileHandler = (function() {
                 if (i == 0)
                     _self.loadCompare(1);
                 else
-                    MyApp.CollusionParser.parseMatches();
+                    MyApp.FindingsParser.parseMatches();
                 return true;
             },
             error: function(xhr) {

@@ -26,21 +26,21 @@ h1, h2, h3, a { color: #317eac; }
 
 #navLogo { padding: 7px 15px !important; }
 
-#selectCollusionBtn {
+#selectFindingsBtn {
     margin-left: 20px;
     color: #ffffff !important;
     border-radius:  0;
 }
 
-#collusionModal {
+#findingsModal {
     margin-top: 60px;
 }
 
-#collusionModal label:not(:first-child) {
+#findingsModal label:not(:first-child) {
     margin-top: 40px;
 }
 
-#collusionModal input {
+#findingsModal input {
     padding: 0;
 }
 

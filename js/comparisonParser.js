@@ -189,9 +189,9 @@ MyApp.ComparisonParser = (function() {
      */
     ComparisonParser.getNextFeaturePos = function() {
         var pos = null;
-        if (! $.isEmptyObject(MyApp.CollusionParser.featurePositions) ) {
-            pos = MyApp.CollusionParser.featurePositions[0];
-            MyApp.CollusionParser.featurePositions.splice(0, 1); // removes 1 item from index 0
+        if (! $.isEmptyObject(MyApp.FindingsParser.featurePositions) ) {
+            pos = MyApp.FindingsParser.featurePositions[0];
+            MyApp.FindingsParser.featurePositions.splice(0, 1); // removes 1 item from index 0
         }
         this.nextFeaturePos= pos;
     };

@@ -1,33 +1,33 @@
 /**
- * Parses collusion file
+ * Parses finding file
  */
-MyApp.CollusionParser = (function() {
-    CollusionParser.collusionJSON       = [];
-    CollusionParser.matchTypes          = {}; /*[mType][m][d][f]['start']*/
-    CollusionParser.featurePositions    = [];
-    CollusionParser.featDetails         = {};
+MyApp.FindingsParser = (function() {
+    FindingsParser.findingsJSON      = [];
+    FindingsParser.matchTypes       = {}; /*[mType][m][d][f]['start']*/
+    FindingsParser.featurePositions = [];
+    FindingsParser.featDetails      = {};
 
     /**
      *
      * @constructor
      */
-    function CollusionParser() {}
+    function FindingsParser() {}
 
 
 
     /**
      * Catches all matches and saves them categorized to display as panels later
      */
-    CollusionParser.parseMatches = function() {
+    FindingsParser.parseMatches = function() {
         var _self = this;
         _self.matchTypes = {};
 
-        var matches = _self.collusionJSON.alignments; // match
+        var matches = _self.findingsJSON.alignments; // match
         if (matches.match.ref === undefined)
             matches = matches.match; // matches
 
         if (typeof(matches) == "function")
-            return MyApp.TabRenderer.throwErrorMsg("Your collusion.xml has no 'match' in 'alignments'.");
+            return MyApp.TabRenderer.throwErrorMsg("Your finding.xml has no 'match' in 'alignments'.");
 
         var matchCnt = 0;
         $.each(matches, function(i, match) {
@@ -38,6 +38,7 @@ MyApp.CollusionParser = (function() {
             matchCnt++;
         });
         _self.handleMatchTypes();
+        return true;
     };
 
 
@@ -47,14 +48,14 @@ MyApp.CollusionParser = (function() {
      * @param match
      * @param matchCnt
      */
-    CollusionParser.parseMatchFeats = function(match, matchCnt) {
+    FindingsParser.parseMatchFeats = function(match, matchCnt) {
         var bothDocuments   = [],
             _self           = this;
 
         $.each(match.ref, function(refNr, ref) {
             var features = [];
 
-            $.each(_self.collusionJSON.document, function(j, doc) {
+            $.each(_self.findingsJSON.document, function(j, doc) {
                 if (doc.id == ref.document) {
 
                     $.each(doc.feature, function(k, feature) {
@@ -78,7 +79,7 @@ MyApp.CollusionParser = (function() {
                                             features.push(subFeat);
 
                                             if (refNr == 1 && match.subconnections !== undefined) { // connect from right sub-features to left sub-ones
-                                                var leftClassToConnect = CollusionParser.getLeftClassToConnect(match.subconnections, bothDocuments[0], doc.id, id);
+                                                var leftClassToConnect = FindingsParser.getLeftClassToConnect(match.subconnections, bothDocuments[0], doc.id, id);
                                                 if (leftClassToConnect != null) // not explicitly listed as subConnection
                                                     _self.connectFeats(match.type, leftClassToConnect, subFeat['class']);
                                             }
@@ -109,7 +110,7 @@ MyApp.CollusionParser = (function() {
      * @param inGroup
      * @returns {{}}
      */
-    CollusionParser.parseFeature = function(vMatch, feat, matchCnt, refNr, inGroup) {
+    FindingsParser.parseFeature = function(vMatch, feat, matchCnt, refNr, inGroup) {
         var feature             = {};
             feature['start']    = parseInt(feat.start);
             feature['end']      = parseInt(feat.start) + parseInt(feat.length);
@@ -141,9 +142,9 @@ MyApp.CollusionParser = (function() {
      * @param featId
      * @returns {boolean}
      */
-    CollusionParser.getLeftClassToConnect = function(connections, leftFeats, docID, featId) {
+    FindingsParser.getLeftClassToConnect = function(connections, leftFeats, docID, featId) {
         var leftClass = null;
-//        var leftClassToConnect = CollusionParser.getLeftClassToConnect(match.subconnections, bothDocuments[0], doc.id, id);
+//        var leftClassToConnect = FindingsParser.getLeftClassToConnect(match.subconnections, bothDocuments[0], doc.id, id);
 
         if (connections.connection.ref === undefined)
             connections = connections.connection; // just one connection
@@ -172,7 +173,7 @@ MyApp.CollusionParser = (function() {
      * @param leftClass
      * @param rightClass
      */
-    CollusionParser.connectFeats = function(matchType, leftClass, rightClass) {
+    FindingsParser.connectFeats = function(matchType, leftClass, rightClass) {
         if (MyApp.TabRenderer.featToConnect[matchType] === undefined)
             MyApp.TabRenderer.featToConnect[matchType] = {};
 
@@ -190,7 +191,7 @@ MyApp.CollusionParser = (function() {
      * @param detail
      * @returns {string}
      */
-    CollusionParser.parseMatchDetail = function(detail) {
+    FindingsParser.parseMatchDetail = function(detail) {
         var div     = "",
             _self   = this;
 
@@ -219,7 +220,7 @@ MyApp.CollusionParser = (function() {
      * @param matches
      * @param docNr
      */
-    CollusionParser.orderFeaturePos = function(matches, docNr) {
+    FindingsParser.orderFeaturePos = function(matches, docNr) {
         var _self = this;
         _self.featurePositions = [];
 
@@ -240,7 +241,7 @@ MyApp.CollusionParser = (function() {
     /**
      * Attaches tabs for matchTypes with compiled texts
      */
-    CollusionParser.handleMatchTypes = function() {
+    FindingsParser.handleMatchTypes = function() {
         var _self = this;
         $.each(_self.matchTypes, function(matchTitle, matches) {
             var html = [];
@@ -258,5 +259,5 @@ MyApp.CollusionParser = (function() {
     };
 
 
-    return CollusionParser;
+    return FindingsParser;
 })();

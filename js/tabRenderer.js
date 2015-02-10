@@ -107,8 +107,8 @@ MyApp.TabRenderer = (function() {
      */
     TextAreas.getDetail = function(classList, details) {
         $.each(classList, function(i, classi) {
-            if (MyApp.CollusionParser.featDetails.hasOwnProperty(classi))
-                details += '<h3>Match detail ' +classi+ '</h3>' + MyApp.CollusionParser.featDetails[classi];
+            if (MyApp.FindingsParser.featDetails.hasOwnProperty(classi))
+                details += '<h3>Match detail ' +classi+ '</h3>' + MyApp.FindingsParser.featDetails[classi];
         });
         return details;
     };
