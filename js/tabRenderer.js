@@ -1,7 +1,7 @@
 /**
  * responsible for any html output
  */
-MyApp.Renderer = (function() {
+MyApp.TabRenderer = (function() {
     TextAreas.patternPanels      = $('#patternPanels');
     TextAreas.comparisonDiv      = $('#comparison');
     TextAreas.errorDiv           = $('#errorOutput');
@@ -55,27 +55,29 @@ MyApp.Renderer = (function() {
      * @param rightFileHTML
      */
     TextAreas.createTab = function(patternTitle, leftFileHTML, rightFileHTML) {
-        var tab = $('<li class="navbar-brand"><a href="#'+patternTitle+'Tab" data-toggle="tab">'+patternTitle+'</a></li>');
-        this.patternPanels.append(tab);
+        var tabPanel = $('<li class="navbar-brand"><a href="#'+patternTitle+'Tab" data-toggle="tab">'+patternTitle+'</a></li>');
+        this.patternPanels.append(tabPanel);
 
-        var div = $('<div id="'+patternTitle+'Tab" class="tab-pane"></div>')
+        var tabPane = $('<div id="'+patternTitle+'Tab" class="tab-pane" data-matchtype="'+patternTitle+'"></div>')
             .append('<div class="leftArea">'+leftFileHTML+'</div>')
             .append('<div class="canvas"></div>')
             .append('<div class="rightArea">'+rightFileHTML+'</div>')
             .append('<div class="clearFloat"></div>');
-        this.comparisonDiv.append(div);
+        this.comparisonDiv.append(tabPane);
+        MyApp.TabRenderer.attachDetails(tabPane);
+        MyApp.TabRenderer.handleConnections(tabPane);
     };
 
 
 
     /**
      * attaches click listener to feature divs to display their details
+     * @param tabPane
      */
-    TextAreas.attachDetails = function() {
-        var tab         = this.comparisonDiv.find('.tab-pane.active'),
-            _self       = this;
+    TextAreas.attachDetails = function(tabPane) {
+        var _self = this;
 
-        $(tab).find(".feature, .group, :not(.leftArea, .rightArea)").filter(function() { // no subfeats
+        $(tabPane).find(".feature, .group, :not(.leftArea, .rightArea)").filter(function() { // no subfeats
             // get all groupX & featureX classes
             var featDiv         = this,
                 detailString    = "",
@@ -83,8 +85,8 @@ MyApp.Renderer = (function() {
                 groupClasses    = classList.match(/group(\d+)/g),
                 featClasses     = classList.match(/feature(\d+)/g);
 
-            if (groupClasses != null)   detailString = MyApp.Renderer.getDetail(groupClasses, detailString);
-            if (featClasses  != null)   detailString = MyApp.Renderer.getDetail(featClasses, detailString);
+            if (groupClasses != null)   detailString = MyApp.TabRenderer.getDetail(groupClasses, detailString);
+            if (featClasses  != null)   detailString = MyApp.TabRenderer.getDetail(featClasses, detailString);
 
             $(featDiv)
                 .css('cursor', 'pointer')
@@ -105,7 +107,7 @@ MyApp.Renderer = (function() {
      */
     TextAreas.getDetail = function(classList, details) {
         $.each(classList, function(i, classi) {
-            if ( MyApp.CollusionParser.featDetails.hasOwnProperty(classi))
+            if (MyApp.CollusionParser.featDetails.hasOwnProperty(classi))
                 details += '<h3>Match detail ' +classi+ '</h3>' + MyApp.CollusionParser.featDetails[classi];
         });
         return details;
@@ -115,18 +117,17 @@ MyApp.Renderer = (function() {
 
     /**
      * Makes feature tags highlighted after clicks & scroll to them
+     * @param tabPane
      */
-    TextAreas.handleConnections = function() {
-        var tab = this.comparisonDiv.find('.tab-pane.active');
-
-        $(tab).find(".leftArea .feature, .rightArea .feature").filter(function() {
+    TextAreas.handleConnections = function(tabPane) {
+        $(tabPane).find(".leftArea .feature, .rightArea .feature").filter(function() {
             var featDiv     = this,
                 classList   = featDiv.classList.toString();
 
             // make all featureX & featureX_Y animated
             var subFeatClasses  = classList.match(/feature(\d+)_(\d+)/g),
                 featClasses     = classList.match(/feature(\d+)$/g);
-            
+
             // combine all classes
             if (subFeatClasses != null && featClasses != null)
                 $.merge(subFeatClasses, featClasses);
@@ -134,12 +135,13 @@ MyApp.Renderer = (function() {
                 subFeatClasses = featClasses;
 
             if (subFeatClasses != null) {
-                var connections;
+                var connections,
+                    matchType = $(tabPane).data("matchtype");
                 if ($(featDiv).parents('.leftArea').length > 0)
-                        connections = MyApp.Renderer.getConnections(subFeatClasses, 'l');
-                else    connections = MyApp.Renderer.getConnections(subFeatClasses, 'r');
+                        connections = MyApp.TabRenderer.getConnections(subFeatClasses, matchType, 'l');
+                else    connections = MyApp.TabRenderer.getConnections(subFeatClasses, matchType, 'r');
 
-                $(featDiv).click(function() {MyApp.Renderer.highlightConnection(connections)})
+                $(featDiv).click(function() {MyApp.TabRenderer.highlightConnection(connections)})
                           .css( 'cursor', 'pointer' );
             }
         });
@@ -151,17 +153,18 @@ MyApp.Renderer = (function() {
      * Returns array with connected classes
      * @param subFeatClasses
      * @param side
+     * @param matchType
      * @returns {*}
      */
-    TextAreas.getConnections = function(subFeatClasses, side) {
+    TextAreas.getConnections = function(subFeatClasses, matchType, side) {
         var _self       = this,
             connections = [];
-        // featToConnect[leftClass] = rightClass
 
+        // featToConnect[machType][leftClass] = rightClass
         if (side === 'l') {
             $.each(subFeatClasses, function(i, leftClass) {
-                if ( _self.featToConnect.hasOwnProperty(leftClass)) {
-                    $.each(_self.featToConnect[leftClass], function(i, rightClass) {
+                if ( _self.featToConnect[matchType].hasOwnProperty(leftClass)) {
+                    $.each(_self.featToConnect[matchType][leftClass], function(i, rightClass) {
                         var connection = {leftClass: leftClass, rightClass: rightClass};
                         connections.push(connection);
                     });
@@ -170,7 +173,7 @@ MyApp.Renderer = (function() {
 
         } else if (side === 'r') {
             $.each(subFeatClasses, function(i, rightClass) {
-                $.each(_self.featToConnect, function(leftClass, rightClasses) {
+                $.each(_self.featToConnect[matchType], function(leftClass, rightClasses) {
                     $.each(rightClasses, function(i, classi) {
                        if (classi == rightClass) {
                            var connection = {leftClass: leftClass, rightClass: rightClass};
@@ -190,7 +193,6 @@ MyApp.Renderer = (function() {
      * @param connections
      */
     TextAreas.highlightConnection = function(connections) {
-        console.log("highlighted");
         var _self       = this,
             tab         = this.comparisonDiv.find('.tab-pane.active'),
             allDivs     = tab.find('.leftArea *, .rightArea *');
@@ -202,8 +204,8 @@ MyApp.Renderer = (function() {
                 rightClass   = '.rightArea .'+connection['rightClass'];
 
             tab.find(leftClass+','+rightClass).addClass('alert alert-info');
-            MyApp.Renderer.scrollToFeature( tab.find(leftClass).first() );
-            MyApp.Renderer.scrollToFeature( tab.find(rightClass).first() );
+            MyApp.TabRenderer.scrollToFeature( tab.find(leftClass).first() );
+            MyApp.TabRenderer.scrollToFeature( tab.find(rightClass).first() );
         });
 
         allDivs.one("mouseup", function() {

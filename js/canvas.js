@@ -25,7 +25,7 @@ MyApp.Canvas = (function() {
         var _self               = this,
             lastGrpNr           = -1,
             color               = MyApp.Canvas.newColor(),
-            tab                 = MyApp.Renderer.comparisonDiv.find('.tab-pane.active'),
+            tab                 = MyApp.TabRenderer.comparisonDiv.find('.tab-pane.active'),
             leftArea            = $(tab).find('.leftArea'),
             canvasDiv           = $(tab).find('.canvas'),
             rightArea           = $(tab).find('.rightArea'),
@@ -40,12 +40,13 @@ MyApp.Canvas = (function() {
         // setup (redraw as well)
         $('svg').remove();
         MyApp.Canvas.drawPaper(canvasDiv);
-        var colorsCopy = [];
+        var colorsCopy = [],
+            matchType  = $(tab).data("matchtype");
         if (_self.usedColors.length > 0)
             colorsCopy = _self.usedColors.slice();
 
 
-        $.each(MyApp.Renderer.featToConnect, function(leftClass, rightClasses) {
+        $.each(MyApp.TabRenderer.featToConnect[matchType], function(leftClass, rightClasses) {
             $.each(rightClasses, function(i, rightClass) {
                 // same color for features within same group
                 var                 group = leftClass.match(/feature(\d+)_(\d+)/);  // 0=featureX_Y, 1=X, 2=Y

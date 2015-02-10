@@ -5,9 +5,9 @@ var MyApp = MyApp || {};
  * calls xmlFileHandler.loadCollusion()
  */
 $(function() {
-    // SO.com/questions/19741754/capturing-shown-event-from-bootstrap-tab
+    // stackoverflow.com/questions/19741754/capturing-shown-event-from-bootstrap-tab
     $(document).on('shown.bs.tab', 'a[data-toggle="tab"]', function (e) {
-        MyApp.Renderer.drawCanvas();
+        MyApp.Canvas.drawCanvas();
     });
 
 
@@ -26,8 +26,8 @@ $(function() {
         $("#collusionModal").modal("hide");
         var filename = $("#collusionInput").val();
 
-        MyApp.Renderer.pageDescription.remove();
-        MyApp.Renderer.resetForNewFile();
+        MyApp.TabRenderer.pageDescription.remove();
+        MyApp.TabRenderer.resetForNewFile();
         MyApp.XMLFileHandler.loadCollusion($("#xmlFolder").val(), filename);
     });
 });

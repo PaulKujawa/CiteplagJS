@@ -22,7 +22,7 @@ MyApp.XMLFileHandler = (function() {
         _self.folder = folder;
 
         if (filename.split(".").pop() != "xml")
-            return MyApp.Renderer.throwErrorMsg( "Wrong file type. Please choose a xml file." );
+            return MyApp.TabRenderer.throwErrorMsg( "Wrong file type. Please choose a xml file." );
 
         $.ajax({
             type: "GET",
@@ -34,7 +34,7 @@ MyApp.XMLFileHandler = (function() {
                 _self.loadCompare(0);
             },
             error: function(xhr) {
-                return MyApp.Renderer.throwErrorMsg( xhr.responseText );
+                return MyApp.TabRenderer.throwErrorMsg( xhr.responseText );
             }
         })
     };
@@ -50,7 +50,7 @@ MyApp.XMLFileHandler = (function() {
             _self = this;
 
         if (filename === undefined)
-            return MyApp.Renderer.throwErrorMsg( "Not two comparison files in your Collusion.xml given." );
+            return MyApp.TabRenderer.throwErrorMsg( "Not two comparison files in your Collusion.xml given." );
 
         $.ajax({
             type: "GET",
@@ -75,7 +75,7 @@ MyApp.XMLFileHandler = (function() {
                 return true;
             },
             error: function(xhr) {
-                MyApp.Renderer.throwErrorMsg( xhr.responseText );
+                MyApp.TabRenderer.throwErrorMsg( xhr.responseText );
             }
         });
     };

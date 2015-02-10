@@ -27,7 +27,7 @@ MyApp.CollusionParser = (function() {
             matches = matches.match; // matches
 
         if (typeof(matches) == "function")
-            return MyApp.Renderer.throwErrorMsg("Your collusion.xml has no 'match' in 'alignments'.");
+            return MyApp.TabRenderer.throwErrorMsg("Your collusion.xml has no 'match' in 'alignments'.");
 
         var matchCnt = 0;
         $.each(matches, function(i, match) {
@@ -77,17 +77,17 @@ MyApp.CollusionParser = (function() {
                                             subFeat = _self.parseFeature(match, subFeat, matchCnt+"_"+matchSubCnt, refNr, true); // true - in grp
                                             features.push(subFeat);
 
-                                            if (refNr == 1 && match.subconnections !== undefined) { // connect specific right sub-features with left sub-ones
+                                            if (refNr == 1 && match.subconnections !== undefined) { // connect from right sub-features to left sub-ones
                                                 var leftClassToConnect = CollusionParser.getLeftClassToConnect(match.subconnections, bothDocuments[0], doc.id, id);
                                                 if (leftClassToConnect != null) // not explicitly listed as subConnection
-                                                    _self.connectFeats(leftClassToConnect, subFeat['class']);
+                                                    _self.connectFeats(match.type, leftClassToConnect, subFeat['class']);
                                             }
                                         }
                                     });
                                     matchSubCnt++;
                                 });
                             } else if (refNr == 1)// single feature out of grp && same class names both sides, runs just one time
-                                _self.connectFeats(parsedFeat['class'], parsedFeat['class']);
+                                _self.connectFeats(match.type, parsedFeat['class'], parsedFeat['class']);
                         }
                         if (feature == doc.feature) return false; // just one feat so skip further attr (loop elements)
                     });
@@ -143,6 +143,7 @@ MyApp.CollusionParser = (function() {
      */
     CollusionParser.getLeftClassToConnect = function(connections, leftFeats, docID, featId) {
         var leftClass = null;
+//        var leftClassToConnect = CollusionParser.getLeftClassToConnect(match.subconnections, bothDocuments[0], doc.id, id);
 
         if (connections.connection.ref === undefined)
             connections = connections.connection; // just one connection
@@ -167,14 +168,19 @@ MyApp.CollusionParser = (function() {
 
     /**
      * adds 2 features, which have to be visually connected
+     * @param matchType
      * @param leftClass
      * @param rightClass
      */
-    CollusionParser.connectFeats = function(leftClass, rightClass) {
-        if (MyApp.Renderer.featToConnect[leftClass] === undefined)
-            MyApp.Renderer.featToConnect[leftClass] = [];
+    CollusionParser.connectFeats = function(matchType, leftClass, rightClass) {
+        if (MyApp.TabRenderer.featToConnect[matchType] === undefined)
+            MyApp.TabRenderer.featToConnect[matchType] = {};
 
-        MyApp.Renderer.featToConnect[leftClass].push(rightClass); // eg a1->b2, a1->b3, a2->b1
+
+        if (MyApp.TabRenderer.featToConnect[matchType][leftClass] === undefined)
+            MyApp.TabRenderer.featToConnect[matchType][leftClass] = [];
+
+        MyApp.TabRenderer.featToConnect[matchType][leftClass].push(rightClass);
     };
 
 
@@ -243,13 +249,11 @@ MyApp.CollusionParser = (function() {
                 MyApp.ComparisonParser.convertFile(matches, docNr);
                 html.push(MyApp.ComparisonParser.xmlString);
             }
-            MyApp.Renderer.createTab(matchTitle, html[0], html[1]);
+            MyApp.TabRenderer.createTab(matchTitle, html[0], html[1]);
         });
 
-        MyApp.Renderer.patternPanels.find('li:first').addClass('active');
-        MyApp.Renderer.comparisonDiv.find('div:first').addClass('active');
-        MyApp.Renderer.attachDetails();
-        MyApp.Renderer.handleConnections();
+        MyApp.TabRenderer.patternPanels.find('li:first').addClass('active');
+        MyApp.TabRenderer.comparisonDiv.find('div:first').addClass('active');
         MyApp.Canvas.drawCanvas();
     };
 
