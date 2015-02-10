@@ -2,7 +2,7 @@ var MyApp = MyApp || {};
 
 /**
  * start point of application & any user-event listener
- * calls xmlFileHandler.loadFinding()
+ * @author Paul Kujawa p.kujawa@gmx.net
  */
 $(function() {
     // stackoverflow.com/questions/19741754/capturing-shown-event-from-bootstrap-tab

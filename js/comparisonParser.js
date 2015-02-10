@@ -1,5 +1,6 @@
 /**
- * converts comparison files' bodies from xml into html markup and adds feature tags
+ * converts comparison files from xml into html markup and adds feature tags
+ * @author Paul Kujawa p.kujawa@gmx.net
  */
 MyApp.ComparisonParser = (function() {
     ComparisonParser.xmlString      = "";

@@ -1,5 +1,6 @@
 /**
- * Parses finding file
+ * Parses finding file and the matches' connections
+ * @author Paul Kujawa p.kujawa@gmx.net
  */
 MyApp.FindingsParser = (function() {
     FindingsParser.findingsJSON      = [];

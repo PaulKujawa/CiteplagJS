@@ -1,5 +1,6 @@
 /**
  * responsible for the canvas between the texts
+ * @author Paul Kujawa p.kujawa@gmx.net
  */
 MyApp.Canvas = (function() {
     Canvas.r            = 6;

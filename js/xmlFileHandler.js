@@ -1,5 +1,6 @@
 /**
  * responsible for file uploads, both findings and comparison files
+ * @author Paul Kujawa p.kujawa@gmx.net
  */
 MyApp.XMLFileHandler = (function() {
     XMLFileHandler["folder"]          = "";

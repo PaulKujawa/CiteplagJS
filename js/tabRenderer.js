@@ -1,5 +1,6 @@
 /**
- * responsible for any html output
+ * responsible event handler and rendereding of comparison divs/texts
+ * @author Paul Kujawa p.kujawa@gmx.net
  */
 MyApp.TabRenderer = (function() {
     TextAreas.patternPanels      = $('#patternPanels');
