@@ -125,10 +125,13 @@ MyApp.Renderer = (function() {
 
             // make all featureX & featureX_Y animated
             var subFeatClasses  = classList.match(/feature(\d+)_(\d+)/g),
-                featClasses     = classList.match(/feature(\d+)?!_/g);
-
-            if (featClasses != null)
+                featClasses     = classList.match(/feature(\d+)$/g);
+            
+            // combine all classes
+            if (subFeatClasses != null && featClasses != null)
                 $.merge(subFeatClasses, featClasses);
+            else if (subFeatClasses == null && featClasses != null)
+                subFeatClasses = featClasses;
 
             if (subFeatClasses != null) {
                 var connections;
@@ -187,6 +190,7 @@ MyApp.Renderer = (function() {
      * @param connections
      */
     TextAreas.highlightConnection = function(connections) {
+        console.log("highlighted");
         var _self       = this,
             tab         = this.comparisonDiv.find('.tab-pane.active'),
             allDivs     = tab.find('.leftArea *, .rightArea *');

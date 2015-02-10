@@ -56,8 +56,10 @@ MyApp.CollusionParser = (function() {
 
             $.each(_self.collusionJSON.document, function(j, doc) {
                 if (doc.id == ref.document) {
+
                     $.each(doc.feature, function(k, feature) {
-                        if (typeof(feature) != "object") feature = doc.feature; // just one feature
+                        if (doc.feature.value !== undefined)
+                            feature = doc.feature; // just one feature
 
                         if (feature.id == ref.feature) {
                             var parsedFeat = _self.parseFeature(match, feature, matchCnt, refNr, false); // false - not in grp
@@ -87,6 +89,7 @@ MyApp.CollusionParser = (function() {
                             } else if (refNr == 1)// single feature out of grp && same class names both sides, runs just one time
                                 _self.connectFeats(parsedFeat['class'], parsedFeat['class']);
                         }
+                        if (feature == doc.feature) return false; // just one feat so skip further attr (loop elements)
                     });
                 }
             });
@@ -117,7 +120,7 @@ MyApp.CollusionParser = (function() {
         if (feature['isGroup'])             feature['class'] = "group" + matchCnt;
         else                                feature['class'] = "feature" + matchCnt;
 
-        if (feat.value !== undefined)       feature['value'] = feat.value;
+        if (feat.value !== undefined)       feature['value']  = feat.value;
         if (vMatch.detail !== undefined)    feature['detail'] = this.parseMatchDetail(vMatch.detail);
 
         // no subFeatures -> left & right same class -> just left side to store

@@ -30,10 +30,6 @@ MyApp.ComparisonParser = (function() {
 
 
         for (var pos = _self.xmlString.length-1; 0 <= pos; pos--) {
-
-            if (_self.xmlString[pos] == "")
-                console.log("xx");
-
             if (_self.xmlString[pos] === '>') {
                 closingPos = pos;
                 if (! $.isEmptyObject(_self.activeFeatures) || ! $.isEmptyObject(_self.activeGroups))
@@ -62,7 +58,7 @@ MyApp.ComparisonParser = (function() {
      * @param docNr
      * @param pos
      */
-    ComparisonParser.handleFeatPos = function(matches, docNr, pos) {                                                        // todo feat ende 3653 | length 3652
+    ComparisonParser.handleFeatPos = function(matches, docNr, pos) {
         var _self       = this,
             noStartYet  = true,
             noEndYet    = true;
