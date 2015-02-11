@@ -3,8 +3,8 @@
  * @author Paul Kujawa p.kujawa@gmx.net
  */
 MyApp.XMLFileHandler = (function() {
-    XMLFileHandler["folder"]          = "";
-    XMLFileHandler["compareFilesXML"] = {};
+    XMLFileHandler.folder          = "";
+    XMLFileHandler.compareFilesXML = {};
 
     /**
      *
@@ -39,6 +39,7 @@ MyApp.XMLFileHandler = (function() {
                 return MyApp.TabRenderer.throwErrorMsg( xhr.responseText );
             }
         })
+        return true;
     };
 
 
@@ -80,6 +81,7 @@ MyApp.XMLFileHandler = (function() {
                 MyApp.TabRenderer.throwErrorMsg( xhr.responseText );
             }
         });
+        return true;
     };
 
     return XMLFileHandler;

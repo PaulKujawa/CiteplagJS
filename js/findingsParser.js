@@ -104,14 +104,14 @@ MyApp.FindingsParser = (function() {
 
     /**
      * set up a representing object for a feature
-     * @param vMatch
+     * @param match
      * @param feat
      * @param matchCnt
      * @param refNr
      * @param inGroup
      * @returns {{}}
      */
-    FindingsParser.parseFeature = function(vMatch, feat, matchCnt, refNr, inGroup) {
+    FindingsParser.parseFeature = function(match, feat, matchCnt, refNr, inGroup) {
         var feature             = {};
             feature['start']    = parseInt(feat.start);
             feature['end']      = parseInt(feat.start) + parseInt(feat.length);
@@ -123,7 +123,7 @@ MyApp.FindingsParser = (function() {
         else                                feature['class'] = "feature" + matchCnt;
 
         if (feat.value !== undefined)       feature['value']  = feat.value;
-        if (vMatch.detail !== undefined)    feature['detail'] = this.parseMatchDetail(vMatch.detail);
+        if (match.detail !== undefined)    feature['detail'] = this.parseMatchDetail(match.detail);
 
         // no subFeatures -> left & right same class -> just left side to store
         if (refNr == 0 && !feature['inGroup'] && feature['detail'] !== undefined) {
@@ -139,11 +139,11 @@ MyApp.FindingsParser = (function() {
      * Returns class of left feature, matching given right feature
      * @param connections
      * @param leftFeats
-     * @param docID
+     * @param docId
      * @param featId
      * @returns {boolean}
      */
-    FindingsParser.getLeftClassToConnect = function(connections, leftFeats, docID, featId) {
+    FindingsParser.getLeftClassToConnect = function(connections, leftFeats, docId, featId) {
         var leftClass = null;
 //        var leftClassToConnect = FindingsParser.getLeftClassToConnect(match.subconnections, bothDocuments[0], doc.id, id);
 
@@ -151,10 +151,10 @@ MyApp.FindingsParser = (function() {
             connections = connections.connection; // just one connection
 
         $.each(connections, function(i, connection) {
-            if (docID == connection.ref[1].document && featId == connection.ref[1].feature) { // 2nd document (right side) && id matching
+            if (docId == connection.ref[1].document && featId == connection.ref[1].feature) { // 2nd document (right side) && id matching
                 var leftId = connection.ref[0].feature;
 
-                $.each(leftFeats, function(i, feat) {
+                $.each(leftFeats, function(i, feat) { // todo PK könnte schiefgehen
                     if (feat.id == leftId) {
                         leftClass = feat.class;
                         return true;
@@ -226,7 +226,7 @@ MyApp.FindingsParser = (function() {
         _self.featurePositions = [];
 
         $.each(matches, function(m, match) {
-            $.each(match[docNr], function(f, feature) {
+            $.each(match[docNr], function(f, feature) { // todo pk geht das so?
                 _self.featurePositions.push(feature['start']);
                 _self.featurePositions.push(feature['end']);
             });

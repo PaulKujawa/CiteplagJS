@@ -152,18 +152,18 @@ MyApp.TabRenderer = (function() {
 
     /**
      * Returns array with connected classes
-     * @param subFeatClasses
+     * @param classes
      * @param side
      * @param matchType
      * @returns {*}
      */
-    TextAreas.getConnections = function(subFeatClasses, matchType, side) {
+    TextAreas.getConnections = function(classes, matchType, side) {
         var _self       = this,
             connections = [];
 
         // featToConnect[machType][leftClass] = rightClass
         if (side === 'l') {
-            $.each(subFeatClasses, function(i, leftClass) {
+            $.each(classes, function(i, leftClass) {
                 if ( _self.featToConnect[matchType].hasOwnProperty(leftClass)) {
                     $.each(_self.featToConnect[matchType][leftClass], function(i, rightClass) {
                         var connection = {leftClass: leftClass, rightClass: rightClass};
@@ -173,7 +173,7 @@ MyApp.TabRenderer = (function() {
             });
 
         } else if (side === 'r') {
-            $.each(subFeatClasses, function(i, rightClass) {
+            $.each(classes, function(i, rightClass) {
                 $.each(_self.featToConnect[matchType], function(leftClass, rightClasses) {
                     $.each(rightClasses, function(i, classi) {
                        if (classi == rightClass) {

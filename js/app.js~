@@ -1,0 +1,58 @@
+var MyApp = MyApp || {};
+
+/**
+ * start point of application & any user-event listener
+ * @author Paul Kujawa p.kujawa@gmx.net
+ */
+$(function() {
+    // stackoverflow.com/questions/19741754/capturing-shown-event-from-bootstrap-tab
+    $(document).on('shown.bs.tab', 'a[data-toggle="tab"]', function (e) {
+        MyApp.Canvas.drawCanvas();
+    });
+
+
+	var str = "Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut at orci quam. Donec eget laoreet dui, id semper eros. Proin convallis consequat neque quis ultrices. Nulla vel nisl non nulla tempus pulvinar. Morbi convallis tincidunt dui eget tristique. Duis a lorem et erat dictum euismod. Fusce accumsan auctor tristique. Nunc et tempor mi. Praesent varius nulla vel magna luctus, a fringilla metus vulputate. Vivamus placerat finibus mauris quis egestas. Phasellus tempor, eros ac porta sagittis, justo ipsum scelerisque felis, ut rutrum erat nunc sed tortor.1 Pellentesque nec suscipit ex. Vivamus fringilla imperdiet enim, et consequat ante. Integer sed felis quis ipsum posuere vestibulum vitae vitae tortor. Phasellus rhoncus lacus a turpis egestas fringilla. Nulla auctor libero risus, aliquam pharetra elit aliquam a. Integer turpis lorem, placerat vitae libero in, porta imperdiet felis.
+        Suspendisse pharetra consequat dolor eget porta. Integer non malesuada augue. Ut eu dolor egestas, pretium purus vel, aliquam justo. Nam feugiat ultricies ipsum eu condimentum. Sed nec neque vitae massa hendrerit vestibulum. Morbi hendrerit elit at purus dictum,² in blandit massa fringilla. Aliquam scelerisque mattis ullamcorper. Morbi et tellus a ex pulvinar auctor nec quis augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec consectetur metus nunc, vel gravida magna placerat et. Pellentesque congue nisi risus, ut lobortis elit ultricies ut.
+
+
+        Mauris ultrices sed ligula
+    Volutpat blandit Morbi neque nec scelerisque³. Ultricies efficitur curabitur erat a accumsan. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Suspendisse ac tortor eu nulla mollis vulputate. Aenean justo libero, sagittis in blandit a, congue nec urna. Nunc molestie est eu vehicula fermentum. Sed aliquam sodales diam nec eleifend. Curabitur pharetra in erat in consequat. Aliquam eget justo porta, fringilla mi quis, posuere ex. Mauris sed ultrices ligula. Duis sapien risus, hendrerit vel porttitor at, hendrerit quis dui. Nam lorem nisl, lobortis eget congue nec, auctor quis turpis. Pellentesque finibus ex id nisl semper, bibendum feugiat mauris pharetra. Suspendisse at gravida purus, non congue dolor. Aliquam eleifend arcu diam, et faucibus dui ultrices quis. Curabitur fermentum nulla bibendum ligula hendrerit, ac posuere lacus condimentum. Quisque auctor sem a dolor ullamcorper iaculis. Nullam luctus, sapien viverra lacinia malesuada, odio nulla blandit arcu, ac mollis diam lectus eleifend odio. Suspendisse sed est lectus. Mauris tempor nisl sed arcu vulputate sollicitudin at eget turpis. Suspendisse tempus lorem a bibendum congue.
+
+        Ut finibus porttitor neque, at euismod magna vestibulum ut. Curabitur finibus erat non dapibus bibendum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Fusce fringilla arcu facilisis lacinia semper. Maecenas lacinia lectus vel hendrerit sodales. Quisque vitae mauris dignissim, rutrum metus sit amet, accumsan elit. Aliquam at lobortis velit. Cras non massa urna. Nunc condimentum pharetra mattis. Morbi et tincidunt dolor. Sed aliquet, tellus quis suscipit ullamcorper, nisi enim consequat nulla, et efficitur tellus tortor sed nibh. Nulla vitae consequat sapien, vel hendrerit dolor. Morbi odio ligula, auctor eu porta et, commodo eu tellus. Proin a ullamcorper ex. In gravida neque a urna feugiat maximus. Mauris maximus risus ac nisl pretium, nec aliquet enim porta.
+
+✖ Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+✖ Proin mollis leo vel odio egestas placerat.⁴
+
+    ✖ Proin viverra mauris at odio ornare tincidunt id a orci.
+✖ Vestibulum a arcu eleifend, auctor erat vitae, scelerisque ipsum.
+✖ Quisque eu risus quis nisl congue sodales quis sit amet purus.
+
+	✖ Integer ac enim et nibh tristique iaculis eget eget lectus.
+✖ Praesent dignissim felis sit amet elementum eleifend.
+✖ Nulla in est sit amet justo tincidunt pellentesque quis ut tortor.
+
+
+        Nullam orci libero
+    Suspendisse dui nisl, finibus in commodo semper, iaculis ac mi.
+        console.log( str.length );
+
+
+    /**
+     * Redraw canvas on window resize
+     */
+    $(window).resize(function() {
+        MyApp.Canvas.drawCanvas();
+    });
+
+
+    /**
+     * start point, after a file as been chosen
+     */
+    $('#saveUpload').click(function() {
+        $("#findingsModal").modal("hide");
+        var filename = $("#findingsInput").val();
+
+        MyApp.TabRenderer.resetForNewFile();
+        MyApp.XMLFileHandler.loadFinding($("#xmlFolder").val(), filename);
+    });
+});

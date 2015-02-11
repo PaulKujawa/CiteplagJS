@@ -113,7 +113,8 @@ MyApp.ComparisonParser = (function() {
 
         if ( this.activeIds[startPos] === undefined) // push Id of feature/group to active ones
             this.activeIds[startPos] = [];
-        this.activeIds[startPos].push(feat['id']);
+        if (this.activeIds[startPos].indexOf(feat['id']) == -1) // one feat could be connected multiple times
+            this.activeIds[startPos].push(feat['id']);
     };
 
 
@@ -175,6 +176,7 @@ MyApp.ComparisonParser = (function() {
 
         $.each(this.activeIds, function(i, position) {
             $.each(position, function(k, featId) {
+                console.log(featId);
                 ids += featId + " ";
             });
         });
