@@ -176,7 +176,6 @@ MyApp.ComparisonParser = (function() {
 
         $.each(this.activeIds, function(i, position) {
             $.each(position, function(k, featId) {
-                console.log(featId);
                 ids += featId + " ";
             });
         });

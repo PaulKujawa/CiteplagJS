@@ -7,7 +7,7 @@
     <title>CitePlag</title>
     <link rel="stylesheet" href="assets/css/libs/bootstrap.css">
     <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/xmlToHTML.css">
+    <link rel="stylesheet" href="assets/css/textDecoration.css">
 </head>
 
 <body>
@@ -24,8 +24,8 @@
                     <img src="assets/images/sciplore_logo.png" alt="SciPlore Logo">
                 </a>
 
-                <button id="selectCollusionBtn" class="navbar-brand btn btn-primary" type="button" data-toggle="modal" data-target="#collusionModal">
-                    Select Collusion.xml
+                <button id="selectFindingsBtn" class="navbar-brand btn btn-primary" type="button" data-toggle="modal" data-target="#findingsModal">
+                    Select Findings.xml
                 </button>
 
                 <ul id="patternPanels"><!-- JS --></ul>
@@ -41,19 +41,19 @@
     <section class="container col-md-9">
 
         <!-- Modal -->
-        <div class="modal fade" id="collusionModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal fade" id="findingsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Define Collusion.xml</h4>
+                        <h4 class="modal-title" id="myModalLabel">Define Findings xml file</h4>
                     </div>
                     <div class="modal-body">
                         <label>You can define a different path to your folder, with your files, here.</label>
-                        <input id="xmlFolder" type="text" name="xmlFolder" value="./xmlFiles/">
+                        <input id="xmlFolder" type="text" name="xmlFolder" value="./xmlFiles/0001/">
 
-                        <label>Browse your Collusion.xml file to visualize it's matches.</label>
-                        <input id="collusionInput" class="form-control" type="file" accept=".xml, application/xml" />
+                        <label>Browse your findings xml file to visualize it's matches.</label>
+                        <input id="findingsInput" class="form-control" type="file" accept=".xml, application/xml" />
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -79,8 +79,34 @@
             <!-- JS part-->
         </div>
     </section>
-
-    <aside class="col-md-3"><!-- JS --></aside>
+    <aside class="col-md-3">
+        <div id="help" class="hidden">
+        <h2>Introduction</h2>
+            <h3>Navigation</h3>
+                <p>
+                    You find an individual <strong>list of match types</strong> here. Each tab has your both documents with
+                    different marked areas and connections, according to your selected algorithm. The first one
+                    is selected as default.
+                </p>
+            <h3>Text Areas</h3>
+                <p>
+                    Suspicious excerpts are <strong>highlighted in color</strong> and can contain different parts of your text,
+                    e.g. a title and part of the following paragraph as well. To focus a match just click on the excerpt
+                    or corresponding point in the centered canvas. A match can contain, separately highlighted,
+                    nested keywords. You can click on them as well, but not all of them are connected though.
+                </p>
+                <p>
+                    Your text were converted into HTML text. If desired, you can define your own CSS styles for
+                    a <strong>customized presentation</strong> of your XML tags. In order to apply your changes, take a look at the
+                    textDecoration.css file in the assets/css project folder.
+                </p>
+            <h3>Connections</h3>
+                <p>
+                    Each match, two connected suspicious excerpts, is visualized here. Keywords of one match have the same color,
+                    match themselves have unique ones. You can <strong>click on every point</strong> to see his excerpts' matches.
+                </p>
+        </div>
+    </aside>
     <div class="clearFloat"></div>
 
     <script src="js/libs/jquery-1.10.2.min.js"></script>
@@ -91,9 +117,9 @@
 
     <script src="js/app.js"></script>
     <script src="js/xmlFileHandler.js"></script>
-    <script src="js/collusionParser.js"></script>
+    <script src="js/findingsParser.js"></script>
     <script src="js/comparisonParser.js"></script>
-    <script src="js/textAreas.js"></script>
+    <script src="js/tabRenderer.js"></script>
     <script src="js/canvas.js"></script>
 </body>
 </html>

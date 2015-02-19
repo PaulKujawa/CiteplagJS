@@ -161,6 +161,7 @@ MyApp.TabRenderer = (function() {
         var _self       = this,
             connections = [];
 
+        console.log(_self.featToConnect);
         // featToConnect[machType][leftClass] = rightClass
         if (side === 'l') {
             $.each(classes, function(i, leftClass) {
