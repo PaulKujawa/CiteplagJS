@@ -140,21 +140,20 @@ MyApp.FindingsParser = (function() {
      * @param connections
      * @param leftFeats
      * @param docId
-     * @param featId
+     * @param matchFeatId
      * @returns {boolean}
      */
-    FindingsParser.getLeftClassToConnect = function(connections, leftFeats, docId, featId) {
+    FindingsParser.getLeftClassToConnect = function(connections, leftFeats, docId, matchFeatId) {
         var leftClass = null;
-//        var leftClassToConnect = FindingsParser.getLeftClassToConnect(match.subconnections, bothDocuments[0], doc.id, id);
 
         if (connections.connection.ref === undefined)
             connections = connections.connection; // just one connection
 
         $.each(connections, function(i, connection) {
-            if (docId == connection.ref[1].document && featId == connection.ref[1].feature) { // 2nd document (right side) && id matching
+            if (docId == connection.ref[1].document && matchFeatId == connection.ref[1].feature) { // 2nd document (right side) && id matching
                 var leftId = connection.ref[0].feature;
 
-                $.each(leftFeats, function(i, feat) { // todo PK könnte schiefgehen
+                $.each(leftFeats, function(i, feat) {
                     if (feat.id == leftId) {
                         leftClass = feat.class;
                         return true;
@@ -226,7 +225,7 @@ MyApp.FindingsParser = (function() {
         _self.featurePositions = [];
 
         $.each(matches, function(m, match) {
-            $.each(match[docNr], function(f, feature) { // todo pk geht das so?
+            $.each(match[docNr], function(f, feature) {
                 _self.featurePositions.push(feature['start']);
                 _self.featurePositions.push(feature['end']);
             });

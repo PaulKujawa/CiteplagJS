@@ -24,19 +24,19 @@ MyApp.Canvas = (function() {
      */
     Canvas.drawCanvas = function() {
         var _self               = this,
-            lastGrpNr           = -1,
+            lastGrpNr           = -1, // to remember the last feature's group (color matching)
             color               = MyApp.Canvas.newColor(),
             tab                 = MyApp.TabRenderer.comparisonDiv.find('.tab-pane.active'),
             leftArea            = $(tab).find('.leftArea'),
             canvasDiv           = $(tab).find('.canvas'),
             rightArea           = $(tab).find('.rightArea'),
-            yOffset             = leftArea.offset().top,
-            xOffset             = leftArea.offset().left,
-            heightRelLeft       = canvasDiv.height()/leftArea[0].scrollHeight,
-            heightRelRight      = canvasDiv.height()/rightArea[0].scrollHeight,
-            widthRelation       = canvasDiv.width()/(rightArea.offset().left + rightArea.outerWidth()),
-            scrollOffsetLeft    = leftArea.scrollTop(),
-            scrollOffsetRight   = rightArea.scrollTop();
+            yOffset             = leftArea.offset().top, // distance between leftArea and window's top
+            xOffset             = leftArea.offset().left, // distance between leftArea and windows left border
+            heightRelLeft       = canvasDiv.height()/leftArea[0].scrollHeight, // relation between canvas height and left text's height
+            heightRelRight      = canvasDiv.height()/rightArea[0].scrollHeight, // relation between canvas height and right text's height
+            widthRelation       = canvasDiv.width()/(rightArea.offset().left + rightArea.outerWidth()),// rel. between canvas' and text's width
+            scrollOffsetLeft    = leftArea.scrollTop(), // current left bar position
+            scrollOffsetRight   = rightArea.scrollTop(); // current right bar position
 
         // setup (redraw as well)
         $('svg').remove();
@@ -64,10 +64,10 @@ MyApp.Canvas = (function() {
                 }
 
                 // set position into relation
-                var leftFeat    = leftArea.find("." +leftClass).first(),
+                var leftFeat    = leftArea.find("." +leftClass).first(), // first occurrence of this feature
                     rightFeat   = rightArea.find('.'+rightClass).first(),
-                    xLeft       = $(leftFeat).offset().left - xOffset,
-                    yLeft       = $(leftFeat).offset().top  - yOffset + scrollOffsetLeft,
+                    xLeft       = leftFeat.offset().left    - xOffset, // feature's pos - different from left Area & windows border
+                    yLeft       = leftFeat.offset().top     - yOffset + scrollOffsetLeft, // feature's pos - area's diff to top - scroll bar's offset
                     xRight      = rightFeat.offset().left   - xOffset,
                     yRight      = rightFeat.offset().top    - yOffset + scrollOffsetRight;
 
@@ -82,7 +82,7 @@ MyApp.Canvas = (function() {
 
 
     /**
-     * Returns "random" color
+     * Returns random hex color
      * @returns {string}
      */
     Canvas.newColor = function() {
