@@ -3,11 +3,15 @@
  * @author Paul Kujawa p.kujawa@gmx.net
  */
 MyApp.Canvas = (function() {
-    Canvas.r            = 6;
-    Canvas.paper        = {};
-    Canvas.width        = 0;
-    Canvas.height       = 0;
-    Canvas.usedColors   = [];
+    Canvas.r                = 6;
+    Canvas.paper            = {};
+    Canvas.width            = 0;
+    Canvas.height           = 0;
+    Canvas.usedColors       = [];
+    Canvas.leftViewportId   = "";
+    Canvas.rightViewportId   = "";
+    Canvas.heightRelLeft    = 0;
+    Canvas.heightRelRight   = 0;
 
 
 
@@ -32,15 +36,19 @@ MyApp.Canvas = (function() {
             rightArea           = $(tab).find('.rightArea'),
             yOffset             = leftArea.offset().top, // distance between leftArea and window's top
             xOffset             = leftArea.offset().left, // distance between leftArea and windows left border
-            heightRelLeft       = canvasDiv.height()/leftArea[0].scrollHeight, // relation between canvas height and left text's height
-            heightRelRight      = canvasDiv.height()/rightArea[0].scrollHeight, // relation between canvas height and right text's height
             widthRelation       = canvasDiv.width()/(rightArea.offset().left + rightArea.outerWidth()),// rel. between canvas' and text's width
             scrollOffsetLeft    = leftArea.scrollTop(), // current left bar position
             scrollOffsetRight   = rightArea.scrollTop(); // current right bar position
+            this.heightRelLeft  = canvasDiv.height()/leftArea[0].scrollHeight; // relation between canvas height and left text's height
+            this.heightRelRight = canvasDiv.height()/rightArea[0].scrollHeight; // relation between canvas height and right text's height
 
         // setup (redraw as well)
         $('svg').remove();
-        MyApp.Canvas.drawPaper(canvasDiv);
+        MyApp.Canvas.drawPaper(tab);
+        $(leftArea).scroll(MyApp.Canvas.moveLeftViewport);
+        $(rightArea).scroll(MyApp.Canvas.moveRightViewport);
+
+
         var colorsCopy = [],
             matchType  = $(tab).data("matchtype");
         if (_self.usedColors.length > 0)
@@ -71,8 +79,8 @@ MyApp.Canvas = (function() {
                     xRight      = rightFeat.offset().left   - xOffset,
                     yRight      = rightFeat.offset().top    - yOffset + scrollOffsetRight;
 
-                var leftPoint   = {x: xLeft*widthRelation,  y: yLeft*heightRelLeft},
-                    rightPoint  = {x: xRight*widthRelation, y: yRight*heightRelRight};
+                var leftPoint   = {x: xLeft*widthRelation,  y: yLeft  *_self.heightRelLeft},
+                    rightPoint  = {x: xRight*widthRelation, y: yRight *_self.heightRelRight};
 
                 MyApp.Canvas.connectPoints(leftPoint, rightPoint, leftFeat, rightFeat, color);
             });
@@ -94,13 +102,17 @@ MyApp.Canvas = (function() {
 
     /**
      * draws the initial paper for the canvas
-     * @param canvasDiv
+     * @param tab
      */
-    Canvas.drawPaper = function(canvasDiv)  {
-        var padding     = parseInt(canvasDiv.css('padding-left').slice(0, -2)),
-            left        = canvasDiv.offset().left + padding,
-            top         = canvasDiv.offset().top,
-            height      = canvasDiv.outerHeight();
+    Canvas.drawPaper = function(tab)  {
+        var leftArea        = $(tab).find('.leftArea'),
+            rightArea       = $(tab).find('.rightArea'),
+            canvasDiv       = $(tab).find('.canvas'),
+
+            padding         = parseInt(canvasDiv.css('padding-left').slice(0, -2)),
+            left            = canvasDiv.offset().left + padding,
+            top             = canvasDiv.offset().top,
+            height          = canvasDiv.outerHeight();
 
         this.width = canvasDiv.innerWidth() - 2*padding;
         this.height = canvasDiv.outerHeight();
@@ -116,7 +128,33 @@ MyApp.Canvas = (function() {
         rl.attr("stroke", "#B4CBDF");
         rr.attr("fill", "#F0F8FF");
         rr.attr("stroke", "#B4CBDF");
+
+
+        // viewport rectangles
+        height = Math.floor(this.heightRelLeft * canvasDiv.height());
+        this.paper.rect(0, 0, width, height -1).attr("fill", "#E4ECF2").attr("stroke", "#B4CBDF").id = "leftVP";
+        this.paper.rect(width, 0, width, height -1).attr("fill", "#E4ECF2").attr("stroke", "#B4CBDF").id = "rightVP";
+        this.leftViewportId = "leftVP";
+        this.rightViewportId = "rightVP";
     };
+
+
+    /**
+     * moves left grey rectangle as viewport
+     */
+    Canvas.moveLeftViewport = function() {
+        var y = MyApp.Canvas.heightRelLeft * $(this).scrollTop();
+        MyApp.Canvas.paper.getById( MyApp.Canvas.leftViewportId ).transform("t0," + y);
+    };
+
+    /**
+     * moves right grey rectangle as viewport
+     */
+    Canvas.moveRightViewport = function() {
+        var y = MyApp.Canvas.heightRelRight * $(this).scrollTop();
+        MyApp.Canvas.paper.getById( MyApp.Canvas.rightViewportId ).transform("t0," + y);
+    };
+
 
 
 

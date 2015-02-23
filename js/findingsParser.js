@@ -255,7 +255,7 @@ MyApp.FindingsParser = (function() {
 
         MyApp.TabRenderer.patternPanels.find('li:first').addClass('active');
         MyApp.TabRenderer.comparisonDiv.find('div:first').addClass('active');
-        MyApp.Canvas.drawCanvas();
+        MyApp.Canvas.drawCanvas(); // initial call
     };
 
 
