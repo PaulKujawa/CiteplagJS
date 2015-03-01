@@ -24,7 +24,7 @@ MyApp.XMLFileHandler = (function() {
         _self.folder = folder;
 
         if (filename.split(".").pop() != "xml")
-            return MyApp.TabRenderer.throwErrorMsg( "Wrong file type. Please choose a xml file." );
+            return MyApp.TextAreas.throwErrorMsg( "Wrong file type. Please choose a xml file." );
 
         $.ajax({
             type: "GET",
@@ -36,7 +36,7 @@ MyApp.XMLFileHandler = (function() {
                 _self.loadCompare(0);
             },
             error: function(xhr) {
-                return MyApp.TabRenderer.throwErrorMsg( xhr.responseText );
+                return MyApp.TextAreas.throwErrorMsg( xhr.responseText );
             }
         })
         return true;
@@ -53,7 +53,7 @@ MyApp.XMLFileHandler = (function() {
             _self = this;
 
         if (filename === undefined)
-            return MyApp.TabRenderer.throwErrorMsg( "Not two comparison files in your Findings file given." );
+            return MyApp.TextAreas.throwErrorMsg( "Not two comparison files in your Findings file given." );
 
         $.ajax({
             type: "GET",
@@ -78,7 +78,7 @@ MyApp.XMLFileHandler = (function() {
                 return true;
             },
             error: function(xhr) {
-                MyApp.TabRenderer.throwErrorMsg( xhr.responseText );
+                MyApp.TextAreas.throwErrorMsg( xhr.responseText );
             }
         });
         return true;

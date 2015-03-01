@@ -4,7 +4,7 @@
  */
 MyApp.FindingsParser = (function() {
     FindingsParser.findingsJSON      = [];
-    FindingsParser.matchTypes       = {}; /*[mType][m][d][f]['start']*/
+    FindingsParser.matchTypes       = {}; /*[mType][d][m][f]['start']*/
     FindingsParser.featurePositions = [];
     FindingsParser.featDetails      = {};
 
@@ -28,7 +28,7 @@ MyApp.FindingsParser = (function() {
             matches = matches.match; // matches
 
         if (typeof(matches) == "function")
-            return MyApp.TabRenderer.throwErrorMsg("Your finding.xml has no 'match' in 'alignments'.");
+            return MyApp.TextAreas.throwErrorMsg("Your finding.xml has no 'match' in 'alignments'.");
 
         var matchCnt = 0;
         $.each(matches, function(i, match) {
@@ -174,14 +174,14 @@ MyApp.FindingsParser = (function() {
      * @param rightClass
      */
     FindingsParser.connectFeats = function(matchType, leftClass, rightClass) {
-        if (MyApp.TabRenderer.featToConnect[matchType] === undefined)
-            MyApp.TabRenderer.featToConnect[matchType] = {};
+        if (MyApp.TextAreas.featToConnect[matchType] === undefined)
+            MyApp.TextAreas.featToConnect[matchType] = {};
 
 
-        if (MyApp.TabRenderer.featToConnect[matchType][leftClass] === undefined)
-            MyApp.TabRenderer.featToConnect[matchType][leftClass] = [];
+        if (MyApp.TextAreas.featToConnect[matchType][leftClass] === undefined)
+            MyApp.TextAreas.featToConnect[matchType][leftClass] = [];
 
-        MyApp.TabRenderer.featToConnect[matchType][leftClass].push(rightClass);
+        MyApp.TextAreas.featToConnect[matchType][leftClass].push(rightClass);
     };
 
 
@@ -250,11 +250,11 @@ MyApp.FindingsParser = (function() {
                 MyApp.ComparisonParser.convertFile(matches, docNr);
                 html.push(MyApp.ComparisonParser.xmlString);
             }
-            MyApp.TabRenderer.createTab(matchTitle, html[0], html[1]);
+            MyApp.TextAreas.createTab(matchTitle, html[0], html[1]);
         });
 
-        MyApp.TabRenderer.patternPanels.find('li:first').addClass('active');
-        MyApp.TabRenderer.comparisonDiv.find('div:first').addClass('active');
+        MyApp.TextAreas.patternPanels.find('li:first').addClass('active');
+        MyApp.TextAreas.comparisonDiv.find('div:first').addClass('active');
         MyApp.Canvas.drawCanvas(); // initial call
     };
 

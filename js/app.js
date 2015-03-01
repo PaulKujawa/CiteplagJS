@@ -28,7 +28,7 @@ $(function() {
         $("#findingsModal").modal("hide");
         var filename = $("#findingsInput").val();
 
-        MyApp.TabRenderer.resetForNewFile();
+        MyApp.TextAreas.resetForNewFile();
         MyApp.XMLFileHandler.loadFinding($("#xmlFolder").val(), filename);
     });
 });

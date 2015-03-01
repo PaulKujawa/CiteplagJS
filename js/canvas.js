@@ -30,7 +30,7 @@ MyApp.Canvas = (function() {
         var _self               = this,
             lastGrpNr           = -1, // to remember the last feature's group (color matching)
             color               = MyApp.Canvas.newColor(),
-            tab                 = MyApp.TabRenderer.comparisonDiv.find('.tab-pane.active'),
+            tab                 = MyApp.TextAreas.comparisonDiv.find('.tab-pane.active'),
             leftArea            = $(tab).find('.leftArea'),
             canvasDiv           = $(tab).find('.canvas'),
             rightArea           = $(tab).find('.rightArea'),
@@ -55,18 +55,18 @@ MyApp.Canvas = (function() {
             colorsCopy = _self.usedColors.slice();
 
 
-        $.each(MyApp.TabRenderer.featToConnect[matchType], function(leftClass, rightClasses) {
+        $.each(MyApp.TextAreas.featToConnect[matchType], function(leftClass, rightClasses) {
             $.each(rightClasses, function(i, rightClass) {
                 // same color for features within same group
                 var                 group = leftClass.match(/feature(\d+)_(\d+)/);  // 0=featureX_Y, 1=X, 2=Y
                 if (group == null)  group = leftClass.match(/feature(\d+)/);        // 0=featureX,   1=X
 
-                if (group[1] != lastGrpNr) {
+                if (group[1] != lastGrpNr) { // if not -> same color as for the last connection
                     lastGrpNr = group[1];
                     if (colorsCopy.length > 0)
-                        color = colorsCopy.pop();
+                        color = colorsCopy.pop(); // same color as before the windows resizing
                     else {
-                        color = MyApp.Canvas.newColor();
+                        color = MyApp.Canvas.newColor(); // complete new color
                         _self.usedColors.push(color);
                     }
                 }
@@ -119,7 +119,7 @@ MyApp.Canvas = (function() {
 
         this.paper = Raphael(left, top, this.width, height);
 
-        // 2 rectangles
+        // 2 rectangles to symbolize the documents
         var width   = this.width/ 2,
             rl      = this.paper.rect(0, 1, width, this.height-1), // border are cut off
             rr      = this.paper.rect(width, 1, width, this.height-1);
@@ -140,7 +140,7 @@ MyApp.Canvas = (function() {
 
 
     /**
-     * moves left grey rectangle as viewport
+     * moves left grey rectangle according to viewport
      */
     Canvas.moveLeftViewport = function() {
         var y = MyApp.Canvas.heightRelLeft * $(this).scrollTop();
@@ -148,7 +148,7 @@ MyApp.Canvas = (function() {
     };
 
     /**
-     * moves right grey rectangle as viewport
+     * moves right grey rectangle according to viewport
      */
     Canvas.moveRightViewport = function() {
         var y = MyApp.Canvas.heightRelRight * $(this).scrollTop();
@@ -224,8 +224,9 @@ MyApp.Canvas = (function() {
         element.attr("stroke", color);
 
         if (feat != null)
-            element.attr("cursor", "pointer")
-                   .click(function() {feat.trigger('click');});
+            element.click(function() {
+                feat.trigger('click');
+            }).attr("cursor", "pointer");
     };
 
     return Canvas;

@@ -2,7 +2,7 @@
  * responsible event handler and rendereding of comparison divs/texts
  * @author Paul Kujawa p.kujawa@gmx.net
  */
-MyApp.TabRenderer = (function() {
+MyApp.TextAreas = (function() {
     TextAreas.patternPanels      = $('#patternPanels');
     TextAreas.comparisonDiv      = $('#comparison');
     TextAreas.errorDiv           = $('#errorOutput');
@@ -65,8 +65,8 @@ MyApp.TabRenderer = (function() {
             .append('<div class="rightArea">'+rightFileHTML+'</div>')
             .append('<div class="clearFloat"></div>');
         this.comparisonDiv.append(tabPane);
-        MyApp.TabRenderer.attachDetails(tabPane);
-        MyApp.TabRenderer.handleConnections(tabPane);
+        MyApp.TextAreas.attachDetails(tabPane);
+        MyApp.TextAreas.handleConnections(tabPane);
     };
 
 
@@ -86,15 +86,13 @@ MyApp.TabRenderer = (function() {
                 groupClasses    = classList.match(/group(\d+)/g),
                 featClasses     = classList.match(/feature(\d+)/g);
 
-            if (groupClasses != null)   detailString = MyApp.TabRenderer.getDetail(groupClasses, detailString);
-            if (featClasses  != null)   detailString = MyApp.TabRenderer.getDetail(featClasses, detailString);
+            if (groupClasses != null)   detailString = MyApp.TextAreas.getDetail(groupClasses, detailString);
+            if (featClasses  != null)   detailString = MyApp.TextAreas.getDetail(featClasses, detailString);
 
-            $(featDiv)
-                .css('cursor', 'pointer')
-                .click(function() {
-                    _self.detailsDiv.empty();
-                    _self.detailsDiv.append(detailString);
-                });
+            $(featDiv).click(function() {
+                _self.detailsDiv.empty();
+                _self.detailsDiv.append(detailString);
+            }).css('cursor', 'pointer');
         });
     };
 
@@ -139,11 +137,12 @@ MyApp.TabRenderer = (function() {
                 var connections,
                     matchType = $(tabPane).data("matchtype");
                 if ($(featDiv).parents('.leftArea').length > 0)
-                        connections = MyApp.TabRenderer.getConnections(subFeatClasses, matchType, 'l');
-                else    connections = MyApp.TabRenderer.getConnections(subFeatClasses, matchType, 'r');
+                        connections = MyApp.TextAreas.getConnections(subFeatClasses, matchType, 'l');
+                else    connections = MyApp.TextAreas.getConnections(subFeatClasses, matchType, 'r');
 
-                $(featDiv).click(function() {MyApp.TabRenderer.highlightConnection(connections)})
-                          .css( 'cursor', 'pointer' );
+                $(featDiv).click(function() {
+                    MyApp.TextAreas.highlightConnection(connections)
+                }).css( 'cursor', 'pointer' );
             }
         });
     };
@@ -205,8 +204,8 @@ MyApp.TabRenderer = (function() {
                 rightClass   = '.rightArea .'+connection['rightClass'];
 
             tab.find(leftClass+','+rightClass).addClass('alert alert-info');
-            MyApp.TabRenderer.scrollToFeature( tab.find(leftClass).first() );
-            MyApp.TabRenderer.scrollToFeature( tab.find(rightClass).first() );
+            MyApp.TextAreas.scrollToFeature( tab.find(leftClass).first() );
+            MyApp.TextAreas.scrollToFeature( tab.find(rightClass).first() );
         });
 
         allDivs.one("mouseup", function() {
@@ -224,7 +223,7 @@ MyApp.TabRenderer = (function() {
     TextAreas.scrollToFeature = function(feature) {
         var lineHeight  = parseFloat(feature.css('line-height')),
             area        = feature.closest('.leftArea, .rightArea'),
-            relFeatPos  = feature.offset().top - area.offset().top + area.scrollTop();
+            relFeatPos  = feature.offset().top - area.offset().top + area.scrollTop(); // height within text flow
 
         if (relFeatPos >= lineHeight)
             relFeatPos -= lineHeight; // to show previous line as well for context
